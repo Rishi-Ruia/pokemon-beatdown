@@ -1,33 +1,39 @@
-import java.awt.Point;
-import java.awt.Graphics;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import java.net.URL;
-import java.util.ArrayList;
-public class GUI {
-	public static void main(String args[]) {
-		startGame();
-	}
-	public static void startGame() {
-		JFrame frame = new JFrame();
-		frame.setSize(400, 400);
-		frame.setVisible(true);
-		frame.setTitle("battle window");
-		JButton button = new JButton("hello");
-		JLabel label = new JLabel("hey");
-		frame.add(button);
-		frame.add(label);
+import java.awt.event.ActionListener;
 
+import javax.swing.*;
+public class GUI extends JFrame implements ActionListener{
+	JButton attack;
+	JButton Switch;
+	GUI(){
+		this.setSize(820, 620); //sets dimensions of frame
+		this.setVisible(true); //makes frame visible 
+		this.setTitle("battle window"); //label frame 
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes frame when you press the x button
+		//frame.setLayout(new GridLayout());
+		attack = new JButton("attack");
+		
+		Switch = new JButton("Switch");
+		
+		this.add(attack);
+		attack.setBounds(100, 100, 80, 80);
+		this.add(Switch);
+		Switch.setBounds(20, 0, 80, 80);
+		this.setLocationRelativeTo(null);
+		this.getContentPane().setBackground(Color.LIGHT_GRAY);
+		attack.addActionListener(this);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==attack) {
+			System.out.println("yo");
+		}
+		if(e.getSource() == Switch) {
+			this.setVisible(false);
+			this.dispose();
+		}
+			
 	}
 }
