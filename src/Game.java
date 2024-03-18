@@ -23,7 +23,7 @@ public class Game {
 			i++;
 		}
 		for(i = 0; i < pokemons.length; i++) {
-			//poke[i] = new Pokemon(pokemons[i][])
+			//poke[i] = new Pokemon(pokemons[i][])h
 		}
 		
 	}

@@ -13,7 +13,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.setVisible(true); //makes frame visible 
 		this.setTitle("battle window"); //label frame 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes frame when you press the x button
-		
+		//h
 		attack = new JButton("attack");
 		attack.setBounds(0, 300, 350, 300);
 		attack.setFont(new Font("Arial", Font.PLAIN, 50));
