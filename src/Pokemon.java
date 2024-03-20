@@ -30,26 +30,7 @@ public class Pokemon {
 		this.type1 = type1;
 		this.type2 = type2;
 	}
-	/**
-	 * Constructs a Pokemon object with 1 type overrides the 2 type pokemon constructor
-	 * @param name Name of the Pokemon
-	 * @param hp of Pokemon
-	 * @param attack stat
-	 * @param defense of pokemon
-	 * @param speed of pokemon
-	 * @param primary type of pokemon
-	 */
 	
-	public Pokemon(String name, int hp, int attack, int defense, int speed, String type1) {
-		this.attack = attack +  ((int)(Math.random() *17));
-		this.defense = defense + ((int)(Math.random() *17));
-		this.speed = speed + ((int)(Math.random() *17));
-		this.hp = hp + ((int) Math.random()*17);
-		this.name = name;
-		this.type1 = type1;
-		this.type2 = null;
-	}
-
 	// instance methods
 	public String getType1() {
 		return type1;
