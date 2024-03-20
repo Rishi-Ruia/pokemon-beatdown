@@ -51,14 +51,6 @@ public class Pokemon {
 	}
 
 	// instance methods
-	public int attack(Pokemon attacker, String attack, Pokemon attacked) {
-		double stab =1;
-		if(attacker.getType1().equals(attack) || attacker.getType2().equals(attack)) stab = 1.5;
-		double random = stab *(Math.random()*0.15 +0.85) ; 
-		int damage = (int) Math.floor((((((((2*100)/5)+2)*attacker.getAttack()*Integer.MIN_VALUE)/attacked.getDefense())/50)+2));
-		damage = (int) Math.floor(damage *random);
-		return attacked.setHp(damage);
-	}
 	public String getType1() {
 		return type1;
 	}
