@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,15 +13,16 @@ public class GUI extends JFrame implements ActionListener{
 		this.setVisible(true); //makes frame visible 
 		this.setTitle("battle window"); //label frame 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes frame when you press the x button
-		//frame.setLayout(new GridLayout());
+		//h
 		attack = new JButton("attack");
-		
+		attack.setBounds(0, 300, 350, 300);
+		attack.setFont(new Font("Arial", Font.PLAIN, 50));
+		attack.setBackground(Color.WHITE);
 		Switch = new JButton("Switch");
-		
+		Switch.setBounds(20, 10, 80, 80);
 		this.add(attack);
-		attack.setBounds(100, 100, 80, 80);
+		this.setLayout(null);
 		this.add(Switch);
-		Switch.setBounds(20, 0, 80, 80);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		attack.addActionListener(this);
@@ -28,7 +30,7 @@ public class GUI extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==attack) {
-			System.out.println("yo");
+			
 		}
 		if(e.getSource() == Switch) {
 			this.setVisible(false);
