@@ -10,7 +10,7 @@ public class Move {
 	public final static Move flamethrower = new Move("flamethrower", "Fire", 90, 100);
 	public final static Move icebeam = new Move("ice beam", "Ice", 90, 100);
 	public final static Move ember = new Move("ember", "Fire", 40, 100);
-	public final static Move pysbeam = new Move("pysbeam", "Psychic", 65, 100);
+	public final static Move psybeam = new Move("psybeam", "Psychic", 65, 100);
 	public final static Move focusBlast = new Move("focus blast", "Fighting", 120, 70);
 	public final static Move thunder = new Move("thunder", "Electric", 110, 70);
 	public final static Move bodySlam = new Move("body slam", "Normal", 80, 100);
@@ -19,16 +19,9 @@ public class Move {
 	public final static Move sludgeWave = new Move("sludge wave", "Poison", 95, 100);
 	public final static Move gunkShot = new Move("gunk shot", "Poison", 120, 80);
 	public final static Move earthquake = new Move("earthquake", "Ground", 100, 100);
-	public final static Move rockSlide = new Move("rock Slide", "Rock", 75, 90);
+	public final static Move rockSlide = new Move("rock slide", "Rock", 75, 90);
 	public final static Move shadowBall = new Move("shadow ball", "Ghost", 80, 100);
-	public final static Move uturn = new Move("uturn", "Ghost", 80, 100);
-//	public final static move shadowBall = new move("shadow ball", "Ghost", 80, 100);
-//	public final static move shadowBall = new move("shadow ball", "Ghost", 80, 100);
-//	public final static move shadowBall = new move("shadow ball", "Ghost", 80, 100);
-//	public final static move shadowBall = new move("shadow ball", "Ghost", 80, 100);
-//	public final static move shadowBall = new move("shadow ball", "Ghost", 80, 100);
-//	public final static move shadowBall = new move("shadow ball", "Ghost", 80, 100);
-//	public final static move shadowBall = new move("shadow ball", "Ghost", 80, 100);
+	public final static Move uTurn = new Move("u-turn", "Bug", 70, 100);
 	protected static String [][] NORMAL = { {},
 			{"Rock", "Steel"},
 			{"Ghost"}};
