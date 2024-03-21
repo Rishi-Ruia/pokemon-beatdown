@@ -44,10 +44,12 @@ public class Game {
 			type2[i] = pokemons[i][3];
 			hp[i] = Integer.parseInt(pokemons[i][4]);
 			type1[i] = pokemons[i][5];
-			attack[i] = Integer.parseInt(pokemons[i][6]);
-			defense[i] = Integer.parseInt(pokemons[i][7]);
+			attack[i] = (Integer.parseInt(pokemons[i][6])+
+					Integer.parseInt(pokemons[i][8]))/2;
+			defense[i] = (Integer.parseInt(pokemons[i][7])+
+					Integer.parseInt(pokemons[i][9]))/2;
 			speed[i] = Integer.parseInt(pokemons[i][10]);
-			System.out.println(name[i]);
+			System.out.println(attack[i]);
 			poke[i]= (new Pokemon(name[i], hp[i], attack[i], defense[i], speed[i], type1[i], type2[i]));
 		}
 	}

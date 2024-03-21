@@ -22,10 +22,10 @@ public class Pokemon {
 	 * @param secondary type of pokemon
 	 */
 	public Pokemon(String name, int hp, int attack, int defense, int speed, String type1, String type2) {
-		this.attack = attack +  ((int)(Math.random() *17));
-		this.defense = defense + ((int)(Math.random() *17));
-		this.speed = speed + ((int)(Math.random() *17));
-		this.hp = hp + ((int) Math.random()*17);
+		this.attack = (int) ((0.01 * (2 * attack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
+		this.defense = (int) ((0.01 * (2 * defense + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
+		this.speed = (int) ((0.01 * (2 * speed + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5);
+		this.hp = (int) (0.01 * (2 * hp + Math.floor(0.25 * (Math.random() * 33))) * 100) + 10;
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;
