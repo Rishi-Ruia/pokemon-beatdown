@@ -13,7 +13,6 @@ public class Pokemon {
 	protected Move move3;
 	protected Move move4;
 	protected boolean hasItem;
-	protected Item item;
 	/** TODO UPDATE CONSTRUCTOR TO INIT NEW INSTANCE VARIABLES **/
 	
 	// constructors
@@ -27,16 +26,14 @@ public class Pokemon {
 	 * @param primary type of pokemon
 	 * @param secondary type of pokemon
 	 */
-	public Pokemon(String name, int hp, int attack, int defense, int speed, String type1, String type2, boolean hasItem) {
+	public Pokemon(String name, int hp, int attack, int defense, int speed, String type1, String type2 ) {
 		this.attack = (int) ((0.01 * (2 * attack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.defense = (int) ((0.01 * (2 * defense + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.speed = (int) ((0.01 * (2 * speed + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5);
 		this.hp = (int) (0.01 * (2 * hp + Math.floor(0.25 * (Math.random() * 33))) * 100) + 10;
 		this.name = name;
 		this.type1 = type1;
-		this.type2 = type2;
-		this.hasItem = hasItem;
-		
+		this.type2 = type2;		
 	}
 	public void removeItem() {
 		hasItem = false;

@@ -50,10 +50,14 @@ public class Game {
 					Integer.parseInt(pokemons[i][9]))/2;
 			speed[i] = Integer.parseInt(pokemons[i][10]);
 			System.out.println(attack[i]);
-			poke[i]= (new Pokemon(name[i], hp[i], attack[i], defense[i], speed[i], type1[i], type2[i], true));
+			poke[i]= (new Pokemon(name[i], hp[i], attack[i], defense[i], speed[i], type1[i], type2[i]));
 		}
 	}
 	public static String attack(Pokemon attacker, Move attack, Pokemon attacked) {
+		if(attack.getName().equals("recover")) {
+			attacker.setHp((int)( attacker.getHp() + attacker.getHp()*.25));
+			return attacker.getName() + "healed for and is now " + attacker.getHp();
+		}
 		double stab =1;
 		if(attacker.getType1().equals(attack.getName()) || attacker.getType2().equals(attack.getName())) stab = 1.5;
 		double random = stab *(Math.random()*0.15 +0.85) ; 

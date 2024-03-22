@@ -22,6 +22,16 @@ public class Move {
 	public final static Move rockSlide = new Move("rock slide", "Rock", 75, 90);
 	public final static Move shadowBall = new Move("shadow ball", "Ghost", 80, 100);
 	public final static Move uTurn = new Move("u-turn", "Bug", 70, 100);
+	public final static Move ironHead = new Move("iron head", "Steel", 80, 100);
+	public final static Move fireBlast = new Move("fire blast", "Fire", 110, 85);
+	public final static Move scald = new Move("scald", "Water", 80, 100);
+	public final static Move hydroPump = new Move("hydro pump", "Water", 110, 80);
+	public final static Move leafBlade = new Move("leaf blade", "Grass", 80, 100);
+	public final static Move icicleCrash = new Move("icicle crash", "Ice", 85, 90);
+	public final static Move outrage = new Move("outrage", "Dragon", 120, 100);
+	public final static Move crunch = new Move("crunch", "Dark", 80, 100);
+	public final static Move moonBlast = new Move("moon blast", "Fairy", 95, 100);
+	public final static Move recover = new Move("recover", "Normal", 0, 100);
 	protected static String [][] NORMAL = { {},
 			{"Rock", "Steel"},
 			{"Ghost"}};
