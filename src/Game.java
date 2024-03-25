@@ -51,14 +51,14 @@ public class Game {
 			defense[i] = (Integer.parseInt(pokemons[i][7])+
 					Integer.parseInt(pokemons[i][9]))/2;
 			speed[i] = Integer.parseInt(pokemons[i][10]);
-			System.out.println(attack[i]);
 			poke[i]= (new Pokemon(name[i], hp[i], attack[i], defense[i], speed[i], type1[i], type2[i]));
 		}
 	}
 	public static String attack(Pokemon attacker, Move attack, Pokemon attacked) {
 		if(attack.getName().equals("recover")) {
-			attacker.setHp((int)( attacker.getHp() + attacker.getHp()*.25));
-			return attacker.getName() + "healed for and is now " + attacker.getHp();
+			int heal = (int)(attacker.getHp()*.25);
+			attacker.setHp(-heal);
+			return attacker.getName() + " healed for "+ heal + " and is now " + attacker.getHp() ;
 		}
 		double stab =1;
 		if(attacker.getType1().equals(attack.getName()) || attacker.getType2().equals(attack.getName())) stab = 1.5;
@@ -67,9 +67,13 @@ public class Game {
 		damage = (int) Math.floor(damage *random);
 		if((int) (Math.random() *101) <= attack.getAccuracy()) {
 			attacked.setHp(damage);
-			return "you did " + damage;
+			if(attacked.getHp() <= 0) {
+				attacked.setHp(0);
+				return "you used " + attack.getName() + " and " + attacked.getName() + " fainted! " ;
+			}
+			return "you used " + attack.getName() + " it did " + damage + " damage to " + attacked.getName();
 		}
-		return "you missed";
+		return attack.getName() + " missed!";
 	}
 	public static int damageCalc(Pokemon attacker, Move attack, Pokemon attacked) {
 		return  (int) ((((((((2*100)/5)+2)*attacker.getAttack()

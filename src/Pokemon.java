@@ -37,6 +37,7 @@ public class Pokemon {
 
 	}
 	private Pokemon (String type1, String type2) {
+		Move j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 		if(type1.equals("Normal")) move1 = Move.bodySlam; 
 		if(type1.equals("Fighting"))move1 = Move.auraSphere;
 		if(type1.equals("Flying")) move1 = Move.airSlash;
@@ -56,14 +57,21 @@ public class Pokemon {
 		if(type1.equals("Dark")) move1 = Move.crunch;
 		if(type1.equals("Fairy")) move1 = Move.moonBlast;
 		if(type2.length() < 2) {
-			
-				Move j = Move.getMove((int) (Math.random()* (Move.moveLength()+1)));
-				while(j.equals(move1)|| j.equals(move2)
-						|| j.equals(move3)) {
-					j = Move.getMove((int) (Math.random()* (Move.moveLength()+1)));
-				}
-				move2 = j;
-			
+			while(j.equals(move1)|| j.equals(move2)
+					|| j.equals(move3)) {
+				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			}
+			move2 = j;
+			while(j.equals(move1)|| j.equals(move2)
+					|| j.equals(move3)) {
+				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			}
+			move3 = j;
+			while(j.equals(move1)|| j.equals(move2)
+					|| j.equals(move3)) {
+				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			}
+			move4 = j;
 		}
 		else {
 			if(type2.equals("Normal")) move2 = Move.bodySlam; 
@@ -84,34 +92,33 @@ public class Pokemon {
 			if(type2.equals("Dragon")) move2 = Move.outrage;
 			if(type2.equals("Dark")) move2 = Move.crunch;
 			if(type2.equals("Fairy")) move2 = Move.moonBlast;
+			while(j.equals(move1)|| j.equals(move2)
+					|| j.equals(move3)) {
+				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			}
+			move3 = j;
+			while(j.equals(move1)|| j.equals(move2)
+					|| j.equals(move3)) {
+				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			}
+			move4 = j;
 		}
 	}
 	// instance methods
-	public String getType1() {
-		return type1;
-	}
-	public String getType2() {
-		return type2;
-	}
+	public String getType1() {return type1;}
+	public String getType2() {return type2;	}
 	public int setHp(int damage) {
 		hp -= damage;
 		if(hp < 0) hp = 0;
 		return hp;
 	}
-	public int getAttack() {
-		return attack;
-	}
-	public int getDefense() {
-		return defense;
-	}
-	public int getStamina() {
-		return speed;
-	}
-	public int getHp() {
-		return hp;
-	}
-	public String getName() {
-		return name;
-	}
-
+	public int getAttack() {return attack;}
+	public int getDefense() {return defense;}
+	public int getStamina() {return speed;}
+	public int getHp() {return hp;}
+	public String getName() {return name;}
+	public Move getMove1() { return move1;}
+	public Move getMove2() { return move2;}
+	public Move getMove3() { return move3;}
+	public Move getMove4() { return move4;}
 }

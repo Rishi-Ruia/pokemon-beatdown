@@ -116,7 +116,7 @@ public class Move {
 		moves.add(uTurn);
 	}
 	public static int moveLength() {return moves.size();}
-	public static Move getMove(int i) { return moves.get(i);}	
+	public static Move getMove(int j) { return moves.get(j);}	
 	public Move(String name, String type, int power, int accuracy) {
 		this.name = name;
 		this.type = type;
@@ -126,7 +126,7 @@ public class Move {
 	public static double effective(Move attack, Pokemon attacked) {
 		String moveType = attack.getType();
 		String attackedType1 = attacked.getType1();
-		String attackedType2 = attacked.getType1();
+		String attackedType2 = attacked.getType2();
 		Dictionary<String, String[][]> types= new Hashtable<>();
 		types.put("Normal",NORMAL );
 		types.put("Fighting",FIGHTING );
