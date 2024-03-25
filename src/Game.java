@@ -11,14 +11,16 @@ public class Game {
 	protected static int [] speed;
 	protected static int [] defense;
 	protected static int [] hp;
-	protected static Pokemon[] poke = new Pokemon[801];
+	protected static Pokemon[] poke = new Pokemon[802];
 	public static void main(String[] args) throws IOException {
+		Move.addMoves();
 		setup();
 		GUI game = new GUI();
+		
 
 	}
 	public static void setup() throws IOException{
-		Scanner scan = new Scanner(System.in);
+		poke[0] = (new Pokemon("Raeed Rahman", 100,100,100,100, "Dragon", "Fairy"));
 		String line = "";
 		String[][] pokemons = new String[801][13];
 		BufferedReader br = new BufferedReader(new FileReader("Copy of All Pokemon Data Spreadsheet_exported.csv"));

@@ -1,17 +1,17 @@
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.Arrays;
+import java.util.*;
 public class Move {
 	private String name;
 	private String type;
 	private int power;
 	private int accuracy;
+	private static ArrayList<Move> moves = new ArrayList<Move>();
 	public final static Move thunderbolt = new Move("thunderbolt", "Electric", 90, 100);
 	public final static Move flamethrower = new Move("flamethrower", "Fire", 90, 100);
 	public final static Move icebeam = new Move("ice beam", "Ice", 90, 100);
 	public final static Move ember = new Move("ember", "Fire", 40, 100);
 	public final static Move psybeam = new Move("psybeam", "Psychic", 65, 100);
 	public final static Move focusBlast = new Move("focus blast", "Fighting", 120, 70);
+	public final static Move auraSphere = new Move("aura sphere", "Fighting", 80, 100 );
 	public final static Move thunder = new Move("thunder", "Electric", 110, 70);
 	public final static Move bodySlam = new Move("body slam", "Normal", 80, 100);
 	public final static Move airSlash = new Move("air slash", "Flying", 75, 95);
@@ -86,6 +86,37 @@ public class Move {
 	protected static String [][] FAIRY = {new String[]{"Dark", "Dragon", "Fighting"}, 
 			new String[] {"Fire", "Steel", "poison"},
 			new String[] {}};
+	public static void addMoves() {
+		moves.add(auraSphere);
+		moves.add(earthquake);
+		moves.add(ember);
+		moves.add(fireBlast);
+		moves.add(flamethrower);
+		moves.add(huricane);
+		moves.add(icebeam);
+		moves.add(icicleCrash);
+		moves.add(ironHead);
+		moves.add(leafBlade);
+		moves.add(outrage);
+		moves.add(psybeam);
+		moves.add(recover);
+		moves.add(rockSlide);
+		moves.add(sludgeWave);
+		moves.add(thunder);
+		moves.add(thunderbolt);
+		moves.add(airSlash);
+		moves.add(bodySlam);
+		moves.add(crunch);
+		moves.add(focusBlast);
+		moves.add(gunkShot);
+		moves.add(hydroPump);
+		moves.add(moonBlast);
+		moves.add(scald);
+		moves.add(shadowBall);
+		moves.add(uTurn);
+	}
+	public static int moveLength() {return moves.size();}
+	public static Move getMove(int i) { return moves.get(i);}	
 	public Move(String name, String type, int power, int accuracy) {
 		this.name = name;
 		this.type = type;
