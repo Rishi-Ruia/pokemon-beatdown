@@ -16,8 +16,10 @@ public class Game {
 		Move.addMoves();
 		setup();
 		GUI game = new GUI();
-		
-
+		Player test = new Player();
+		System.out.println(test.getCurrent().getName());
+		test.Switch(1);
+		System.out.println(test.getCurrent().getName());
 	}
 	public static void setup() throws IOException{
 		poke[0] = (new Pokemon("Raeed Rahman", 100,100,100,100, "Dragon", "Fairy"));
