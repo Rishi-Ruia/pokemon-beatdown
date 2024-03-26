@@ -25,6 +25,9 @@ public class Pokemon {
 	 * @param primary type of pokemon
 	 * @param secondary type of pokemon
 	 */
+	public Pokemon() {
+		
+	}
 	public Pokemon(String name, int hp, int attack, int defense, int speed, String type1, String type2 ) {
 		this(type1, type2);
 		this.attack = (int) ((0.01 * (2 * attack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
@@ -114,7 +117,7 @@ public class Pokemon {
 	}
 	public int getAttack() {return attack;}
 	public int getDefense() {return defense;}
-	public int getStamina() {return speed;}
+	public int getSpeed() {return speed;}
 	public int getHp() {return hp;}
 	public String getName() {return name;}
 	public Move getMove1() { return move1;}
