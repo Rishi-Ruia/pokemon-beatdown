@@ -1,4 +1,5 @@
-public class Player extends Game {
+
+public class AI extends Game {
 	private Pokemon pokemon1 = new Pokemon();
 	private Pokemon pokemon2 = new Pokemon();
 	private Pokemon pokemon3 = new Pokemon();
@@ -6,7 +7,7 @@ public class Player extends Game {
 	private Pokemon pokemon5 = new Pokemon();
 	private Pokemon pokemon6 = new Pokemon();
 	private Pokemon current;
-	public Player() {
+	public AI() {
 		pokemon1 = Game.poke[(int) (Math.random() * poke.length)];
 		pokemon2 = Game.poke[(int) (Math.random() * poke.length)];
 		pokemon3 = Game.poke[(int) (Math.random() * poke.length)];
@@ -57,6 +58,12 @@ public class Player extends Game {
 			return current.getName() +  " switched to " + pokemon6.getName();
 		}
 		return null;
-		
+	}
+	public String AIattack(Pokemon current) {
+		if(Move.effective(this.current.getMove1(), current) == 2) {
+			Game.attack(this.current, current.getMove1(), current);
+			return this.current.getName();
+		}
+		return "";
 	}
 }
