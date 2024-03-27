@@ -4,34 +4,44 @@ public class Move {
 	private String type;
 	private int power;
 	private int accuracy;
+	private boolean special;
 	private static ArrayList<Move> moves = new ArrayList<Move>();
-	public final static Move thunderbolt = new Move("thunderbolt", "Electric", 90, 100);
-	public final static Move flamethrower = new Move("flamethrower", "Fire", 90, 100);
-	public final static Move icebeam = new Move("ice beam", "Ice", 90, 100);
-	public final static Move ember = new Move("ember", "Fire", 40, 100);
-	public final static Move psybeam = new Move("psybeam", "Psychic", 65, 100);
-	public final static Move focusBlast = new Move("focus blast", "Fighting", 120, 70);
-	public final static Move auraSphere = new Move("aura sphere", "Fighting", 80, 100 );
-	public final static Move thunder = new Move("thunder", "Electric", 110, 70);
-	public final static Move bodySlam = new Move("body slam", "Normal", 80, 100);
-	public final static Move airSlash = new Move("air slash", "Flying", 75, 95);
-	public final static Move huricane = new Move("huricane", "Flying", 110, 70);
-	public final static Move sludgeWave = new Move("sludge wave", "Poison", 95, 100);
-	public final static Move gunkShot = new Move("gunk shot", "Poison", 120, 80);
-	public final static Move earthquake = new Move("earthquake", "Ground", 100, 100);
-	public final static Move rockSlide = new Move("rock slide", "Rock", 75, 90);
-	public final static Move shadowBall = new Move("shadow ball", "Ghost", 80, 100);
-	public final static Move uTurn = new Move("u-turn", "Bug", 70, 100);
-	public final static Move ironHead = new Move("iron head", "Steel", 80, 100);
-	public final static Move fireBlast = new Move("fire blast", "Fire", 110, 85);
-	public final static Move scald = new Move("scald", "Water", 80, 100);
-	public final static Move hydroPump = new Move("hydro pump", "Water", 110, 80);
-	public final static Move leafBlade = new Move("leaf blade", "Grass", 80, 100);
-	public final static Move icicleCrash = new Move("icicle crash", "Ice", 85, 90);
-	public final static Move outrage = new Move("outrage", "Dragon", 120, 100);
-	public final static Move crunch = new Move("crunch", "Dark", 80, 100);
-	public final static Move moonBlast = new Move("moon blast", "Fairy", 95, 100);
-	public final static Move recover = new Move("recover", "Normal", 0, 100);
+	public final static Move thunderbolt = new Move("thunderbolt", "Electric", 90, 100, true);
+	public final static Move flamethrower = new Move("flamethrower", "Fire", 90, 100, true);
+	public final static Move icebeam = new Move("ice beam", "Ice", 90, 100, true);
+	public final static Move energyBall = new Move("energy ball", "Grass", 80, 100, true);
+	public final static Move psybeam = new Move("psybeam", "Psychic", 65, 100, true);
+	public final static Move closeCombat = new Move("close combat", "Fighting", 120, 70, false);
+	public final static Move auraSphere = new Move("aura sphere", "Fighting", 80, 100, true);
+	public final static Move thunder = new Move("thunder", "Electric", 110, 70, true);
+	public final static Move bodySlam = new Move("body slam", "Normal", 80, 100, false);
+	public final static Move airSlash = new Move("air slash", "Flying", 75, 95, true);
+	public final static Move huricane = new Move("huricane", "Flying", 110, 70, true);
+	public final static Move sludgeWave = new Move("sludge wave", "Poison", 95, 100, true);
+	public final static Move gunkShot = new Move("gunk shot", "Poison", 120, 80, false);
+	public final static Move earthquake = new Move("earthquake", "Ground", 100, 100, false);
+	public final static Move rockSlide = new Move("rock slide", "Rock", 75, 90, false);
+	public final static Move shadowBall = new Move("shadow ball", "Ghost", 80, 100, true);
+	public final static Move uTurn = new Move("u-turn", "Bug", 70, 100, false);
+	public final static Move ironHead = new Move("iron head", "Steel", 80, 100, false);
+	public final static Move fireBlast = new Move("fire blast", "Fire", 110, 85, true);
+	public final static Move liquidation = new Move("liquidation", "Water", 85, 100, false);
+	public final static Move hydroPump = new Move("hydro pump", "Water", 110, 80, true);
+	public final static Move leafBlade = new Move("leaf blade", "Grass", 80, 100, false);
+	public final static Move icicleCrash = new Move("icicle crash", "Ice", 85, 90, false);
+	public final static Move outrage = new Move("outrage", "Dragon", 110, 100, false);
+	public final static Move crunch = new Move("crunch", "Dark", 80, 100, false);
+	public final static Move moonBlast = new Move("moon blast", "Fairy", 95, 100, true);
+	public final static Move recover = new Move("recover", "Normal", 0, 100, true);
+	public final static Move earthPower = new Move("earth power", "Ground", 90, 100, true);
+	public final static Move flashCannon = new Move("flash cannon", "Steel", 80, 100, true);
+	public final static Move fireLash = new Move("fire lash", "Fire", 90, 100, false);
+	public final static Move poltergeist = new Move("poltergeist", "Ghost", 110, 90, false);
+	public final static Move dragonPulse = new Move("dragon pulse", "Dragon", 80, 100, true);
+	public final static Move powerGem = new Move("power gem", "Rock", 80, 100, true);
+	public final static Move darkPulse = new Move("dark pulse", "Dark", 80, 100, true);
+	public final static Move playRough = new Move("play rough", "Fairy", 90, 90, false);
+	public final static Move acrobatics = new Move("acrobatics", "Flying", 110, 100, false);
 	protected static String [][] NORMAL = { {},
 			{"Rock", "Steel"},
 			{"Ghost"}};
@@ -89,7 +99,7 @@ public class Move {
 	public static void addMoves() {
 		moves.add(auraSphere);
 		moves.add(earthquake);
-		moves.add(ember);
+		moves.add(energyBall);
 		moves.add(fireBlast);
 		moves.add(flamethrower);
 		moves.add(huricane);
@@ -107,21 +117,33 @@ public class Move {
 		moves.add(airSlash);
 		moves.add(bodySlam);
 		moves.add(crunch);
-		moves.add(focusBlast);
+		moves.add(closeCombat);
 		moves.add(gunkShot);
 		moves.add(hydroPump);
 		moves.add(moonBlast);
-		moves.add(scald);
+		moves.add(liquidation);
 		moves.add(shadowBall);
 		moves.add(uTurn);
+		moves.add(flashCannon);
+		moves.add(fireLash);
+		moves.add(poltergeist);
+		moves.add(dragonPulse);
+		moves.add(powerGem);
+		moves.add(acrobatics);
+		moves.add(darkPulse);
+		moves.add(playRough);
 	}
 	public static int moveLength() {return moves.size();}
 	public static Move getMove(int j) { return moves.get(j);}	
-	public Move(String name, String type, int power, int accuracy) {
+	public Move(String name, String type, int power, int accuracy, boolean special) {
 		this.name = name;
 		this.type = type;
 		this.power = power;
 		this.accuracy = accuracy;
+		this.special = special;
+	}
+	public Move() {
+		
 	}
 	public static double effective(Move attack, Pokemon attacked) {
 		String moveType = attack.getType();
@@ -179,5 +201,6 @@ public class Move {
 	public String getType() {return type;}
 	public int getPower() {return power;}
 	public int getAccuracy() {return accuracy;}
+	public boolean isSpecial() {return special;}
 }
 

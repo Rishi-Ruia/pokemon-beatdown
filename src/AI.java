@@ -1,69 +1,79 @@
-
+import java.util.ArrayList;
 public class AI extends Game {
-	private Pokemon pokemon1 = new Pokemon();
-	private Pokemon pokemon2 = new Pokemon();
-	private Pokemon pokemon3 = new Pokemon();
-	private Pokemon pokemon4 = new Pokemon();
-	private Pokemon pokemon5 = new Pokemon();
-	private Pokemon pokemon6 = new Pokemon();
+	private ArrayList<Pokemon> AIPokemon = new ArrayList<Pokemon>();
 	private Pokemon current;
 	public AI() {
-		pokemon1 = Game.poke[(int) (Math.random() * poke.length)];
-		pokemon2 = Game.poke[(int) (Math.random() * poke.length)];
-		pokemon3 = Game.poke[(int) (Math.random() * poke.length)];
-		pokemon4 = Game.poke[(int) (Math.random() * poke.length)];
-		pokemon5 = Game.poke[(int) (Math.random() * poke.length)];
-		pokemon6 = Game.poke[(int) (Math.random() * poke.length)];
-		while(pokemon1.equals(pokemon2)) 
-			pokemon2 = Game.poke[(int) (Math.random() * poke.length)];
-		while(pokemon3.equals(pokemon1) || pokemon3.equals(pokemon2))
-			pokemon3 = Game.poke[(int) (Math.random() * poke.length)];
-		while(pokemon4.equals(pokemon1) || pokemon4.equals(pokemon2)
-				|| pokemon4.equals(pokemon3))
-			pokemon4 = Game.poke[(int) (Math.random() * poke.length)];
-		while(pokemon5.equals(pokemon1) || pokemon5.equals(pokemon2)
-				|| pokemon5.equals(pokemon3) || pokemon5.equals(pokemon4))
-			pokemon5 = Game.poke[(int) (Math.random() * poke.length)];
-		while(pokemon6.equals(pokemon1) || pokemon6.equals(pokemon2)
-				|| pokemon6.equals(pokemon3) || pokemon6.equals(pokemon4)
-				|| pokemon6.equals(pokemon5))
-			pokemon6 = Game.poke[(int) (Math.random() * poke.length)];
-		current = pokemon1;
+		for(int i =0; i < 6; i++)
+		AIPokemon.add(Game.poke[(int) (Math.random() * Game.poke.length)]);
+		for(int i =0; i < 6; i ++) {
+			for(int j =i+1; j < 6; j++) {
+				while(AIPokemon.get(j).equals(AIPokemon.get(i)))
+					AIPokemon.set(i, Game.poke[(int) (Math.random() * poke.length)]);
+			}
+		}
+		current = AIPokemon.get(0);
 	}
 	public Pokemon getCurrent() {
 		return current;
 	}
 	public String Switch(int i) {
-		if(i ==1 && pokemon1.getHp() !=0 && current != pokemon1) {
-			current = pokemon1;
-			return current.getName() +  " switched to " + pokemon1.getName();
-		}if(i ==2 && pokemon2.getHp() !=0 && current != pokemon2) {
-			current = pokemon2;
-			return current.getName() +  " switched to " + pokemon2.getName();
-		}
-		if(i ==3 && pokemon3.getHp() !=0 && current != pokemon3) {
-			current = pokemon3;
-			return current.getName() +  " switched to " + pokemon3.getName();
-		}
-		if(i ==4 && pokemon4.getHp() !=0 && current != pokemon4) {
-			current = pokemon4;
-			return current.getName() +  " switched to " + pokemon4.getName();
-		}
-		if(i ==5 && pokemon5.getHp() !=0 && current != pokemon5) {
-			current = pokemon5;
-			return current.getName() +  " switched to " + pokemon5.getName();
-		}
-		if(i ==6 && pokemon6.getHp() !=0 && current != pokemon6) {
-			current = pokemon6;
-			return current.getName() +  " switched to " + pokemon6.getName();
+		if(AIPokemon.get(i) != null || (AIPokemon.get(i).getHp() !=0 && current != AIPokemon.get(i))) {
+			String temp = current.getName();
+			current = AIPokemon.get(i);
+			return temp +  " switched to " + current.getName();
 		}
 		return null;
 	}
-	public String AIattack(Pokemon current) {
-		if(Move.effective(this.current.getMove1(), current) == 2) {
-			Game.attack(this.current, current.getMove1(), current);
-			return this.current.getName();
+	public String AITurn(Pokemon current) {
+		for(int i =0; i < 4; i++) {
+			if(Move.effective(this.current.getMove(i), current) == 2.0) {
+				String damage = Game.attack(this.current, this.current.getMove(i), current, this.current.getMove(i).isSpecial());
+				if(current.getHp() ==0) {
+					if(user.lost()) {
+						game.lost();
+						return "you lost!";
+					}
+					game.forceSwitch();
+				}
+				return this.current.getName() + damage.substring(3);
+			}
 		}
-		return "";
+			Move random = new Move();
+			int rand = (int) (Math.random()*4);
+			random = this.current.getMove(rand);
+			String temp = current.getName();
+			if(rand >= 5) if(Switch((int) Math.random()*6+1) != null) {
+				return temp + " switched in to " + this.current.getName(); 
+			}
+			if(Move.effective(random, current) ==0 && !(random.equals(current.getMove(0))))
+				random = AIPokemon.get(0).getMove(0);
+			if(Move.effective(random, current) ==0) random.equals(current.getMove(1));
+			String damage = Game.attack(this.current, random, current, random.isSpecial());
+			if(damage.contains("healed")) return this.current.getName() + " healed!";
+			if(current.getHp() ==0) {
+				if(user.lost()) {
+					game.lost();
+					return "you lost!";
+				}
+				game.forceSwitch();
+			}
+			return this.current.getName() + damage.substring(3);
+		}
+	public  boolean lost() {
+		for(int i =0; i < 6; i++) {
+			if(AIPokemon.get(i).getHp() !=0) {
+				return false;
+			}
+		}
+		 return true;
+	}
+	public boolean fainted() {
+		for(int i = 0; i < 6; i++) {
+			if(!(AIPokemon.get(i).equals(current)) && AIPokemon.get(i).getHp() != 0) {
+				current =AIPokemon.get(i);
+				break;
+			}
+		}
+		return lost();
 	}
 }
