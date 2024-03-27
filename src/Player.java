@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.ArrayList; //  https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html
 
 public class Player extends Game {
 	protected ArrayList<Pokemon> playerPokemons = new ArrayList<Pokemon>();

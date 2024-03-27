@@ -1,8 +1,5 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
+import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
+import java.util.*; // from https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html
 public class Game {
 	protected static String [] name;
 	protected static String [] type2;

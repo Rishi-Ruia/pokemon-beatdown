@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*; //from https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html
 public class Move {
 	private String name;
 	private String type;

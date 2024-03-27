@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.ArrayList; //from 
 public class Pokemon {
 	// instance data
 	protected int attack;
@@ -13,20 +13,21 @@ public class Pokemon {
 	protected ArrayList<Move> moves = new ArrayList<Move>(); 
 	/** TODO UPDATE CONSTRUCTOR TO INIT NEW INSTANCE VARIABLES **/
 
-	// constructors
-	/**
-	 * Constructs a Pokemon object
-	 * @param name Name of the Pokemon
-	 * @param hp of Pokemon
-	 * @param move1 stat
-	 * @param defense of pokemon
-	 * @param speed of pokemon
-	 * @param primary type of pokemon
-	 * @param secondary type of pokemo
-	 */
 	public Pokemon() {
 
 	}
+	/**
+	 * 
+	 * @param name the name of the pokemon 
+	 * @param hp the hp of the pokemon 
+	 * @param attack the attack stat of the pokemon 
+	 * @param spAttack the special attack stat of the pokemon
+	 * @param defense the defense of the pokemon 
+	 * @param spDefense the special defense of the pokemon 
+	 * @param speed the speed of the pokemon 
+	 * @param type1 the primary type of the pokemon 
+	 * @param type2 the secondary type of the pokemon 
+	 */
 	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed, String type1, String type2 ) {
 		this(type1, type2);
 		this.attack = (int) ((0.01 * (2 * attack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;

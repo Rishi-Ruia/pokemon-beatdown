@@ -1,10 +1,6 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
+import java.awt.event.*; //from 
+import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/java/awt/package-summary.html
+import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
 public class GUI extends JFrame implements ActionListener{
 	JButton move1;
 	JButton move2;
@@ -26,10 +22,7 @@ public class GUI extends JFrame implements ActionListener{
 		
 		pokemon1 = new JButton("Switch");
 		pokemon1.setBounds(20, 10, 80, 80);
-		
-		
 		this.add(pokemon1);
-		this.setLocationRelativeTo(null);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
 		
 	}
