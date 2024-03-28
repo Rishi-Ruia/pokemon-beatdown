@@ -26,7 +26,7 @@ public class AI extends Game {
 	}
 	public String AITurn(Pokemon current) {
 		for(int i =0; i < 4; i++) {
-			if(Move.effective(this.current.getMove(i), current) == 2.0) {
+			if(Move.effective(this.current.getMove(i), current) >= 2.0) {
 				String damage = Game.attack(this.current, this.current.getMove(i), current, this.current.getMove(i).isSpecial());
 				if(current.getHp() ==0) {
 					if(user.lost()) {
@@ -67,13 +67,12 @@ public class AI extends Game {
 		}
 		 return true;
 	}
-	public boolean fainted() {
+	public void fainted() {
 		for(int i = 0; i < 6; i++) {
 			if(!(AIPokemon.get(i).equals(current)) && AIPokemon.get(i).getHp() != 0) {
 				current =AIPokemon.get(i);
 				break;
 			}
 		}
-		return lost();
 	}
 }

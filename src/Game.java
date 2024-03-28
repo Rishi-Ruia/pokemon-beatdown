@@ -19,7 +19,7 @@ public class Game {
 		setup();
 		user = new Player();
 		AI ai = new AI();
-		GUI game = new GUI(user, ai);
+		 game = new GUI(user, ai);
 		
 	}
 	public static void setup() throws IOException{

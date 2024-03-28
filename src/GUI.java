@@ -14,6 +14,8 @@ public class GUI extends JFrame implements ActionListener{
 	private JButton pokemon6;
 	private Player user;
 	private AI ai;
+	private JLabel userName;
+	private JLabel AIname;
 	public GUI(Player user, AI ai){
 		this.user = user;
 		this.ai = ai;
@@ -26,16 +28,16 @@ public class GUI extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes frame when you press the x button
 		setLocationRelativeTo(null);
 		this.getContentPane().setBackground(Color.LIGHT_GRAY);
-		JLabel userName = new JLabel(user.getCurrent().getName());
-		JLabel AIname = new JLabel(ai.getCurrent().getName());
+		 userName = new JLabel(user.getCurrent().getName());
+		 AIname = new JLabel(ai.getCurrent().getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 80));
 		userName.setBounds(20, 0, 800, 800);
 		this.add(userName);
 		AIname.setFont(new Font("Arial", Font.BOLD, 80));
-		AIname.setBounds(600, -300 , 800, 800);
+		AIname.setBounds(450, -300 , 800, 800);
 		this.add(AIname);
 	}
-	private void addMoves() {
+	public void addMoves() {
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
 		move1.setBounds(0, 600, 300, 150);
 		move1.setFont(new Font("Arial", Font.PLAIN, 40));
@@ -60,50 +62,124 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(move2);
 		this.add(move3);
 		this.add(move4);
+		move1.setEnabled(true);
+		move2.setEnabled(true);
+		move3.setEnabled(true);
+		move4.setEnabled(true);
 	}
 	private void addSwitch() {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
 		pokemon1.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon1.setBounds(600, 600, 170, 150);
+		pokemon1.addActionListener(this);
 		this.add(pokemon1);
 		pokemon2 = new JButton(user.getPokemon(1).getName());
 		pokemon2.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon2.setBounds(770, 600, 170, 150);
+		pokemon2.addActionListener(this);
 		this.add(pokemon2);
 		pokemon3 = new JButton(user.getPokemon(2).getName());
 		pokemon3.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon3.setBounds(940, 600, 185, 150);
+		pokemon3.addActionListener(this);
 		this.add(pokemon3);
 		pokemon4 = new JButton(user.getPokemon(3).getName());
 		pokemon4.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon4.setBounds(600, 750, 170, 150);
+		pokemon4.addActionListener(this);
 		this.add(pokemon4);
 		pokemon5 = new JButton(user.getPokemon(4).getName());
 		pokemon5.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon5.setBounds(770, 750, 170, 150);
+		pokemon5.addActionListener(this);
 		this.add(pokemon5);
 		pokemon6 = new JButton(user.getPokemon(5).getName());
 		pokemon6.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon6.setBounds(940, 750, 185, 150);
+		pokemon6.addActionListener(this);
 		this.add(pokemon6);
 	}
 	public  void forceSwitch() {
-		
+		System.out.println("you died");
+		move1.setEnabled(false);
+		move2.setEnabled(false);
+		move3.setEnabled(false);
+		move4.setEnabled(false);
 	}
 	public void displayLose() {
-		
+
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==move1) {
 			System.out.println(
-			Game.attack(user.getCurrent(), user.getCurrent().getMove(0)
-					, ai.getCurrent(), user.getCurrent().getMove(0).isSpecial()));
-		
+					Game.attack(user.getCurrent(), user.getCurrent().getMove(0),
+					ai.getCurrent(), user.getCurrent().getMove(0).isSpecial()));
+		}
+		if(e.getSource() == move2) {
+			System.out.println(
+					Game.attack(user.getCurrent(), user.getCurrent().getMove(1),
+					ai.getCurrent(), user.getCurrent().getMove(1).isSpecial()));
+		}
+		if(e.getSource() == move3) {
+			System.out.println(
+					Game.attack(user.getCurrent(), user.getCurrent().getMove(2),
+					ai.getCurrent(), user.getCurrent().getMove(2).isSpecial()));
+		}
+		if(e.getSource() == move4) {
+			System.out.println(
+					Game.attack(user.getCurrent(), user.getCurrent().getMove(3),
+					ai.getCurrent(), user.getCurrent().getMove(3).isSpecial()));
 		}
 		if(e.getSource() == pokemon1) {
-			
+			String canSwitch = user.Switch(0);
+			if(canSwitch == null) return;
+		System.out.println(canSwitch);
+		this.addMoves();
 		}
-			
+		if(e.getSource() == pokemon2) {
+				String canSwitch = user.Switch(1);
+				if(canSwitch == null) return;
+			System.out.println(canSwitch);
+			this.addMoves();
+		}
+		if(e.getSource() == pokemon3) {
+			String canSwitch = user.Switch(2);
+			if(canSwitch == null) return;
+		System.out.println(canSwitch);
+		this.addMoves();
+		}
+		if(e.getSource() == pokemon4) {
+			String canSwitch = user.Switch(3);
+			if(canSwitch == null) return;
+		System.out.println(canSwitch);
+		this.addMoves();
+		}
+		if(e.getSource() == pokemon5) {
+			String canSwitch = user.Switch(4);
+			if(canSwitch == null) return;
+		System.out.println(canSwitch);
+		this.addMoves();
+		}
+		if(e.getSource() == pokemon6) {
+			String canSwitch = user.Switch(5);
+			if(canSwitch == null) return;
+		System.out.println(canSwitch);
+		this.addMoves();
+		}
+		
+		if(ai.getCurrent().getHp() ==0) {
+			if(ai.lost()) {
+				System.out.println("GG");
+				this.dispose();
+			}
+			else {
+				ai.fainted();
+				AIname.setText(ai.getCurrent().getName());
+			}
+		}
+		else {
+			System.out.println(ai.AITurn(user.getCurrent()));
+		}
 	}
 }

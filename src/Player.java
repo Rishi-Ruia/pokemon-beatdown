@@ -22,11 +22,13 @@ public class Player extends Game {
 	public Pokemon getCurrent() {
 		return current;
 	}
+
 	public String Switch(int i) {
-		if(playerPokemons.get(i).getHp() != 0) {
+		if (playerPokemons.get(i).getHp() != 0 && playerPokemons.get(i) != current) {
 			String name = current.getName();
 			current = playerPokemons.get(i);
-			return name + " switched out and " + current.getName() + "switched in!";
+			game.addMoves();
+			return name + " switched out and " + current.getName() + " switched in!";
 		}
 		return null;
 	}
@@ -36,6 +38,7 @@ public class Player extends Game {
 				return false;
 			}
 		}
+		game.dispose();
 		 return true;
 	}
 	public Pokemon getPokemon(int i) {
