@@ -30,7 +30,7 @@ public class AI extends Game {
 				String damage = Game.attack(this.current, this.current.getMove(i), current, this.current.getMove(i).isSpecial());
 				if(current.getHp() ==0) {
 					if(user.lost()) {
-						game.lost();
+						game.displayLose();;
 						return "you lost!";
 					}
 					game.forceSwitch();
@@ -52,7 +52,7 @@ public class AI extends Game {
 			if(damage.contains("healed")) return this.current.getName() + " healed!";
 			if(current.getHp() ==0) {
 				if(user.lost()) {
-					game.lost();
+					game.displayLose();
 					return "you lost!";
 				}
 				game.forceSwitch();

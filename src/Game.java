@@ -13,13 +13,13 @@ public class Game {
 	protected static Pokemon[] poke = new Pokemon[801];
 	protected static GUI game;
 	protected static Player user;
+	protected static AI ai;
 	public static void main(String[] args) throws IOException {
 		Move.addMoves();
 		setup();
-		GUI game = new GUI();
 		user = new Player();
 		AI ai = new AI();
-		System.out.print(ai.lost());
+		GUI game = new GUI(user, ai);
 		
 	}
 	public static void setup() throws IOException{

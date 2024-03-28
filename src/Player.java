@@ -38,4 +38,7 @@ public class Player extends Game {
 		}
 		 return true;
 	}
+	public Pokemon getPokemon(int i) {
+		return playerPokemons.get(i);
+	}
 }
