@@ -29,7 +29,7 @@ public class Pokemon {
 	 * @param type2 the secondary type of the pokemon 
 	 */
 	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed, String type1, String type2 ) {
-		this(type1, type2);
+
 		this.attack = (int) ((0.01 * (2 * attack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.spAttack = (int) ((0.01 * (2 * spAttack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.defense = (int) ((0.01 * (2 * defense + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
@@ -39,9 +39,6 @@ public class Pokemon {
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;	
-
-	}
-	private Pokemon (String type1, String type2) {
 		Move j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 		if(type1.equals("Normal")) {
 			if(this.attack <= this.spAttack) moves.add( Move.bodySlam);
@@ -118,13 +115,13 @@ public class Pokemon {
 				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 			}
 			moves.add(j);
-				while(j.equals(moves.get(0))|| j.equals(moves.get(1))
-						|| j.equals(moves.get(2))) {
-					j = Move.getMove((int) (Math.random()* (Move.moveLength())));
-				}
-				moves.add(j);
+			while(j.equals(moves.get(0))|| j.equals(moves.get(1))
+					|| j.equals(moves.get(2))) {
+				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 			}
-		
+			moves.add(j);
+		}
+
 		else {	
 			if(type2.equals("Normal")) {
 				if(this.attack <= this.spAttack) moves.add(  Move.bodySlam);

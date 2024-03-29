@@ -11,7 +11,7 @@ public class Move {
 	public final static Move icebeam = new Move("ice beam", "Ice", 90, 100, true);
 	public final static Move energyBall = new Move("energy ball", "Grass", 80, 100, true);
 	public final static Move psybeam = new Move("psybeam", "Psychic", 65, 100, true);
-	public final static Move closeCombat = new Move("close combat", "Fighting", 120, 70, false);
+	public final static Move focusBlast = new Move("focus Blast", "Fighting", 120, 70, true);
 	public final static Move auraSphere = new Move("aura sphere", "Fighting", 80, 100, true);
 	public final static Move thunder = new Move("thunder", "Electric", 110, 70, true);
 	public final static Move bodySlam = new Move("body slam", "Normal", 80, 100, false);
@@ -42,6 +42,7 @@ public class Move {
 	public final static Move darkPulse = new Move("dark pulse", "Dark", 80, 100, true);
 	public final static Move playRough = new Move("play rough", "Fairy", 90, 90, false);
 	public final static Move acrobatics = new Move("acrobatics", "Flying", 110, 100, false);
+	public final static Move closeCombat = new Move("close combat", "Fighting", 120, 100, false);
 	protected static String [][] NORMAL = { {},
 			{"Rock", "Steel"},
 			{"Ghost"}};
@@ -118,6 +119,7 @@ public class Move {
 		moves.add(bodySlam);
 		moves.add(crunch);
 		moves.add(closeCombat);
+		moves.add(focusBlast);
 		moves.add(gunkShot);
 		moves.add(hydroPump);
 		moves.add(moonBlast);

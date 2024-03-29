@@ -57,7 +57,7 @@ public class AI extends Game {
 				}
 				game.forceSwitch();
 			}
-			return this.current.getName() + damage.substring(3);
+			return this.current.getName() + damage.replaceAll("you", " ");
 		}
 	public  boolean lost() {
 		for(int i =0; i < 6; i++) {

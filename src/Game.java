@@ -1,5 +1,6 @@
+import java.awt.FontFormatException;
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
-import java.util.*; // from https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html
+import javax.sound.sampled.*; //from https://docs.oracle.com/javase/8/docs/api/javax/sound/sampled/package-summary.html
 public class Game {
 	protected static String [] name;
 	protected static String [] type2;
@@ -14,16 +15,21 @@ public class Game {
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
+		File file = new File("blunder theme.wav"); // From https://www.youtube.com/watch?v=0_SeDY8Y3g8
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+		Clip clip = AudioSystem.getClip();
+		clip.open(audioStream);
+		clip.start();
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		Move.addMoves();
 		setup();
 		user = new Player();
 		AI ai = new AI();
-		 game = new GUI(user, ai);
-		
+		game = new GUI(user, ai);
 	}
 	public static void setup() throws IOException{
-		poke[0] = (new Pokemon("Raeed Rahman", 100,100,100,100, 100 , 100, "Dragon", "Fairy"));
+		poke[0] = (new Pokemon("Raeed Rahman", 100,100,100,100,100,100, "Dragon", "Fairy"));
 		String line = "";
 		String[][] pokemons = new String[801][13];
 		BufferedReader br = new BufferedReader(new FileReader("Copy of All Pokemon Data Spreadsheet_exported.csv"));

@@ -27,7 +27,7 @@ public class Player extends Game {
 		if (playerPokemons.get(i).getHp() != 0 && playerPokemons.get(i) != current) {
 			String name = current.getName();
 			current = playerPokemons.get(i);
-			game.addMoves();
+			//game.addMoves();
 			return name + " switched out and " + current.getName() + " switched in!";
 		}
 		return null;
