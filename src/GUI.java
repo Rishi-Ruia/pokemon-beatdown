@@ -21,52 +21,58 @@ public class GUI extends JFrame implements ActionListener{
 	private boolean skipturn = false;
 	private JLabel console = new JLabel("A pokemon battle has started!");
 	private JLabel AIconsole = new JLabel();
-	public GUI(Player user, AI ai) throws FontFormatException, IOException{
-		
+	public GUI(Player user, AI ai) throws  IOException{
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
+		JLabel userImage = new JLabel(new ImageIcon("user.png")); //from ALI MOHAMMED
+		JLabel aiImage = new JLabel(new ImageIcon("ai.png")); //from ALI MOHAMMED
+		userImage.setBounds(-100,300,600,600);
+		aiImage.setBounds(1558,-20,600,600);
+		this.add(userImage);
+		this.add(aiImage);
 		addMoves();
 		addSwitch();
 		this.setSize(2000, 1300); 
-		this.setVisible(true); 
 		this.setTitle("battle window"); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes frame when you press the x button
-		setLocationRelativeTo(null);
-		this.getContentPane().setBackground(Color.LIGHT_GRAY);
+		setLocationRelativeTo(null);	
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 80));
-		userName.setBounds(20, 0, 800, 800);
+		userName.setBounds(500, 50, 1000, 1000);
 		this.add(userName);
 		AIname.setFont(new Font("Arial", Font.BOLD, 80));
-		AIname.setBounds(450, -300 , 800, 800);
+		AIname.setBounds(1000, -250 , 1000, 1000);
 		this.add(AIname);
 		console.setBounds(20, 0, 2000, 2000);		
 		console.setFont(new Font("Arial", Font.ITALIC, 50));
 		this.add(console);
 		AIconsole.setBounds(20, 200, 2000, 2000);		
 		AIconsole.setFont(new Font("Arial", Font.ITALIC, 50));
+		AIconsole.setAlignmentX(JFrame.CENTER_ALIGNMENT);
+		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		this.add(AIconsole);
+		this.setVisible(true);
 	}
 	public void addMoves() {
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
-		move1.setBounds(0, 600, 300, 150);
+		move1.setBounds(400, 650, 300, 150);
 		move1.setFont(new Font("Arial", Font.PLAIN, 40));
 		move1.setBackground(Color.WHITE);
 		move1.addActionListener(this);
 		move2 = new JButton(user.getCurrent().getMove(1).getName());
-		move2.setBounds(300, 600, 300, 150);
+		move2.setBounds(700, 650, 300, 150);
 		move2.setFont(new Font("Arial", Font.PLAIN, 40));
 		move2.setBackground(Color.WHITE);
 		move2.addActionListener(this);
 		move3 = new JButton(user.getCurrent().getMove(2).getName());
-		move3.setBounds(0, 750, 300, 150);
+		move3.setBounds(400, 800, 300, 150);
 		move3.setFont(new Font("Arial", Font.PLAIN, 40));
 		move3.setBackground(Color.WHITE);
 		move3.addActionListener(this);
 		move4 = new JButton(user.getCurrent().getMove(3).getName());
-		move4.setBounds(300, 750, 300, 150);
+		move4.setBounds(700, 800, 300, 150);
 		move4.setFont(new Font("Arial", Font.PLAIN, 40));
 		move4.setBackground(Color.WHITE);
 		move4.addActionListener(this);
@@ -74,38 +80,40 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(move2);
 		this.add(move3);
 		this.add(move4);
+		this.setVisible(true);
 	}
 	private void addSwitch() {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
 		pokemon1.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon1.setBounds(600, 600, 170, 150);
+		pokemon1.setBounds(1000, 650, 170, 150);
 		pokemon1.addActionListener(this);
 		this.add(pokemon1);
 		pokemon2 = new JButton(user.getPokemon(1).getName());
 		pokemon2.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon2.setBounds(770, 600, 170, 150);
+		pokemon2.setBounds(1170, 650, 170, 150);
 		pokemon2.addActionListener(this);
 		this.add(pokemon2);
 		pokemon3 = new JButton(user.getPokemon(2).getName());
 		pokemon3.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon3.setBounds(940, 600, 185, 150);
+		pokemon3.setBounds(1340, 650, 185, 150);
 		pokemon3.addActionListener(this);
 		this.add(pokemon3);
 		pokemon4 = new JButton(user.getPokemon(3).getName());
 		pokemon4.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon4.setBounds(600, 750, 170, 150);
+		pokemon4.setBounds(1000, 800, 170, 150);
 		pokemon4.addActionListener(this);
 		this.add(pokemon4);
 		pokemon5 = new JButton(user.getPokemon(4).getName());
 		pokemon5.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon5.setBounds(770, 750, 170, 150);
+		pokemon5.setBounds(1170, 800, 170, 150);
 		pokemon5.addActionListener(this);
 		this.add(pokemon5);
 		pokemon6 = new JButton(user.getPokemon(5).getName());
 		pokemon6.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon6.setBounds(940, 750, 185, 150);
+		pokemon6.setBounds(1340, 800, 185, 150);
 		pokemon6.addActionListener(this);
 		this.add(pokemon6);
+		this.setVisible(true);
 	}
 	public  void forceSwitch() {
 		console.setText("you died");
@@ -116,7 +124,7 @@ public class GUI extends JFrame implements ActionListener{
 		skipturn = true;
 	}
 	public void displayLose() {
-
+		AIconsole.setText("you have lost :(");
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -205,7 +213,7 @@ public class GUI extends JFrame implements ActionListener{
 			}
 			AIconsole.setText(ai.AITurn(user.getCurrent()));
 		}
-
+		this.setVisible(true);
 	}
 
 	public void checkDead() {
@@ -231,5 +239,6 @@ public class GUI extends JFrame implements ActionListener{
 		move2.setEnabled(true);
 		move3.setEnabled(true);
 		move4.setEnabled(true);
+		this.setVisible(true);
 	}
 }
