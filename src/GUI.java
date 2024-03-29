@@ -194,7 +194,9 @@ public class GUI extends JFrame implements ActionListener{
 			AIconsole.setText(" ");
 			checkDead();
 		}
-		user.lost();
+		if(user.lost()) {
+			this.dispose();
+		};
 		if(ai.getCurrent().getHp() ==0 ) {
 			if(ai.lost()) {
 				console.setText("GG you have won!");
@@ -213,9 +215,6 @@ public class GUI extends JFrame implements ActionListener{
 			AIconsole.setText(ai.AITurn(user.getCurrent()));
 		}
 		this.setVisible(true);
-	}
-	public void playerattck(ActionEvent e) {
-		
 	}
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
