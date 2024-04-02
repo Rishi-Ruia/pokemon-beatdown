@@ -125,6 +125,7 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	public void displayLose() {
 		AIconsole.setText("you have lost :(");
+		forceSwitch();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
