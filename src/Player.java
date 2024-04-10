@@ -9,7 +9,7 @@ public class Player extends Game {
 			playerPokemons.add(Game.poke[(pokemon)]);
 		}
 			
-		for(int i =0; i < 6; i ++) {
+		for(int i =1; i < 6; i ++) {
 			for(int j =i+1; j < 6; j++) {
 				while( playerPokemons.get(j).equals(playerPokemons.get(i))) {
 					playerPokemons.set(j, Game.poke[(int) (Math.random() * poke.length)]);
@@ -27,7 +27,6 @@ public class Player extends Game {
 		if (playerPokemons.get(i).getHp() != 0 && playerPokemons.get(i) != current) {
 			String name = current.getName();
 			current = playerPokemons.get(i);
-			//game.addMoves();
 			return name + " switched out and " + current.getName() + " switched in!";
 		}
 		return null;

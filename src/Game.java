@@ -29,7 +29,7 @@ public class Game {
 		game = new GUI(user, ai);
 	}
 	public static void setup() throws IOException{
-		poke[0] = (new Pokemon("Raeed Rahman", 100,100,100,100,100,100, "Dragon", "Fairy"));
+		poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
 		String line = "";
 		String[][] pokemons = new String[801][13];
 		BufferedReader br = new BufferedReader(new FileReader("Copy of All Pokemon Data Spreadsheet_exported.csv"));
