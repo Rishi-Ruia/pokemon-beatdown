@@ -208,8 +208,7 @@ public class Pokemon {
 	public int setHp(int damage) {
 		hp -= damage;
 		if(hp < 0) hp = 0;
-		return hp;
-	}
+		return hp;}
 	public int getAttack() {return attack;}
 	public int getSPAttack() {return spAttack;}
 	public int getDefense() {return defense;}

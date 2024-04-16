@@ -17,7 +17,8 @@ public class AI extends Game {
 		return current;
 	}
 	public String Switch(int i) {
-		if(AIPokemon.get(i) != null || (AIPokemon.get(i).getHp() !=0 && current != AIPokemon.get(i))) {
+		if(AIPokemon.get(i) != null || (AIPokemon.get(i).getHp() !=0
+				&& current != AIPokemon.get(i))) {
 			String temp = current.getName();
 			current = AIPokemon.get(i);
 			return temp +  " switched to " + current.getName();
@@ -27,7 +28,8 @@ public class AI extends Game {
 	public String AITurn(Pokemon current) {
 		for(int i =0; i < 4; i++) {
 			if(Move.effective(this.current.getMove(i), current) >= 2.0) {
-				String damage = Game.attack(this.current, this.current.getMove(i), current, this.current.getMove(i).isSpecial());
+				String damage = Game.attack(this.current,
+						this.current.getMove(i), current, this.current.getMove(i).isSpecial());
 				if(current.getHp() ==0) {
 					if(user.lost()) {
 						game.displayLose();;

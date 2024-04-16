@@ -127,7 +127,15 @@ public class GUI extends JFrame implements ActionListener{
 		AIconsole.setText("you have lost :(");
 		forceSwitch();
 	}
-	@Override
+	
+	public boolean  playerSwitch(int possition) {
+		String canSwitch = user.Switch(possition);
+		if(canSwitch == null) return true;
+		console.setText(canSwitch);
+		AIconsole.setText(" ");
+		checkDead();
+		return false;
+	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==move1) {
 			console.setText(
@@ -154,46 +162,22 @@ public class GUI extends JFrame implements ActionListener{
 		AIconsole.setText(" ");
 		}
 		else if(e.getSource() == pokemon1) {
-			String canSwitch = user.Switch(0);
-			if(canSwitch == null) return;
-			console.setText(canSwitch);
-			AIconsole.setText(" ");
-			checkDead();
+			if( playerSwitch(0))return;
 		}
 		else if(e.getSource() == pokemon2) {
-			String canSwitch = user.Switch(1);
-			if(canSwitch == null)return;
-			console.setText(canSwitch);
-			AIconsole.setText(" ");
-			checkDead();
+			if( playerSwitch(1))return;
 		}
 		else if(e.getSource() == pokemon3) {
-			String canSwitch = user.Switch(2);
-			if(canSwitch == null) return;
-			console.setText(canSwitch);
-			AIconsole.setText(" ");
-			checkDead();
+			if( playerSwitch(2))return;
 		}
 		else if(e.getSource() == pokemon4) {
-			String canSwitch = user.Switch(3);
-			if(canSwitch == null) return;
-			console.setText(canSwitch);
-			AIconsole.setText(" ");
-			checkDead();
+			if( playerSwitch(3))return;
 		}
 		else if(e.getSource() == pokemon5) {
-			String canSwitch = user.Switch(4);
-			if(canSwitch == null) return;
-			console.setText(canSwitch);
-			AIconsole.setText(" ");
-			checkDead();
+			if( playerSwitch(4))return;
 		}
 		else if(e.getSource() == pokemon6) {
-			String canSwitch = user.Switch(5);
-			if(canSwitch == null) return;
-			console.setText(canSwitch);
-			AIconsole.setText(" ");
-			checkDead();
+			if( playerSwitch(5))return;
 		}
 		if(user.lost()) {
 			this.dispose();
@@ -201,7 +185,6 @@ public class GUI extends JFrame implements ActionListener{
 		if(ai.getCurrent().getHp() ==0 ) {
 			if(ai.lost()) {
 				console.setText("GG you have won!");
-				//this.dispose();
 			}
 			else {
 				ai.fainted();

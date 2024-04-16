@@ -29,7 +29,7 @@ public class Game {
 		game = new GUI(user, ai);
 	}
 	public static void setup() throws IOException{
-		poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
+		poke[0] = (new Pokemon("Rishi Ruia", 120,120,120,120,120,120, "Dragon", "Fairy"));
 		String line = "";
 		String[][] pokemons = new String[801][13];
 		BufferedReader br = new BufferedReader(new FileReader("Copy of All Pokemon Data Spreadsheet_exported.csv"));
@@ -63,18 +63,22 @@ public class Game {
 			defense[i] = (Integer.parseInt(pokemons[i][7]));
 			spDefense[i] =Integer.parseInt(pokemons[i][9]);
 			speed[i] = Integer.parseInt(pokemons[i][10]);
-			poke[i]= (new Pokemon(name[i], hp[i], attack[i], spAttack[i], defense[i], spDefense[i], speed[i], type1[i], type2[i]));
+			poke[i]= (new Pokemon(name[i], hp[i], attack[i], spAttack[i], defense[i],
+					spDefense[i], speed[i], type1[i], type2[i]));
 		}
 		
 	}
-	public static String attack(Pokemon attacker, Move attack, Pokemon attacked, boolean special) {
+	public static String attack(Pokemon attacker, Move attack,
+			Pokemon attacked, boolean special) {
 		if(attack.getName().equals("recover")) {
 			int heal = (int)(attacker.getHp()*.25);
 			attacker.setHp(-heal);
-			return attacker.getName() + " healed for "+ heal + " and is now " + attacker.getHp() ;
+			return attacker.getName() + " healed for "+ heal +
+					" and is now " + attacker.getHp() ;
 		}
 		double stab =1;
-		if(attacker.getType1().equals(attack.getName()) || attacker.getType2().equals(attack.getName())) stab = 1.5;
+		if(attacker.getType1().equals(attack.getName())
+				|| attacker.getType2().equals(attack.getName())) stab = 1.5;
 		double random = stab *(Math.random()*0.15 +0.85);
 		int damage = damageCalc( attacker,  attack,  attacked, special);
 		damage = (int) Math.floor(damage *random);
@@ -82,17 +86,22 @@ public class Game {
 			attacked.setHp(damage);
 			if(attacked.getHp() <= 0) {
 				attacked.setHp(0);
-				return "you used " + attack.getName() + " and " + attacked.getName() + " fainted! " ;
+				return "you used " + attack.getName() +
+						" and " + attacked.getName() + " fainted! " ;
 			}
-			return "you used " + attack.getName() + " it did " + damage + " damage to " + attacked.getName();
+			return "you used " + attack.getName() +
+					" it did " + damage + " damage to " + attacked.getName();
 		}
 		return attack.getName() + " missed!";
 	}
-	public static int damageCalc(Pokemon attacker, Move attack, Pokemon attacked, boolean special) {
+	public static int damageCalc(Pokemon attacker, Move attack,
+			Pokemon attacked, boolean special) {
 		if(!special)
 			return  (int) ((((((((2*100)/5)+2)*attacker.getAttack()
-					*attack.getPower())/attacked.getDefense())/50)+2)*Move.effective(attack, attacked));
+					*attack.getPower())/attacked.getDefense())/50)+2)
+					*Move.effective(attack, attacked));
 		return  (int) ((((((((2*100)/5)+2)*attacker.getSPAttack()
-				*attack.getPower())/attacked.getSPDefense())/50)+2)*Move.effective(attack, attacked));
+				*attack.getPower())/attacked.getSPDefense())/50)+2)
+				*Move.effective(attack, attacked));
 	}
 }
