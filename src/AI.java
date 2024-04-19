@@ -40,13 +40,7 @@ public class AI extends Game {
 				return this.current.getName() + damage.substring(3);
 			}
 		}
-			Move random = new Move();
-			int rand = (int) (Math.random()*4);
-			random = this.current.getMove(rand);
-			String temp = current.getName();
-			if(rand >= 5) if(Switch((int) Math.random()*6+1) != null) {
-				return temp + " switched in to " + this.current.getName(); 
-			}
+			Move random = this.current.getMove((int) (Math.random()*5));
 			if(Move.effective(random, current) ==0 && !(random.equals(current.getMove(0))))
 				random = AIPokemon.get(0).getMove(0);
 			if(Move.effective(random, current) ==0) random.equals(current.getMove(1));
