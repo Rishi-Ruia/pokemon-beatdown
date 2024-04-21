@@ -1,10 +1,12 @@
 import java.util.*; //from https://docs.oracle.com/javase/8/docs/api/java/util/package-summary.html
 public class Move {
+	//instance data
 	private String name;
 	private String type;
 	private int power;
 	private int accuracy;
 	private boolean special;
+	//list of every move that is possible for a pokemon to have
 	private static ArrayList<Move> moves = new ArrayList<Move>();
 	public final static Move thunderbolt = new Move("thunderbolt", "Electric", 90, 100, true);
 	public final static Move flamethrower = new Move("flamethrower", "Fire", 90, 100, true);
@@ -97,6 +99,7 @@ public class Move {
 	protected static String [][] FAIRY = {new String[]{"Dark", "Dragon", "Fighting"}, 
 			new String[] {"Fire", "Steel", "poison"},
 			new String[] {}};
+	//adds moves to the array list
 	public static void addMoves() {
 		moves.add(auraSphere);
 		moves.add(earthquake);
@@ -135,8 +138,11 @@ public class Move {
 		moves.add(darkPulse);
 		moves.add(playRough);
 	}
+	//returns the size of the array list of moves
 	public static int moveLength() {return moves.size();}
-	public static Move getMove(int j) { return moves.get(j);}	
+	//returns a specific move at the position j
+	public static Move getMove(int j) { return moves.get(j);}
+	//constructor to create moves
 	public Move(String name, String type, int power, int accuracy, boolean special) {
 		this.name = name;
 		this.type = type;
@@ -144,9 +150,14 @@ public class Move {
 		this.accuracy = accuracy;
 		this.special = special;
 	}
+	//deafault constructor
 	public Move() {
 		
 	}
+	/*
+	 * calculates the effectiveness of the move against the attacker pokemon uses a dictionary with a bunch of 2d arrays 
+	 * to find if a type is supper effective or not returns a double value with the effectiveness	
+	*/
 	public static double effective(Move attack, Pokemon attacked) {
 		String moveType = attack.getType();
 		String attackedType1 = attacked.getType1();
@@ -199,6 +210,7 @@ public class Move {
 		}
 		
 	}
+	//helper methods
 	public String getName() {return name;}
 	public String getType() {return type;}
 	public int getPower() {return power;}

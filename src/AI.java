@@ -1,7 +1,9 @@
-import java.util.ArrayList;
+import java.util.ArrayList; //from https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
 public class AI extends Game {
+	//instance data
 	private ArrayList<Pokemon> AIPokemon = new ArrayList<Pokemon>();
 	private Pokemon current;
+	//constructor to make the ai have random pokemon
 	public AI() {
 		for(int i =0; i < 6; i++)
 		AIPokemon.add(Game.poke[(int) (Math.random() * Game.poke.length)]);
@@ -13,9 +15,11 @@ public class AI extends Game {
 		}
 		current = AIPokemon.get(0);
 	}
+	//returns the pokemon the ai currently is using in battle
 	public Pokemon getCurrent() {
 		return current;
 	}
+	//used by the ai to switch its pokemon to a new one
 	public String Switch(int i) {
 		if(AIPokemon.get(i) != null || (AIPokemon.get(i).getHp() !=0
 				&& current != AIPokemon.get(i))) {
@@ -25,6 +29,7 @@ public class AI extends Game {
 		}
 		return null;
 	}
+	//this is where the ai chooses what to do this turn
 	public String AITurn(Pokemon current) {
 		for(int i =0; i < 4; i++) {
 			if(Move.effective(this.current.getMove(i), current) >= 2.0) {
@@ -40,7 +45,7 @@ public class AI extends Game {
 				return this.current.getName() + damage.substring(3);
 			}
 		}
-			Move random = this.current.getMove((int) (Math.random()*5));
+			Move random = this.current.getMove((int) (Math.random()*4));
 			if(Move.effective(random, current) ==0 && !(random.equals(current.getMove(0))))
 				random = AIPokemon.get(0).getMove(0);
 			if(Move.effective(random, current) ==0) random.equals(current.getMove(1));
@@ -55,6 +60,7 @@ public class AI extends Game {
 			}
 			return this.current.getName() + damage.replaceAll("you", " ");
 		}
+	//checks if the AI has lost and
 	public  boolean lost() {
 		for(int i =0; i < 6; i++) {
 			if(AIPokemon.get(i).getHp() !=0) {
@@ -63,6 +69,7 @@ public class AI extends Game {
 		}
 		 return true;
 	}
+	//checks if the AI's current pokemon has fainted
 	public void fainted() {
 		for(int i = 0; i < 6; i++) {
 			if(!(AIPokemon.get(i).equals(current)) && AIPokemon.get(i).getHp() != 0) {

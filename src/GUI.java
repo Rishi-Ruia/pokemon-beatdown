@@ -1,9 +1,11 @@
-import java.awt.event.*; //from 
+import java.awt.event.*; //from https://docs.oracle.com/javase/8/docs/api/java/awt/event/package-summary.html
 import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/java/awt/package-summary.html
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
 public class GUI extends JFrame implements ActionListener{
+	//default serial version UID
 	private static final long serialVersionUID = 1L;
+	//the buttons that are on the Jframe
 	private JButton move1;
 	private JButton move2;
 	private JButton move3;
@@ -21,10 +23,12 @@ public class GUI extends JFrame implements ActionListener{
 	private boolean skipturn = false;
 	private JLabel console = new JLabel("A pokemon battle has started!");
 	private JLabel AIconsole = new JLabel();
+	//the constructor to create the initial GUI 
 	public GUI(Player user, AI ai) throws  IOException{
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
+		//icons made by my friend Ali Mohammed
 		JLabel userImage = new JLabel(new ImageIcon("user.png")); //from ALI MOHAMMED
 		JLabel aiImage = new JLabel(new ImageIcon("ai.png")); //from ALI MOHAMMED
 		userImage.setBounds(-100,300,600,600);
@@ -35,7 +39,7 @@ public class GUI extends JFrame implements ActionListener{
 		addSwitch();
 		this.setSize(2000, 1300); 
 		this.setTitle("battle window"); 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //closes frame when you press the x button
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);	
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
@@ -55,6 +59,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(AIconsole);
 		this.setVisible(true);
 	}
+	//adds the moves and resizes them to the Jframe
 	public void addMoves() {
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
 		move1.setBounds(400, 650, 300, 150);
@@ -82,6 +87,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(move4);
 		this.setVisible(true);
 	}
+	//adds the switch buttons to the Jframe
 	private void addSwitch() {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
 		pokemon1.setFont(new Font("Arial", Font.BOLD, 20));
@@ -115,6 +121,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(pokemon6);
 		this.setVisible(true);
 	}
+	//makes the user unable to click a move thus forcing them to switch
 	public  void forceSwitch() {
 		console.setText("you died");
 		move1.setEnabled(false);
@@ -123,11 +130,12 @@ public class GUI extends JFrame implements ActionListener{
 		move4.setEnabled(false);
 		skipturn = true;
 	}
+	//sets the GUI to say you have lost and prevents you from moving
 	public void displayLose() {
 		AIconsole.setText("you have lost :(");
 		forceSwitch();
 	}
-	
+	//updates the GUI to the new pokemon the player switched to
 	public boolean  playerSwitch(int possition) {
 		String canSwitch = user.Switch(possition);
 		if(canSwitch == null) return true;
@@ -136,6 +144,7 @@ public class GUI extends JFrame implements ActionListener{
 		checkDead();
 		return false;
 	}
+	//checks what is clicked on the GUI and calls the corresponding method
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==move1) {
 			console.setText(
@@ -200,6 +209,7 @@ public class GUI extends JFrame implements ActionListener{
 		}
 		this.setVisible(true);
 	}
+	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
 		move1.setText(user.getCurrent().getMove(0).getName());

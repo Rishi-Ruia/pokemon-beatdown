@@ -1,4 +1,4 @@
-import java.util.ArrayList; //from 
+import java.util.ArrayList; //from https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html
 public class Pokemon {
 	// instance data
 	protected int attack;
@@ -11,13 +11,13 @@ public class Pokemon {
 	protected String type1;
 	protected String type2;
 	protected ArrayList<Move> moves = new ArrayList<Move>(); 
-	/** TODO UPDATE CONSTRUCTOR TO INIT NEW INSTANCE VARIABLES **/
-
+	
+	//default constructor 
 	public Pokemon() {
 
 	}
 	/**
-	 * 
+	 * constructs the pokemon objects
 	 * @param name the name of the pokemon 
 	 * @param hp the hp of the pokemon 
 	 * @param attack the attack stat of the pokemon 
@@ -29,7 +29,6 @@ public class Pokemon {
 	 * @param type2 the secondary type of the pokemon 
 	 */
 	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed, String type1, String type2 ) {
-
 		this.attack = (int) ((0.01 * (2 * attack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.spAttack = (int) ((0.01 * (2 * spAttack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.defense = (int) ((0.01 * (2 * defense + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
@@ -39,9 +38,10 @@ public class Pokemon {
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;	
+		//gives them moves conresponding to their type and then randomly assigns the rest
 		Move j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 		if(type1.equals("Normal")) {
-			if(this.attack <= this.spAttack) moves.add( Move.bodySlam);
+			if(this.attack >= this.spAttack) moves.add( Move.bodySlam);
 			else  moves.add(  Move.recover);
 		}
 		if(type1.equals("Fighting")) {
