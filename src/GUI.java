@@ -23,6 +23,11 @@ public class GUI extends JFrame implements ActionListener{
 	private boolean skipturn = false;
 	private JLabel console = new JLabel("A pokemon battle has started!");
 	private JLabel AIconsole = new JLabel();
+	
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private int screenWidth = (int) screenSize.getWidth();
+	private int screenHeight = (int) screenSize.getHeight();
+	
 	//the constructor to create the initial GUI 
 	public GUI(Player user, AI ai) throws  IOException{
 		this.user = user;
@@ -36,8 +41,8 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(userImage);
 		this.add(aiImage);
 		addMoves();
-		addSwitch();
-		this.setSize(2000, 1300); 
+		addSwitch();		
+		this.setSize(screenWidth, screenHeight);
 		this.setTitle("battle window"); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);	
