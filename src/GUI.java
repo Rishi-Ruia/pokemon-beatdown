@@ -68,22 +68,22 @@ public class GUI extends JFrame implements ActionListener{
 	public void addMoves() {
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
 		move1.setBounds(400, 650, 300, 150);
-		move1.setFont(new Font("Arial", Font.PLAIN, 50));
+		move1.setFont(new Font("Arial", Font.PLAIN, 35));
 		move1.setBackground(Color.WHITE);
 		move1.addActionListener(this);
 		move2 = new JButton(user.getCurrent().getMove(1).getName());
 		move2.setBounds(700, 650, 300, 150);
-		move2.setFont(new Font("Arial", Font.PLAIN, 50));
+		move2.setFont(new Font("Arial", Font.PLAIN, 35));
 		move2.setBackground(Color.WHITE);
 		move2.addActionListener(this);
 		move3 = new JButton(user.getCurrent().getMove(2).getName());
 		move3.setBounds(400, 800, 300, 150);
-		move3.setFont(new Font("Arial", Font.PLAIN, 50));
+		move3.setFont(new Font("Arial", Font.PLAIN, 35));
 		move3.setBackground(Color.WHITE);
 		move3.addActionListener(this);
 		move4 = new JButton(user.getCurrent().getMove(3).getName());
 		move4.setBounds(700, 800, 300, 150);
-		move4.setFont(new Font("Arial", Font.PLAIN, 50));
+		move4.setFont(new Font("Arial", Font.PLAIN, 35));
 		move4.setBackground(Color.WHITE);
 		move4.addActionListener(this);
 		this.add(move1);
@@ -128,7 +128,7 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	//makes the user unable to click a move thus forcing them to switch
 	public  void forceSwitch() {
-		console.setText("Your Pokemon has fainted! Switch to a different one.");
+		console.setText("Your Pokemon has fainted!");
 		move1.setEnabled(false);
 		move2.setEnabled(false);
 		move3.setEnabled(false);
