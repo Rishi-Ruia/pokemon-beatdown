@@ -21,7 +21,7 @@ public class GUI extends JFrame implements ActionListener{
 	private JLabel userName;
 	private JLabel AIname; 
 	private boolean skipturn = false;
-	private JLabel console = new JLabel("A pokemon battle has started!");
+	private JLabel console = new JLabel("A Pokemon battle has started!");
 	private JLabel AIconsole = new JLabel();
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -45,7 +45,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.setSize(screenWidth, screenHeight);
 		this.setTitle("battle window"); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);	
+		setLocationRelativeTo(null);
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 80));
@@ -128,7 +128,7 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	//makes the user unable to click a move thus forcing them to switch
 	public  void forceSwitch() {
-		console.setText("you died");
+		console.setText("Your Pokemon has fainted! Switch to a different one.");
 		move1.setEnabled(false);
 		move2.setEnabled(false);
 		move3.setEnabled(false);
@@ -137,7 +137,7 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	//sets the GUI to say you have lost and prevents you from moving
 	public void displayLose() {
-		AIconsole.setText("you have lost :(");
+		AIconsole.setText("You have lost :(");
 		forceSwitch();
 	}
 	//updates the GUI to the new pokemon the player switched to
@@ -198,7 +198,7 @@ public class GUI extends JFrame implements ActionListener{
 		};
 		if(ai.getCurrent().getHp() ==0 ) {
 			if(ai.lost()) {
-				console.setText("GG you have won!");
+				console.setText("GG, you win!");
 			}
 			else {
 				ai.fainted();

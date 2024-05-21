@@ -16,12 +16,22 @@ public class Game {
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
+	
 	//main method used to start and set up game
 	public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
-		File file = new File("blunder theme.wav"); // From https://www.youtube.com/watch?v=0_SeDY8Y3g8
+		String fileName = "diamondAndPearlBattleTheme.wav";
+		// 50% chance of being Blunder theme
+		if (Math.random() < 0.5) {
+			fileName = "blunder theme.wav";
+		}
+		File file = new File(fileName); // From https://www.youtube.com/watch?v=0_SeDY8Y3g8
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioStream);
+		// For adjusting volume
+		FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		// The parameter of setValue is how many decibels you want to adjust the volume by
+		volume.setValue(-12.0f);
 		clip.start();
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		Move.addMoves();
@@ -76,11 +86,11 @@ public class Game {
 	//method for attacking another pokemon
 	public static String attack(Pokemon attacker, Move attack,
 			Pokemon attacked, boolean special) {
-		if(attack.getName().equals("recover")) {
+		if(attack.getName().equals("Recover")) {
 			int heal = (int)(attacker.getHp()*.25);
 			attacker.setHp(-heal);
 			return attacker.getName() + " healed for "+ heal +
-					" and is now " + attacker.getHp() ;
+					" and is now " + attacker.getHp() + " HP !";
 		}
 		double stab =1;
 		if(attacker.getType1().equals(attack.getName())
@@ -92,11 +102,11 @@ public class Game {
 			attacked.setHp(damage);
 			if(attacked.getHp() <= 0) {
 				attacked.setHp(0);
-				return "you used " + attack.getName() +
-						" and " + attacked.getName() + " fainted! " ;
+				return "You used " + attack.getName() +
+						" and " + attacked.getName() + " fainted!" ;
 			}
-			return "you used " + attack.getName() +
-					" it did " + damage + " damage to " + attacked.getName();
+			return "You used " + attack.getName() +
+					" and it did " + damage + " damage to " + attacked.getName() + "!";
 		}
 		return attack.getName() + " missed!";
 	}

@@ -215,6 +215,11 @@ public class Pokemon {
 	public int getSPDefense() {return spDefense;}
 	public int getSpeed() {return speed;}
 	public int getHp() {return hp;}
-	public String getName() {return name;}
+	public String getName() {
+		if (name.contains("Mega ")) {
+			return name.substring(name.indexOf("Mega "));
+		}
+		return name;
+	}
 	public Move getMove(int i) {return moves.get(i);}
 }
