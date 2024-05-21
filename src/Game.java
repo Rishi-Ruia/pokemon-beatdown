@@ -16,12 +16,11 @@ public class Game {
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
-	
 	//main method used to start and set up game
 	public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
 		String fileName = "diamondAndPearlBattleTheme.wav";
 		// 50% chance of being Blunder theme
-		if (Math.random() < 0.5) {
+		if (Math.random() <= 0.5) {
 			fileName = "blunder theme.wav";
 		}
 		File file = new File(fileName); // From https://www.youtube.com/watch?v=0_SeDY8Y3g8
@@ -46,7 +45,6 @@ public class Game {
 		poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
 		String line = "";
 		String[][] pokemons = new String[801][13];
-		//this is where I use buffer reader to read the file 
 		BufferedReader br = new BufferedReader(new FileReader("Copy of All Pokemon Data Spreadsheet_exported.csv"));
 		int i = 0;
 		String[] pokemon = new String [pokemons.length];

@@ -1,5 +1,7 @@
 import java.awt.event.*; //from https://docs.oracle.com/javase/8/docs/api/java/awt/event/package-summary.html
 import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/java/awt/package-summary.html
+
+import javax.imageio.ImageIO;
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
 public class GUI extends JFrame implements ActionListener{
@@ -25,8 +27,8 @@ public class GUI extends JFrame implements ActionListener{
 	private JLabel AIconsole = new JLabel();
 	
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private int screenWidth = (int) screenSize.getWidth();
-	private int screenHeight = (int) screenSize.getHeight();
+	private int width = (int) screenSize.getWidth();
+	private int height = (int) screenSize.getHeight();
 	
 	//the constructor to create the initial GUI 
 	public GUI(Player user, AI ai) throws  IOException{
@@ -34,15 +36,16 @@ public class GUI extends JFrame implements ActionListener{
 		this.ai = ai;
 		this.setLayout(null);
 		//icons made by my friend Ali Mohammed
-		JLabel userImage = new JLabel(new ImageIcon("user.png")); //from ALI MOHAMMED
-		JLabel aiImage = new JLabel(new ImageIcon("ai.png")); //from ALI MOHAMMED
-		userImage.setBounds(-100,300,600,600);
-		aiImage.setBounds(1558,-20,600,600);
+		JLabel userImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); //from ALI MOHAMMED
+		JLabel aiImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); //from ALI MOHAMMED
+		int imageWidth = ImageIO.read(new File("AISprite_CSAProject_Raeed.png")).getWidth();
+		userImage.setBounds(width/5,height/2,imageWidth, imageWidth);
+		aiImage.setBounds(width - imageWidth,imageWidth,imageWidth,imageWidth);
 		this.add(userImage);
 		this.add(aiImage);
 		addMoves();
 		addSwitch();		
-		this.setSize(screenWidth, screenHeight);
+		this.setSize(width, height);
 		this.setTitle("battle window"); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -67,23 +70,23 @@ public class GUI extends JFrame implements ActionListener{
 	//adds the moves and resizes them to the Jframe
 	public void addMoves() {
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
-		move1.setBounds(400, 650, 300, 150);
-		move1.setFont(new Font("Arial", Font.PLAIN, 35));
+		move1.setBounds(width / 6, (int) (height - height / 2.5), (int) (width / 6.5), height / 14);
+		move1.setFont(new Font("Arial", Font.PLAIN, 20));
 		move1.setBackground(Color.WHITE);
 		move1.addActionListener(this);
 		move2 = new JButton(user.getCurrent().getMove(1).getName());
-		move2.setBounds(700, 650, 300, 150);
-		move2.setFont(new Font("Arial", Font.PLAIN, 35));
+		move2.setBounds(2 * (width / 6), (int) (height - height / 2.5), (int) (width / 6.5), height / 14);
+		move2.setFont(new Font("Arial", Font.PLAIN, 20));
 		move2.setBackground(Color.WHITE);
 		move2.addActionListener(this);
 		move3 = new JButton(user.getCurrent().getMove(2).getName());
-		move3.setBounds(400, 800, 300, 150);
-		move3.setFont(new Font("Arial", Font.PLAIN, 35));
+		move3.setBounds(3 * (width / 6), (int) (height - height / 2.5), (int) (width / 6.5), height / 14);
+		move3.setFont(new Font("Arial", Font.PLAIN, 20));
 		move3.setBackground(Color.WHITE);
 		move3.addActionListener(this);
 		move4 = new JButton(user.getCurrent().getMove(3).getName());
-		move4.setBounds(700, 800, 300, 150);
-		move4.setFont(new Font("Arial", Font.PLAIN, 35));
+		move4.setBounds(4 * (width / 6), (int) (height - height / 2.5), (int) (width / 6.5), height / 14);
+		move4.setFont(new Font("Arial", Font.PLAIN, 20));
 		move4.setBackground(Color.WHITE);
 		move4.addActionListener(this);
 		this.add(move1);
@@ -96,7 +99,7 @@ public class GUI extends JFrame implements ActionListener{
 	private void addSwitch() {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
 		pokemon1.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon1.setBounds(1000, 650, 170, 150);
+		pokemon1.setBounds(width / 36, height / 36, 170, 150);
 		pokemon1.addActionListener(this);
 		this.add(pokemon1);
 		pokemon2 = new JButton(user.getPokemon(1).getName());
