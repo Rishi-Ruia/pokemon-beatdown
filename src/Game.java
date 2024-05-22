@@ -12,7 +12,7 @@ public class Game {
 	protected static int [] hp;
 	protected static int [] spAttack;
 	protected static int [] spDefense;
-	protected static Pokemon[] poke = new Pokemon[801];
+	protected static Pokemon[] poke = new Pokemon[719];
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
@@ -44,7 +44,7 @@ public class Game {
 		//poke[0] is named Raeed Rahman as an easter egg of my friend who game me the idea to make this
 		poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
 		String line = "";
-		String[][] pokemons = new String[801][13];
+		String[][] pokemons = new String[719][13];
 		BufferedReader br = new BufferedReader(new FileReader("Copy of All Pokemon Data Spreadsheet_exported.csv"));
 		int i = 0;
 		String[] pokemon = new String [pokemons.length];

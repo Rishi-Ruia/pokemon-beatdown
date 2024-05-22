@@ -33,7 +33,7 @@ public class GUI extends JFrame implements ActionListener{
 	//the constructor to create the initial GUI 
 	public GUI(Player user, AI ai) throws  IOException{
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, new File("PokemonGb-Raeo(1).ttf"));
+		font = Font.createFont(Font.TYPE1_FONT, new File("PokemonGb-RAeo (1).ttf"));
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("PokemonGb-Raeo(1).ttf")));
 		}
