@@ -45,11 +45,29 @@ public class AI extends Game {
 				return this.current.getName() + damage.substring(3);
 			}
 		}
-			Move random = this.current.getMove((int) (Math.random()*4));
-			if(Move.effective(random, current) ==0 && !(random.equals(current.getMove(0))))
-				random = AIPokemon.get(0).getMove(0);
-			if(Move.effective(random, current) ==0) random.equals(current.getMove(1));
-			String damage = Game.attack(this.current, random, current, random.isSpecial());
+		Move use = new Move();
+		Move random;
+		boolean healed = false;
+		String damage = "";
+		for(int  i =0; i < 4; i++) {
+			
+			random = this.current.getMove(i);
+			int max = 0;
+			healed = false;
+			double stab =0;
+			if(this.current.getType1().equals(random.getType())
+					|| this.current.getType2().equals(random.getType()))  stab = 1.5;
+			double mod = stab *(Math.random()*0.15 +0.85);
+			int currentDamage = Game.damageCalc(this.current, random, current, random.isSpecial(), mod);
+			if( currentDamage > max) {
+				use = random;
+				max = currentDamage;
+			}
+			if(random.getName().equals("Recover")) healed = true;
+		}		
+		if(Math.random()*100 < 30 && healed) 
+			damage = Game.attack(this.current, Move.recover, current, use.isSpecial());
+		else damage = Game.attack(this.current, use, current, use.isSpecial());
 			if(damage.contains("healed")) return this.current.getName() + " healed!";
 			if(current.getHp() ==0) {
 				if(user.lost()) {

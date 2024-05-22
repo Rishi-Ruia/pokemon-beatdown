@@ -94,8 +94,7 @@ public class Game {
 		if(attacker.getType1().equals(attack.getName())
 				|| attacker.getType2().equals(attack.getName())) stab = 1.5;
 		double random = stab *(Math.random()*0.15 +0.85);
-		int damage = damageCalc( attacker,  attack,  attacked, special);
-		damage = (int) Math.floor(damage *random);
+		int damage = damageCalc( attacker,  attack,  attacked, special, random);
 		if((int) (Math.random() *101) <= attack.getAccuracy()) {
 			attacked.setHp(damage);
 			if(attacked.getHp() <= 0) {
@@ -110,13 +109,13 @@ public class Game {
 	}
 	//method that calculates the damage that the move does called by the damage method
 	public static int damageCalc(Pokemon attacker, Move attack,
-			Pokemon attacked, boolean special) {
+			Pokemon attacked, boolean special, double random) {
 		if(!special)
 			return  (int) ((((((((2*100)/5)+2)*attacker.getAttack()
 					*attack.getPower())/attacked.getDefense())/50)+2)
-					*Move.effective(attack, attacked));
+					*Move.effective(attack, attacked)*random);
 		return  (int) ((((((((2*100)/5)+2)*attacker.getSPAttack()
 				*attack.getPower())/attacked.getSPDefense())/50)+2)
-				*Move.effective(attack, attacked));
+				*Move.effective(attack, attacked)*random);
 	}
 }
