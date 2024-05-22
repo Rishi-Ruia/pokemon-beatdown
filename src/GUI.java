@@ -43,13 +43,11 @@ public class GUI extends JFrame implements ActionListener{
 		catch(Exception e) {
 			
 		}
-		
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
-		//icons made by my friend Ali Mohammed
-		JLabel userImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); //from ALI MOHAMMED
-		JLabel aiImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); //from ALI MOHAMMED
+		JLabel userImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
+		JLabel aiImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
 		int imageWidth = ImageIO.read(new File("AISprite_CSAProject_Raeed.png")).getWidth();
 		userImage.setBounds(width/5,height/2,imageWidth, imageWidth);
 		aiImage.setBounds(width - imageWidth,imageWidth,imageWidth,imageWidth);
@@ -64,10 +62,10 @@ public class GUI extends JFrame implements ActionListener{
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 80));
-		userName.setBounds(500, 50, 1000, 1000);
+		userName.setBounds(width/4, -height/10, 1000, 1000);
 		this.add(userName);
 		AIname.setFont(new Font("Arial", Font.BOLD, 80));
-		AIname.setBounds(1000, -250 , 1000, 1000);
+		AIname.setBounds((int) (width/1.5), (int) (-height/2.5) , 1000, 1000);
 		this.add(AIname);
 		console.setBounds(width / 6, (int) (height - height / 4), width - width / 6, height / 12);		
 		console.setFont(new Font("Arial", Font.ITALIC, 30));

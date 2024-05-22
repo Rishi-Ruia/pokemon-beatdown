@@ -99,10 +99,10 @@ public class Game {
 			attacked.setHp(damage);
 			if(attacked.getHp() <= 0) {
 				attacked.setHp(0);
-				return "You used " + attack.getName() +
+				return attacker.getName() + " used " + attack.getName() +
 						" and " + attacked.getName() + " fainted!" ;
 			}
-			return "You used " + attack.getName() +
+			return attacker.getName() + " used " + attack.getName() +
 					" and it did " + damage + " damage to " + attacked.getName() + "!";
 		}
 		return attack.getName() + " missed!";
