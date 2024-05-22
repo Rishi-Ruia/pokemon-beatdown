@@ -50,11 +50,10 @@ public class AI extends Game {
 		boolean healed = false;
 		String damage = "";
 		for(int  i =0; i < 4; i++) {
-			
 			random = this.current.getMove(i);
 			int max = 0;
 			healed = false;
-			double stab =0;
+			double stab =1;
 			if(this.current.getType1().equals(random.getType())
 					|| this.current.getType2().equals(random.getType()))  stab = 1.5;
 			double mod = stab *(Math.random()*0.15 +0.85);

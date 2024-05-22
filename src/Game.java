@@ -91,8 +91,8 @@ public class Game {
 					" and is now " + attacker.getHp() + " HP !";
 		}
 		double stab =1;
-		if(attacker.getType1().equals(attack.getName())
-				|| attacker.getType2().equals(attack.getName())) stab = 1.5;
+		if(attacker.getType1().equals(attack.getType())
+				|| attacker.getType2().equals(attack.getType())) stab = 1.5;
 		double random = stab *(Math.random()*0.15 +0.85);
 		int damage = damageCalc( attacker,  attack,  attacked, special, random);
 		if((int) (Math.random() *101) <= attack.getAccuracy()) {
