@@ -51,7 +51,7 @@ public class Game {
 			pokemon = line.split(",");
 			pokemons[i] = pokemon;
 			i++;
-		}
+		} 
 		br.close();
 		name = new String[pokemons.length];
 		type2 = new String[pokemons.length];
