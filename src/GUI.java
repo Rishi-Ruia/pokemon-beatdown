@@ -25,13 +25,22 @@ public class GUI extends JFrame implements ActionListener{
 	private boolean skipturn = false;
 	private JLabel console = new JLabel("A Pokemon battle has started!");
 	private JLabel AIconsole = new JLabel();
-	
+	private Font font;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int width = (int) screenSize.getWidth();
 	private int height = (int) screenSize.getHeight();
 	
 	//the constructor to create the initial GUI 
 	public GUI(Player user, AI ai) throws  IOException{
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, new File("PokemonGb-Raeo(1).ttf"));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("PokemonGb-Raeo(1).ttf")));
+		}
+		catch(Exception e) {
+			
+		}
+		
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
@@ -71,7 +80,7 @@ public class GUI extends JFrame implements ActionListener{
 	public void addMoves() {
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
 		move1.setBounds(width / 6, (int) (height - height / 3), (int) (width / 6.5), height / 14);
-		move1.setFont(new Font("Arial", Font.PLAIN, 20));
+		move1.setFont(font);
 		move1.setBackground(Color.WHITE);
 		move1.addActionListener(this);
 		move2 = new JButton(user.getCurrent().getMove(1).getName());
