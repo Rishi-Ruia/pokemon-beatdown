@@ -221,5 +221,8 @@ public class Pokemon {
 		}
 		return name;
 	}
+	public String getRawName() {
+		return name.toLowerCase();
+	}
 	public Move getMove(int i) {return moves.get(i);}
 }

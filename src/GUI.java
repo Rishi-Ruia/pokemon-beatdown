@@ -4,6 +4,8 @@ import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F
 import javax.imageio.ImageIO;
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
+import java.net.MalformedURLException;
+import java.net.URL;
 public class GUI extends JFrame implements ActionListener{
 	//default serial version UID
 	private static final long serialVersionUID = 1L;
@@ -29,6 +31,7 @@ public class GUI extends JFrame implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int width = (int) screenSize.getWidth();
 	private int height = (int) screenSize.getHeight();
+	private JLabel userMonLabel;
 	
 	//the constructor to create the initial GUI 
 	public GUI(Player user, AI ai) throws  IOException{
@@ -74,6 +77,16 @@ public class GUI extends JFrame implements ActionListener{
 		AIconsole.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		this.add(AIconsole);
+		
+		URL userMonURL = new URL("https://play.pokemonshowdown.com/sprites/gen5ani-back/" + user.getCurrent().getRawName() + ".gif");
+		ImageIcon userMon = new ImageIcon(userMonURL);
+		userMon.setImage(userMon.getImage().getScaledInstance(userMon.getIconWidth() * 3, 
+				userMon.getIconHeight() * 3, Image.SCALE_DEFAULT));
+		userMonLabel = new JLabel(userMon);
+		this.add(userMonLabel);
+		userMonLabel.setBounds(width / 4, (int) (height / 2.5), 
+				userMon.getIconWidth() * 3, userMon.getIconHeight() * 3);
+		userMonLabel.setAlignmentX(width / 4f);
 		this.setVisible(true);
 	}
 	//adds the moves and resizes them to the Jframe
@@ -153,8 +166,8 @@ public class GUI extends JFrame implements ActionListener{
 		forceSwitch();
 	}
 	//updates the GUI to the new pokemon the player switched to
-	public boolean  playerSwitch(int possition) {
-		String canSwitch = user.Switch(possition);
+	public boolean playerSwitch(int position) {
+		String canSwitch = user.Switch(position);
 		if(canSwitch == null) return true;
 		console.setText(canSwitch);
 		AIconsole.setText(" ");
@@ -229,6 +242,12 @@ public class GUI extends JFrame implements ActionListener{
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
+		try {
+			userMonLabel.setIcon(new ImageIcon(new URL(
+					"https://play.pokemonshowdown.com/sprites/gen5ani-back/" + user.getCurrent().getRawName() + ".gif")));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		move1.setText(user.getCurrent().getMove(0).getName());
 		move2.setText(user.getCurrent().getMove(1).getName());
 		move3.setText(user.getCurrent().getMove(2).getName());
