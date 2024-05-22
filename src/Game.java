@@ -45,7 +45,7 @@ public class Game {
 		poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
 		String line = "";
 		String[][] pokemons = new String[719][13];
-		BufferedReader br = new BufferedReader(new FileReader("Copy of All Pokemon Data Spreadsheet_exported.csv"));
+		BufferedReader br = new BufferedReader(new FileReader("Gen5Pokedex.csv"));
 		int i = 0;
 		String[] pokemon = new String [pokemons.length];
 		while((line = br.readLine()) != null) {
