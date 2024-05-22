@@ -241,7 +241,6 @@ public class GUI extends JFrame implements ActionListener{
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
-		
 		try {
 			URL iconURL = new URL(
 					"https://play.pokemonshowdown.com/sprites/gen5ani-back/" + user.getCurrent().getRawName() + ".gif");

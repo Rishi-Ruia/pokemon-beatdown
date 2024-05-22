@@ -12,7 +12,7 @@ public class Game {
 	protected static int [] hp;
 	protected static int [] spAttack;
 	protected static int [] spDefense;
-	protected static Pokemon[] poke = new Pokemon[719];
+	protected static Pokemon[] poke = new Pokemon[651];
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
@@ -41,10 +41,9 @@ public class Game {
 	}
 	//method to create the Pokemon objects
 	public static void setup() throws IOException{
-		//poke[0] is named Raeed Rahman as an easter egg of my friend who game me the idea to make this
-		poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
+		//poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
 		String line = "";
-		String[][] pokemons = new String[719][13];
+		String[][] pokemons = new String[651][13];
 		BufferedReader br = new BufferedReader(new FileReader("Gen5Pokedex.csv"));
 		int i = 0;
 		String[] pokemon = new String [pokemons.length];
@@ -63,10 +62,7 @@ public class Game {
 		hp = new int[pokemons.length];
 		spAttack = new int[pokemons.length];
 		spDefense = new int[pokemons.length];
-		for(i = 1; i < pokemons.length; i++) {
-			for(int j =0; j < pokemons[i].length; j++) {
-				pokemons[i][j] = pokemons[i][j].substring(1, pokemons[i][j].length()-1);				
-			}
+		for(i = 0; i < pokemons.length; i++) {
 			name[i] = pokemons[i][1];
 			type2[i] = pokemons[i][3];
 			hp[i] = Integer.parseInt(pokemons[i][4]);
