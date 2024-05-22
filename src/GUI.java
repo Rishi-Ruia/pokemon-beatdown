@@ -5,7 +5,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.*;
 public class GUI extends JFrame implements ActionListener{
 	//default serial version UID
 	private static final long serialVersionUID = 1L;
@@ -87,6 +87,7 @@ public class GUI extends JFrame implements ActionListener{
 		userMonLabel.setBounds(width / 4, (int) (height / 2.5), 
 				userMon.getIconWidth() * 3, userMon.getIconHeight() * 3);
 		userMonLabel.setAlignmentX(width / 4f);
+		
 		this.setVisible(true);
 	}
 	//adds the moves and resizes them to the Jframe
@@ -242,9 +243,14 @@ public class GUI extends JFrame implements ActionListener{
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
+		
 		try {
-			userMonLabel.setIcon(new ImageIcon(new URL(
-					"https://play.pokemonshowdown.com/sprites/gen5ani-back/" + user.getCurrent().getRawName() + ".gif")));
+			URL iconURL = new URL(
+					"https://play.pokemonshowdown.com/sprites/gen5ani-back/" + user.getCurrent().getRawName() + ".gif");
+			if (!isValidURL(iconURL)) {
+				iconURL = new URL("https://play.pokemonshowdown.com/sprites/gen5/0.png");
+			}
+			userMonLabel.setIcon(new ImageIcon(iconURL));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
@@ -270,6 +276,17 @@ public class GUI extends JFrame implements ActionListener{
 		move3.setEnabled(true);
 		move4.setEnabled(true);
 		this.setVisible(true);
+	}
+	
+	public static boolean isValidURL(URL url) {
+		try {
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("HEAD");
+			int responseCode = connection.getResponseCode();
+			return (responseCode == HttpURLConnection.HTTP_OK);
+		} catch (IOException e) {
+			return false;
+		}
 	}
 	
 //	public void userHP() {
