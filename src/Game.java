@@ -13,7 +13,7 @@ public class Game {
 	protected static int [] spAttack;
 	protected static int [] spDefense;
 	protected static int [] dex;
-	public static Pokemon[] poke = new Pokemon[651];
+	public static Pokemon[] poke = new Pokemon[650];
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
@@ -43,7 +43,7 @@ public class Game {
 	public static void setup() throws IOException{
 		//poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon", "Fairy"));
 		String line = "";
-		String[][] pokemons = new String[651][13];
+		String[][] pokemons = new String[650][13];
 		BufferedReader br = new BufferedReader(new FileReader("Gen5Pokedex.csv"));
 		int i = 0;
 		String[] pokemon = new String [pokemons.length];

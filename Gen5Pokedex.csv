@@ -26,10 +26,10 @@
 26,Raichu,485,,60,Electric,90,55,90,80,110,1,FALSE
 27,Sandshrew,300,,50,Ground,75,85,20,30,40,1,FALSE
 28,Sandslash,450,,75,Ground,100,110,45,55,65,1,FALSE
-29,Nidoran♀,275,,55,Poison,47,52,40,40,41,1,FALSE
+29,Nidorana,275,,55,Poison,47,52,40,40,41,1,FALSE
 30,Nidorina,365,,70,Poison,62,67,55,55,56,1,FALSE
 31,Nidoqueen,505,Ground,90,Poison,92,87,75,85,76,1,FALSE
-32,Nidoran♂,273,,46,Poison,57,40,40,40,50,1,FALSE
+32,Nidorana,273,,46,Poison,57,40,40,40,50,1,FALSE
 33,Nidorino,365,,61,Poison,72,57,55,55,65,1,FALSE
 34,Nidoking,505,Ground,81,Poison,102,77,85,75,85,1,FALSE
 35,Clefairy,323,,70,Fairy,45,48,60,65,35,1,FALSE
@@ -556,8 +556,7 @@
 552,Krokorok,351,Dark,60,Ground,82,45,45,45,74,5,FALSE
 553,Krookodile,519,Dark,95,Ground,117,80,65,70,92,5,FALSE
 554,Darumaka,315,,70,Fire,90,45,15,45,50,5,FALSE
-555,DarmanitanStandard Mode,480,,105,Fire,140,55,30,55,95,5,FALSE
-555,DarmanitanZen Mode,540,Psychic,105,Fire,30,105,140,105,55,5,FALSE
+555,Darmanitan,480,,105,Fire,140,55,30,55,95,5,FALSE
 556,Maractus,461,,75,Grass,86,67,106,67,60,5,FALSE
 557,Dwebble,325,Rock,50,Bug,65,85,35,35,55,5,FALSE
 558,Crustle,475,Rock,70,Bug,95,125,65,75,45,5,FALSE

@@ -34,17 +34,19 @@ public class GUI extends JFrame implements ActionListener{
 	private JLabel aiMon;
 	private JLabel backgroundFinal;
 	protected int round=0;
+	protected JProgressBar userHP;
+	protected JProgressBar aiHP;
 	//the constructor to create the initial GUI 
 	public ImageIcon gifsIcon(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
 		Image image = imageIcon.getImage(); 
-		Image newimg = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT); 
+		Image newimg = image.getScaledInstance(width/6, width/6, Image.SCALE_DEFAULT); 
 		return new ImageIcon(newimg);
 	}
 	public JLabel pokemongifs(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
 			Image image = imageIcon.getImage(); 
-			Image newimg = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT); 
+			Image newimg = image.getScaledInstance(width/6, width/6, Image.SCALE_DEFAULT); 
 			return new JLabel( new ImageIcon(newimg)); 
 		}
 		
@@ -52,19 +54,21 @@ public class GUI extends JFrame implements ActionListener{
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
+		userBar();
+		aiBar();
 		userMon = (pokemongifs(true));
 		this.add(userMon);
-		userMon.setBounds(width/4,height/9,500, 500);
+		userMon.setBounds((int)(width/3.4),(int)( height/3.1),width/6, width/6);
 		aiMon = (pokemongifs(false));
 		add(aiMon);
-		aiMon.setBounds((int) (width/1.5), height/20, 500, 500);
+		aiMon.setBounds((int) (width/1.65), height/6, width/6, width/6);
 		ImageIcon tempIcon = new ImageIcon("AISprite_CSAProject_Raeed.png");
 		Image temp = tempIcon.getImage();
-		Image newTemp = temp.getScaledInstance(250, 600, Image.SCALE_DEFAULT); 
+		Image newTemp = temp.getScaledInstance(width/4, height/2, Image.SCALE_DEFAULT); 
 		JLabel userImage = new JLabel(new ImageIcon(newTemp)); 
 		JLabel aiImage =new JLabel(new ImageIcon(newTemp)); 
-		userImage.setBounds(width/20,height/14,500, 600);
-		aiImage.setBounds((int) (width/1.2), -height/35,500,600);
+		userImage.setBounds(width/12,height/6,width/4, height/2);
+		aiImage.setBounds((int) (width/1.28), -height/27,width/4,height/2);
 		this.add(userImage);
 		this.add(aiImage);
 		addMoves();
@@ -76,10 +80,10 @@ public class GUI extends JFrame implements ActionListener{
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 80));
-		userName.setBounds((int) (width/3.4), -height/2, 1000, 1000);
+		userName.setBounds((int) (width/3.5), (int)( -height/4), width/2, (int) (height/1.1));
 		this.add(userName);
 		AIname.setFont(new Font("Arial", Font.BOLD, 80));
-		AIname.setBounds((int) (width/1.4), (int) (-height/2.5) , 1000, 1000);
+		AIname.setBounds((int) (width/1.7), (int) (-height/2.5) , width/2, (int) (height/1.1));
 		this.add(AIname);
 		console.setBounds(width / 6, (int) (height - height / 4), width - width / 6, height / 12);		
 		console.setFont(new Font("Arial", Font.ITALIC, 30));
@@ -102,23 +106,23 @@ public class GUI extends JFrame implements ActionListener{
 	public void addMoves() {
 		add(aiMon);
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
-		move1.setBounds(width / 6, (int) (height - height / 3), (int) (width / 6.5), height / 14);
-		move1.setFont(new Font("Arial", Font.PLAIN, 20));
+		move1.setBounds(width / 5, (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move1.setFont(new Font("Arial", Font.PLAIN, 25));
 		move1.setBackground(Color.WHITE);
 		move1.addActionListener(this);
 		move2 = new JButton(user.getCurrent().getMove(1).getName());
-		move2.setBounds(2 * (width / 6), (int) (height - height / 3), (int) (width / 6.5), height / 14);
-		move2.setFont(new Font("Arial", Font.PLAIN, 20));
+		move2.setBounds(2 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move2.setFont(new Font("Arial", Font.PLAIN, 25));
 		move2.setBackground(Color.WHITE);
 		move2.addActionListener(this);
 		move3 = new JButton(user.getCurrent().getMove(2).getName());
-		move3.setBounds(3 * (width / 6), (int) (height - height / 3), (int) (width / 6.5), height / 14);
-		move3.setFont(new Font("Arial", Font.PLAIN, 20));
+		move3.setBounds(3 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move3.setFont(new Font("Arial", Font.PLAIN, 25));
 		move3.setBackground(Color.WHITE);
 		move3.addActionListener(this);
 		move4 = new JButton(user.getCurrent().getMove(3).getName());
-		move4.setBounds(4 * (width / 6), (int) (height - height / 3), (int) (width / 6.5), height / 14);
-		move4.setFont(new Font("Arial", Font.PLAIN, 20));
+		move4.setBounds(4 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move4.setFont(new Font("Arial", Font.PLAIN, 25));
 		move4.setBackground(Color.WHITE);
 		move4.addActionListener(this);
 		this.add(move1);
@@ -138,32 +142,32 @@ public class GUI extends JFrame implements ActionListener{
 	private void addSwitch() {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
 		pokemon1.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon1.setBounds(width / 84, height / 36, width / 8, width / 16);
+		pokemon1.setBounds(width/200, height / 36, width / 8, width / 16);
 		pokemon1.addActionListener(this);
 		this.add(pokemon1);
 		pokemon2 = new JButton(user.getPokemon(1).getName());
 		pokemon2.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon2.setBounds(width / 84, height / 36 + (width / 14), width / 8, width / 16);
+		pokemon2.setBounds(width / 200, height / 36 + (width / 14), width / 8, width / 16);
 		pokemon2.addActionListener(this);
 		this.add(pokemon2);
 		pokemon3 = new JButton(user.getPokemon(2).getName());
 		pokemon3.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon3.setBounds(width / 84, height / 36 + 2 * (width / 14), width / 8, width / 16);
+		pokemon3.setBounds(width / 200, height / 36 + 2 * (width / 14), width / 8, width / 16);
 		pokemon3.addActionListener(this);
 		this.add(pokemon3);
 		pokemon4 = new JButton(user.getPokemon(3).getName());
 		pokemon4.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon4.setBounds(width / 84, height / 36 + 3 * (width / 14), width / 8, width / 16);
+		pokemon4.setBounds(width / 200, height / 36 + 3 * (width / 14), width / 8, width / 16);
 		pokemon4.addActionListener(this);
 		this.add(pokemon4);
 		pokemon5 = new JButton(user.getPokemon(4).getName());
 		pokemon5.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon5.setBounds(width / 84, height / 36 + 4 * (width / 14), width / 8, width / 16);
+		pokemon5.setBounds(width / 200, height / 36 + 4 * (width / 14), width / 8, width / 16);
 		pokemon5.addActionListener(this);
 		this.add(pokemon5);
 		pokemon6 = new JButton(user.getPokemon(5).getName());
 		pokemon6.setFont(new Font("Arial", Font.BOLD, 20));
-		pokemon6.setBounds(width / 84, height / 36 + 5 * (width / 14), width / 8, width / 16);
+		pokemon6.setBounds(width / 200, height / 36 + 5 * (width / 14), width / 8, width / 16);
 		pokemon6.addActionListener(this);
 		this.add(pokemon6);
 		this.setVisible(true);
@@ -199,6 +203,7 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	//checks what is clicked on the GUI and calls the corresponding method
 	public void actionPerformed(ActionEvent e) {
+		userMon.enable();
 		if(e.getSource()==move1) {
 			console.setText(
 					Game.attack(user.getCurrent(), user.getCurrent().getMove(0),
@@ -216,13 +221,12 @@ public class GUI extends JFrame implements ActionListener{
 					Game.attack(user.getCurrent(), user.getCurrent().getMove(2),
 							ai.getCurrent(), user.getCurrent().getMove(2).isSpecial()));
 			AIconsole.setText(" ");
-			this.remove(userMon);
 		}
 		else if(e.getSource() == move4) {
 			console.setText(
 					Game.attack(user.getCurrent(), user.getCurrent().getMove(3),
 							ai.getCurrent(), user.getCurrent().getMove(3).isSpecial()));
-		AIconsole.setText(" ");
+		
 		}
 		else if(e.getSource() == pokemon1) {
 			if( playerSwitch(0))return;
@@ -242,14 +246,7 @@ public class GUI extends JFrame implements ActionListener{
 		else if(e.getSource() == pokemon6) {
 			if( playerSwitch(5))return;
 		}
-		if(user.lost()) {
-			this.forceSwitch();
-			AIconsole.setText("");
-			console.setText(round + "");
-		};
-		if(ai.getCurrent().getHp() ==0 ) {
-			
-			
+		if(ai.getCurrent().getHp() ==0 ) {			
 			if(ai.lost()) {
 				console.setText("GG, you win!");
 				aiMon.disable();
@@ -271,11 +268,20 @@ public class GUI extends JFrame implements ActionListener{
 				return;
 			}
 			AIconsole.setText(ai.AITurn(user.getCurrent()));
+			if(user.getCurrent().getHp() ==0)
+			userMon.setIcon(gifsIcon(true));
 		}
 		this.setVisible(true);
-		
 		this.repaint();
 		this.revalidate();
+		if(user.getCurrent().getHp()==0) {
+			userMon.disable();
+		}
+		if(user.lost()) {
+			this.forceSwitch();
+			AIconsole.setText("");
+			console.setText(round + "");
+		}
 	}
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
@@ -305,19 +311,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 		this.setVisible(true);
-	}
-	
-	public static boolean isValidURL(URL url) {
-		try {
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("HEAD");
-			int responseCode = connection.getResponseCode();
-			return (responseCode == HttpURLConnection.HTTP_OK);
-		} catch (IOException e) {
-			return false;
-		}
-	}
-	
+	}	
 	public String spriteInit(boolean isUser) {
 		if(isUser) {
 			Pokemon current = user.getCurrent();		
@@ -343,10 +337,27 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	
 	
-//	public void userHP() {
-//		JProgressBar hp = new JProgressBar(0, user.getCurrent().getHp());	
-//		hp.setBounds();
-//	}
-//	public void aiHP() {
-//	}
+	public void userBar() {
+		userHP = new JProgressBar(0, user.getCurrent().getHp());	
+		userHP.setBounds( (int) (width/3.5), height/4, (int) (width/4.3), height/20);
+		userHP.setForeground(Color.green);
+		userHP.setValue(user.getCurrent().getHp());
+		add(userHP, Color.green);
+	}
+	public void aiBar() {
+		aiHP = new JProgressBar(0, ai.getCurrent().getHp());	
+		aiHP.setBounds( (int) (width/1.7), height/9, (int) (width/4.3), height/20);
+		aiHP.setForeground(Color.green);
+		aiHP.setValue(ai.getCurrent().getHp());
+		add(aiHP, Color.green);
+	}
+	public void update(JProgressBar hp) {
+		int i =0;
+		try {
+			whi
+		}
+		catch(Exception e) {
+			
+		}
+	}
 }
