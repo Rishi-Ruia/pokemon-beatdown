@@ -32,6 +32,12 @@ public class GUI extends JFrame implements ActionListener{
 	private int width = (int) screenSize.getWidth();
 	private int height = (int) screenSize.getHeight();	
 	//the constructor to create the initial GUI 
+	public JLabel pokemongifs(boolean pokemon) {
+		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
+		Image image = imageIcon.getImage(); 
+		Image newimg = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT); 
+		return new JLabel( new ImageIcon(newimg)); 
+	}
 	public GUI(Player user, AI ai, Pokemon[] mons) throws  IOException{
 		try {
 		font = Font.createFont(Font.TYPE1_FONT, new File("PokemonGb-RAeo (1).ttf"));
@@ -39,21 +45,20 @@ public class GUI extends JFrame implements ActionListener{
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("PokemonGb-Raeo(1).ttf")));
 		}
 		catch(Exception e) {
-			
 		}
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
-		ImageIcon imageIcon = new ImageIcon(spriteInit(true)); 
-		Image image = imageIcon.getImage(); 
-		Image newimg = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT); 
-		imageIcon = new ImageIcon(newimg); 
-		JLabel userMon = new JLabel(imageIcon);
+		JLabel userMon = (pokemongifs(true));
 		this.add(userMon);
+		userMon.setBounds(width/6,height/3,500, 500);
+		JLabel aiMon = pokemongifs(false);
+		add(aiMon);
+		aiMon.setBounds((int) (width/1.5), height/20, 500, 500);
 		JLabel userImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
 		JLabel aiImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
 		int imageWidth = ImageIO.read(new File("AISprite_CSAProject_Raeed.png")).getWidth();
-		userMon.setBounds(width/6,height/3,1000, 1000);
+		
 		
 		userImage.setBounds(width/5,height/2,imageWidth, imageWidth);
 		aiImage.setBounds(width - imageWidth,imageWidth,imageWidth,imageWidth);
@@ -273,20 +278,34 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	
 	public String spriteInit(boolean isUser) {
-		Pokemon current = user.getCurrent();		
-		String spriteIndex = "";
-		for (int i = 0; i < Game.poke.length; i++) {
-			if (Game.poke[i].equals(current)) {
-				spriteIndex += i+1;
-				break;
+		if(isUser) {
+			Pokemon current = user.getCurrent();		
+			String spriteIndex = "";
+			for (int i = 0; i < Game.poke.length; i++) {
+				if (Game.poke[i].equals(current)) {
+					spriteIndex += i+1;
+					break;
+				}
 			}
+			while (spriteIndex.length() < 3) {
+				spriteIndex = "0" + spriteIndex;
+			}
+			return "spritesback/"+"a-b_bw_"+spriteIndex+".gif";
 		}
-		while (spriteIndex.length() < 3) {
-			spriteIndex = "0" + spriteIndex;
+		else {
+			Pokemon current = ai.getCurrent();		
+			String spriteIndex = "";
+			for (int i = 0; i < Game.poke.length; i++) {
+				if (Game.poke[i].equals(current)) {
+					spriteIndex += i+1;
+					break;
+				}
+			}
+			while (spriteIndex.length() < 3) {
+				spriteIndex = "0" + spriteIndex;
+			}
+			return "sprites/"+"ani_bw_"+spriteIndex+".gif";
 		}
-		if(isUser)
-		return "spritesback/"+"a-b_bw_"+spriteIndex+".gif";
-		return "sprites/"+"ani_bw_"+spriteIndex+".gif";
 	}
 	
 	
