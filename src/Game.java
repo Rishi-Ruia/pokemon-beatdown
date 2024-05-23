@@ -35,7 +35,7 @@ public class Game {
 		setup();
 		user = new Player();
 		AI ai = new AI();
-		game = new GUI(user, ai);
+		game = new GUI(user, ai, poke);
 	}
 	//method to create the Pokemon objects
 	public static void setup() throws IOException{

@@ -32,9 +32,10 @@ public class GUI extends JFrame implements ActionListener{
 	private int width = (int) screenSize.getWidth();
 	private int height = (int) screenSize.getHeight();
 	private JLabel userMonLabel;
+	private Pokemon[] mons;
 	
 	//the constructor to create the initial GUI 
-	public GUI(Player user, AI ai) throws  IOException{
+	public GUI(Player user, AI ai, Pokemon[] mons) throws  IOException{
 		try {
 		font = Font.createFont(Font.TYPE1_FONT, new File("PokemonGb-RAeo (1).ttf"));
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -76,11 +77,9 @@ public class GUI extends JFrame implements ActionListener{
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		this.add(AIconsole);
 		
-		URL userMonURL = new URL("https://play.pokemonshowdown.com/sprites/gen5ani-back/" + user.getCurrent().getRawName() + ".gif");
-		ImageIcon userMon = new ImageIcon(userMonURL);
-		userMon.setImage(userMon.getImage().getScaledInstance(userMon.getIconWidth() * 3, 
-				userMon.getIconHeight() * 3, Image.SCALE_DEFAULT));
-		userMonLabel = new JLabel(userMon);
+		this.mons = mons;
+		
+		ImageIcon userMon = new ImageIcon(this.spriteInit(true).getName());
 		this.add(userMonLabel);
 		userMonLabel.setBounds(width / 4, (int) (height / 2.5), 
 				userMon.getIconWidth() * 3, userMon.getIconHeight() * 3);
@@ -241,16 +240,7 @@ public class GUI extends JFrame implements ActionListener{
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
-		try {
-			URL iconURL = new URL(
-					"https://play.pokemonshowdown.com/sprites/gen5ani-back/" + user.getCurrent().getRawName() + ".gif");
-			if (!isValidURL(iconURL)) {
-				iconURL = new URL("https://play.pokemonshowdown.com/sprites/gen5/0.png");
-			}
-			userMonLabel.setIcon(new ImageIcon(iconURL));
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+		this.spriteInit(true);
 		move1.setText(user.getCurrent().getMove(0).getName());
 		move2.setText(user.getCurrent().getMove(1).getName());
 		move3.setText(user.getCurrent().getMove(2).getName());
@@ -285,6 +275,38 @@ public class GUI extends JFrame implements ActionListener{
 			return false;
 		}
 	}
+	
+	public File spriteInit(boolean isUser) {
+		Pokemon current = user.getCurrent();
+		File[] sprites = new File("C:\\Users\\Raeed\\git\\Csp-project\\sprites back\\").listFiles();
+		
+		if (isUser) {
+			sprites = new File("C:\\Users\\Raeed\\git\\Csp-project\\sprites back\\").listFiles();
+		}
+		
+		String spriteIndex = "";
+		
+		for (int i = 0; i < mons.length; i++) {
+			if (mons[i].equals(current)) {
+				spriteIndex += i;
+				break;
+			}
+		}
+		
+		while (spriteIndex.length() < 3) {
+			spriteIndex = "0" + spriteIndex;
+		}
+		
+		for (File s : sprites) {
+			if (s.getName().contains("_" + spriteIndex)) {
+				userMonLabel = new JLabel(new ImageIcon(s.getName()));
+				return s;
+			}
+		}
+		
+		return null;
+	}
+	
 	
 //	public void userHP() {
 //		JProgressBar hp = new JProgressBar(0, user.getCurrent().getHp());	
