@@ -1,6 +1,6 @@
 import java.awt.event.*; //from https://docs.oracle.com/javase/8/docs/api/java/awt/event/package-summary.html
 import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/java/awt/package-summary.html
-
+import java.awt.Color;
 import javax.imageio.ImageIO;
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
@@ -27,7 +27,6 @@ public class GUI extends JFrame implements ActionListener{
 	private boolean skipturn = false;
 	private JLabel console = new JLabel("A Pokemon battle has started!");
 	private JLabel AIconsole = new JLabel();
-	private Font font;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int width = (int) screenSize.getWidth();
 	private int height = (int) screenSize.getHeight();	
@@ -43,20 +42,13 @@ public class GUI extends JFrame implements ActionListener{
 		}
 		
 	public GUI(Player user, AI ai, Pokemon[] mons) throws  IOException{
-		try {
-		font = Font.createFont(Font.TYPE1_FONT, new File("PokemonGb-RAeo (1).ttf"));
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("PokemonGb-Raeo(1).ttf")));
-		}
-		catch(Exception e) {
-		}
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
 		userMon = (pokemongifs(true));
 		this.add(userMon);
 		userMon.setBounds(width/4,height/5,500, 500);
-		aiMon = pokemongifs(false);
+		aiMon = (pokemongifs(false));
 		add(aiMon);
 		aiMon.setBounds((int) (width/1.5), height/20, 500, 500);
 		ImageIcon tempIcon = new ImageIcon("AISprite_CSAProject_Raeed.png");
@@ -98,7 +90,7 @@ public class GUI extends JFrame implements ActionListener{
 	public void addMoves() {
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
 		move1.setBounds(width / 6, (int) (height - height / 3), (int) (width / 6.5), height / 14);
-		move1.setFont(font);
+		move1.setFont(new Font("Arial", Font.PLAIN, 20));
 		move1.setBackground(Color.WHITE);
 		move1.addActionListener(this);
 		move2 = new JButton(user.getCurrent().getMove(1).getName());
@@ -121,7 +113,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(move3);
 		this.add(move4);
 		this.setVisible(true);
-		ImageIcon background = new ImageIcon("bg-earthycave.jpg");
+		ImageIcon background = new ImageIcon("city.jpg");
 		Image backgroundTemp = background.getImage();
 		Image backgroundscaled = backgroundTemp.getScaledInstance(width, height, Image.SCALE_DEFAULT);
 		backgroundFinal = new JLabel(new ImageIcon(backgroundscaled)); 
@@ -186,8 +178,6 @@ public class GUI extends JFrame implements ActionListener{
 		console.setText(canSwitch);
 		AIconsole.setText(" ");
 		checkDead();
-		userMon = pokemongifs(true);
-		this.add(userMon);
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 		return false;
@@ -212,6 +202,8 @@ public class GUI extends JFrame implements ActionListener{
 					Game.attack(user.getCurrent(), user.getCurrent().getMove(2),
 							ai.getCurrent(), user.getCurrent().getMove(2).isSpecial()));
 			AIconsole.setText(" ");
+			//aiMon = userMon;
+			this.remove(userMon);
 		}
 		else if(e.getSource() == move4) {
 			console.setText(
@@ -241,6 +233,8 @@ public class GUI extends JFrame implements ActionListener{
 			this.dispose();
 		};
 		if(ai.getCurrent().getHp() ==0 ) {
+			aiMon.setBounds(height, height, width, height);
+			
 			if(ai.lost()) {
 				console.setText("GG, you win!");
 			}
@@ -257,8 +251,9 @@ public class GUI extends JFrame implements ActionListener{
 			AIconsole.setText(ai.AITurn(user.getCurrent()));
 		}
 		this.setVisible(true);
-		this.remove(backgroundFinal);
-		this.add(backgroundFinal);
+		
+		this.repaint();
+		this.revalidate();
 	}
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
