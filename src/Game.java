@@ -17,6 +17,7 @@ public class Game {
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
+	protected static int count =0;
 	//main method used to start and set up game
 	public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
 		String fileName = "diamondAndPearlBattleTheme.wav";
@@ -113,5 +114,11 @@ public class Game {
 		return  (int) ((((((((2*100)/5)+2)*attacker.getSPAttack()
 				*attack.getPower())/attacked.getSPDefense())/50)+2)
 				*Move.effective(attack, attacked)*random);
+	}
+	public static int nextRound() throws IOException {
+		count++;
+		game.dispose();
+		//game = new GUI(new Player(), new AI(), poke);
+		return count;
 	}
 }

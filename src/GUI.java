@@ -33,6 +33,7 @@ public class GUI extends JFrame implements ActionListener{
 	private JLabel userMon;
 	private JLabel aiMon;
 	private JLabel backgroundFinal;
+	protected int round=0;
 	//the constructor to create the initial GUI 
 	public JLabel pokemongifs(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
@@ -47,7 +48,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.setLayout(null);
 		userMon = (pokemongifs(true));
 		this.add(userMon);
-		userMon.setBounds(width/4,height/5,500, 500);
+		userMon.setBounds(width/4,height/9,500, 500);
 		aiMon = (pokemongifs(false));
 		add(aiMon);
 		aiMon.setBounds((int) (width/1.5), height/20, 500, 500);
@@ -69,7 +70,7 @@ public class GUI extends JFrame implements ActionListener{
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 80));
-		userName.setBounds((int) (width/3.4), -height/4, 1000, 1000);
+		userName.setBounds((int) (width/3.4), -height/2, 1000, 1000);
 		this.add(userName);
 		AIname.setFont(new Font("Arial", Font.BOLD, 80));
 		AIname.setBounds((int) (width/1.4), (int) (-height/2.5) , 1000, 1000);
@@ -202,7 +203,6 @@ public class GUI extends JFrame implements ActionListener{
 					Game.attack(user.getCurrent(), user.getCurrent().getMove(2),
 							ai.getCurrent(), user.getCurrent().getMove(2).isSpecial()));
 			AIconsole.setText(" ");
-			//aiMon = userMon;
 			this.remove(userMon);
 		}
 		else if(e.getSource() == move4) {
@@ -230,13 +230,20 @@ public class GUI extends JFrame implements ActionListener{
 			if( playerSwitch(5))return;
 		}
 		if(user.lost()) {
-			this.dispose();
+			this.forceSwitch();
+			AIconsole.setText("");
+			console.setText(round + "");
 		};
 		if(ai.getCurrent().getHp() ==0 ) {
 			aiMon.setBounds(height, height, width, height);
 			
 			if(ai.lost()) {
 				console.setText("GG, you win!");
+				try {
+					round = Game.nextRound();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 			else {
 				ai.fainted();
@@ -325,8 +332,6 @@ public class GUI extends JFrame implements ActionListener{
 //		JProgressBar hp = new JProgressBar(0, user.getCurrent().getHp());	
 //		hp.setBounds();
 //	}
-//	
 //	public void aiHP() {
-//		
 //	}
 }
