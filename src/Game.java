@@ -12,7 +12,7 @@ public class Game {
 	protected static int [] hp;
 	protected static int [] spAttack;
 	protected static int [] spDefense;
-	protected static Pokemon[] poke = new Pokemon[651];
+	public static Pokemon[] poke = new Pokemon[651];
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;

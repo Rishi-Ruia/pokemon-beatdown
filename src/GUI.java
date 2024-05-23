@@ -30,10 +30,7 @@ public class GUI extends JFrame implements ActionListener{
 	private Font font;
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int width = (int) screenSize.getWidth();
-	private int height = (int) screenSize.getHeight();
-	private JLabel userMonLabel;
-	private Pokemon[] mons;
-	
+	private int height = (int) screenSize.getHeight();	
 	//the constructor to create the initial GUI 
 	public GUI(Player user, AI ai, Pokemon[] mons) throws  IOException{
 		try {
@@ -47,9 +44,17 @@ public class GUI extends JFrame implements ActionListener{
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
+		ImageIcon imageIcon = new ImageIcon(spriteInit(true)); 
+		Image image = imageIcon.getImage(); 
+		Image newimg = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT); 
+		imageIcon = new ImageIcon(newimg); 
+		JLabel userMon = new JLabel(imageIcon);
+		this.add(userMon);
 		JLabel userImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
 		JLabel aiImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
 		int imageWidth = ImageIO.read(new File("AISprite_CSAProject_Raeed.png")).getWidth();
+		userMon.setBounds(width/6,height/3,1000, 1000);
+		
 		userImage.setBounds(width/5,height/2,imageWidth, imageWidth);
 		aiImage.setBounds(width - imageWidth,imageWidth,imageWidth,imageWidth);
 		this.add(userImage);
@@ -75,16 +80,7 @@ public class GUI extends JFrame implements ActionListener{
 		AIconsole.setFont(new Font("Arial", Font.ITALIC, 30));
 		AIconsole.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
-		this.add(AIconsole);
-		
-		this.mons = mons;
-		
-		ImageIcon userMon = new ImageIcon(this.spriteInit(true).getName());
-		this.add(userMonLabel);
-		userMonLabel.setBounds(width / 4, (int) (height / 2.5), 
-				userMon.getIconWidth() * 3, userMon.getIconHeight() * 3);
-		userMonLabel.setAlignmentX(width / 4f);
-		
+		this.add(AIconsole);		
 		this.setVisible(true);
 	}
 	//adds the moves and resizes them to the Jframe
@@ -276,35 +272,21 @@ public class GUI extends JFrame implements ActionListener{
 		}
 	}
 	
-	public File spriteInit(boolean isUser) {
-		Pokemon current = user.getCurrent();
-		File[] sprites = new File("C:\\Users\\Raeed\\git\\Csp-project\\sprites back\\").listFiles();
-		
-		if (isUser) {
-			sprites = new File("C:\\Users\\Raeed\\git\\Csp-project\\sprites back\\").listFiles();
-		}
-		
+	public String spriteInit(boolean isUser) {
+		Pokemon current = user.getCurrent();		
 		String spriteIndex = "";
-		
-		for (int i = 0; i < mons.length; i++) {
-			if (mons[i].equals(current)) {
-				spriteIndex += i;
+		for (int i = 0; i < Game.poke.length; i++) {
+			if (Game.poke[i].equals(current)) {
+				spriteIndex += i+1;
 				break;
 			}
 		}
-		
 		while (spriteIndex.length() < 3) {
 			spriteIndex = "0" + spriteIndex;
 		}
-		
-		for (File s : sprites) {
-			if (s.getName().contains("_" + spriteIndex)) {
-				userMonLabel = new JLabel(new ImageIcon(s.getName()));
-				return s;
-			}
-		}
-		
-		return null;
+		if(isUser)
+		return "spritesback/"+"a-b_bw_"+spriteIndex+".gif";
+		return "sprites/"+"ani_bw_"+spriteIndex+".gif";
 	}
 	
 	
