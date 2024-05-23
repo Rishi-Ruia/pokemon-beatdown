@@ -1,6 +1,6 @@
 import java.awt.event.*; //from https://docs.oracle.com/javase/8/docs/api/java/awt/event/package-summary.html
 import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/java/awt/package-summary.html
-import java.awt.Color;
+
 import javax.imageio.ImageIO;
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
@@ -35,6 +35,12 @@ public class GUI extends JFrame implements ActionListener{
 	private JLabel backgroundFinal;
 	protected int round=0;
 	//the constructor to create the initial GUI 
+	public ImageIcon gifsIcon(boolean pokemon) {
+		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
+		Image image = imageIcon.getImage(); 
+		Image newimg = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT); 
+		return new ImageIcon(newimg);
+	}
 	public JLabel pokemongifs(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
 			Image image = imageIcon.getImage(); 
@@ -87,8 +93,14 @@ public class GUI extends JFrame implements ActionListener{
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 	}
+	
+	
+	public void onPaintEvent(Graphics g) {
+		aiMon.update(g);
+	}
 	//adds the moves and resizes them to the Jframe
 	public void addMoves() {
+		add(aiMon);
 		move1 = new JButton(user.getCurrent().getMove(0).getName());
 		move1.setBounds(width / 6, (int) (height - height / 3), (int) (width / 6.5), height / 14);
 		move1.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -179,6 +191,7 @@ public class GUI extends JFrame implements ActionListener{
 		console.setText(canSwitch);
 		AIconsole.setText(" ");
 		checkDead();
+		userMon.setIcon(gifsIcon(true));
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 		return false;
@@ -235,18 +248,20 @@ public class GUI extends JFrame implements ActionListener{
 			console.setText(round + "");
 		};
 		if(ai.getCurrent().getHp() ==0 ) {
-			aiMon.setBounds(height, height, width, height);
+			
 			
 			if(ai.lost()) {
 				console.setText("GG, you win!");
-				try {
-					round = Game.nextRound();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				aiMon.disable();
+//				try {
+//					round = Game.nextRound();
+//				} catch (IOException e1) {
+//					e1.printStackTrace();
+//				}
 			}
 			else {
 				ai.fainted();
+				aiMon.setIcon(gifsIcon(false));
 				this.AIname.setText(ai.getCurrent().getName());
 			}
 		}
