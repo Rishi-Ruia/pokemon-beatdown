@@ -12,6 +12,7 @@ public class Game {
 	protected static int [] hp;
 	protected static int [] spAttack;
 	protected static int [] spDefense;
+	protected static int [] dex;
 	public static Pokemon[] poke = new Pokemon[651];
 	protected static GUI game;
 	protected static Player user;
@@ -51,6 +52,7 @@ public class Game {
 			i++;
 		} 
 		br.close();
+		dex = new int[pokemons.length];
 		name = new String[pokemons.length];
 		type2 = new String[pokemons.length];
 		type1 = new String[pokemons.length];
@@ -61,6 +63,7 @@ public class Game {
 		spAttack = new int[pokemons.length];
 		spDefense = new int[pokemons.length];
 		for(i = 0; i < pokemons.length; i++) {
+			dex[i] = Integer.parseInt(pokemons[i][0]);
 			name[i] = pokemons[i][1];
 			type2[i] = pokemons[i][3];
 			hp[i] = Integer.parseInt(pokemons[i][4]);
@@ -71,9 +74,8 @@ public class Game {
 			spDefense[i] =Integer.parseInt(pokemons[i][9]);
 			speed[i] = Integer.parseInt(pokemons[i][10]);
 			poke[i]= (new Pokemon(name[i], hp[i], attack[i], spAttack[i], defense[i],
-					spDefense[i], speed[i], type1[i], type2[i]));
+					spDefense[i], speed[i], type1[i], type2[i], dex[i]));
 		}
-		
 	}
 	//method for attacking another pokemon
 	public static String attack(Pokemon attacker, Move attack,

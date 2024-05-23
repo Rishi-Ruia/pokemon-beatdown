@@ -10,6 +10,7 @@ public class Pokemon {
 	protected String name;
 	protected String type1;
 	protected String type2;
+	protected int dex;
 	protected ArrayList<Move> moves = new ArrayList<Move>(); 
 	
 	//default constructor 
@@ -28,7 +29,8 @@ public class Pokemon {
 	 * @param type1 the primary type of the pokemon 
 	 * @param type2 the secondary type of the pokemon 
 	 */
-	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed, String type1, String type2 ) {
+	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed,
+			String type1, String type2, int dex ) {
 		this.attack = (int) ((0.01 * (2 * attack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.spAttack = (int) ((0.01 * (2 * spAttack + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
 		this.defense = (int) ((0.01 * (2 * defense + Math.floor(0.25 * (Math.random() * 33))) * 100) + 5) ;
@@ -38,6 +40,7 @@ public class Pokemon {
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;	
+		this.dex = dex;
 		//gives them moves conresponding to their type and then randomly assigns the rest
 		Move j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 		if(type1.equals("Normal")) {
@@ -215,6 +218,7 @@ public class Pokemon {
 	public int getSPDefense() {return spDefense;}
 	public int getSpeed() {return speed;}
 	public int getHp() {return hp;}
+	public int getDex() {return dex;}
 	public String getName() {
 		if (name.contains("Mega ")) {
 			return name.substring(name.indexOf("Mega "));

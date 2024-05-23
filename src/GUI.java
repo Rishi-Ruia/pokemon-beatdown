@@ -31,13 +31,17 @@ public class GUI extends JFrame implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	private int width = (int) screenSize.getWidth();
 	private int height = (int) screenSize.getHeight();	
+	private JLabel userMon;
+	private JLabel aiMon;
+	private JLabel backgroundFinal;
 	//the constructor to create the initial GUI 
 	public JLabel pokemongifs(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
-		Image image = imageIcon.getImage(); 
-		Image newimg = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT); 
-		return new JLabel( new ImageIcon(newimg)); 
-	}
+			Image image = imageIcon.getImage(); 
+			Image newimg = image.getScaledInstance(400, 400, Image.SCALE_DEFAULT); 
+			return new JLabel( new ImageIcon(newimg)); 
+		}
+		
 	public GUI(Player user, AI ai, Pokemon[] mons) throws  IOException{
 		try {
 		font = Font.createFont(Font.TYPE1_FONT, new File("PokemonGb-RAeo (1).ttf"));
@@ -49,19 +53,19 @@ public class GUI extends JFrame implements ActionListener{
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
-		JLabel userMon = (pokemongifs(true));
+		userMon = (pokemongifs(true));
 		this.add(userMon);
-		userMon.setBounds(width/6,height/3,500, 500);
-		JLabel aiMon = pokemongifs(false);
+		userMon.setBounds(width/4,height/5,500, 500);
+		aiMon = pokemongifs(false);
 		add(aiMon);
 		aiMon.setBounds((int) (width/1.5), height/20, 500, 500);
-		JLabel userImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
-		JLabel aiImage = new JLabel(new ImageIcon("AISprite_CSAProject_Raeed.png")); 
-		int imageWidth = ImageIO.read(new File("AISprite_CSAProject_Raeed.png")).getWidth();
-		
-		
-		userImage.setBounds(width/5,height/2,imageWidth, imageWidth);
-		aiImage.setBounds(width - imageWidth,imageWidth,imageWidth,imageWidth);
+		ImageIcon tempIcon = new ImageIcon("AISprite_CSAProject_Raeed.png");
+		Image temp = tempIcon.getImage();
+		Image newTemp = temp.getScaledInstance(250, 600, Image.SCALE_DEFAULT); 
+		JLabel userImage = new JLabel(new ImageIcon(newTemp)); 
+		JLabel aiImage =new JLabel(new ImageIcon(newTemp)); 
+		userImage.setBounds(width/20,height/14,500, 600);
+		aiImage.setBounds((int) (width/1.2), -height/35,500,600);
 		this.add(userImage);
 		this.add(aiImage);
 		addMoves();
@@ -73,10 +77,10 @@ public class GUI extends JFrame implements ActionListener{
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
 		userName.setFont(new Font("Arial", Font.BOLD, 80));
-		userName.setBounds(width/4, -height/10, 1000, 1000);
+		userName.setBounds((int) (width/3.4), -height/4, 1000, 1000);
 		this.add(userName);
 		AIname.setFont(new Font("Arial", Font.BOLD, 80));
-		AIname.setBounds((int) (width/1.5), (int) (-height/2.5) , 1000, 1000);
+		AIname.setBounds((int) (width/1.4), (int) (-height/2.5) , 1000, 1000);
 		this.add(AIname);
 		console.setBounds(width / 6, (int) (height - height / 4), width - width / 6, height / 12);		
 		console.setFont(new Font("Arial", Font.ITALIC, 30));
@@ -87,6 +91,8 @@ public class GUI extends JFrame implements ActionListener{
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		this.add(AIconsole);		
 		this.setVisible(true);
+		this.remove(backgroundFinal);
+		this.add(backgroundFinal);
 	}
 	//adds the moves and resizes them to the Jframe
 	public void addMoves() {
@@ -115,6 +121,13 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(move3);
 		this.add(move4);
 		this.setVisible(true);
+		ImageIcon background = new ImageIcon("bg-earthycave.jpg");
+		Image backgroundTemp = background.getImage();
+		Image backgroundscaled = backgroundTemp.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		backgroundFinal = new JLabel(new ImageIcon(backgroundscaled)); 
+		backgroundFinal.setBounds(0,0,width, height);
+		this.remove(backgroundFinal);
+		this.add(backgroundFinal);
 	}
 	//adds the switch buttons to the Jframe
 	private void addSwitch() {
@@ -149,6 +162,8 @@ public class GUI extends JFrame implements ActionListener{
 		pokemon6.addActionListener(this);
 		this.add(pokemon6);
 		this.setVisible(true);
+		this.remove(backgroundFinal);
+		this.add(backgroundFinal);
 	}
 	//makes the user unable to click a move thus forcing them to switch
 	public  void forceSwitch() {
@@ -171,7 +186,12 @@ public class GUI extends JFrame implements ActionListener{
 		console.setText(canSwitch);
 		AIconsole.setText(" ");
 		checkDead();
+		userMon = pokemongifs(true);
+		this.add(userMon);
+		this.remove(backgroundFinal);
+		this.add(backgroundFinal);
 		return false;
+		
 	}
 	//checks what is clicked on the GUI and calls the corresponding method
 	public void actionPerformed(ActionEvent e) {
@@ -237,6 +257,8 @@ public class GUI extends JFrame implements ActionListener{
 			AIconsole.setText(ai.AITurn(user.getCurrent()));
 		}
 		this.setVisible(true);
+		this.remove(backgroundFinal);
+		this.add(backgroundFinal);
 	}
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
@@ -263,6 +285,8 @@ public class GUI extends JFrame implements ActionListener{
 		move2.setEnabled(true);
 		move3.setEnabled(true);
 		move4.setEnabled(true);
+		this.remove(backgroundFinal);
+		this.add(backgroundFinal);
 		this.setVisible(true);
 	}
 	
@@ -280,31 +304,24 @@ public class GUI extends JFrame implements ActionListener{
 	public String spriteInit(boolean isUser) {
 		if(isUser) {
 			Pokemon current = user.getCurrent();		
-			String spriteIndex = "";
-			for (int i = 0; i < Game.poke.length; i++) {
-				if (Game.poke[i].equals(current)) {
-					spriteIndex += i+1;
-					break;
-				}
-			}
+			String spriteIndex = "" + current.getDex();
+			
 			while (spriteIndex.length() < 3) {
 				spriteIndex = "0" + spriteIndex;
 			}
-			return "spritesback/"+"a-b_bw_"+spriteIndex+".gif";
+			if(new File("spritesback/"+"a-b_bw_"+spriteIndex+".gif").exists())
+				return "spritesback/"+"a-b_bw_"+spriteIndex+".gif";
+			return "spritesback/"+"a-b_bw_"+spriteIndex+"_f.gif";
 		}
 		else {
 			Pokemon current = ai.getCurrent();		
-			String spriteIndex = "";
-			for (int i = 0; i < Game.poke.length; i++) {
-				if (Game.poke[i].equals(current)) {
-					spriteIndex += i+1;
-					break;
-				}
-			}
+			String spriteIndex = "" + current.getDex();
 			while (spriteIndex.length() < 3) {
 				spriteIndex = "0" + spriteIndex;
 			}
-			return "sprites/"+"ani_bw_"+spriteIndex+".gif";
+			if(new File("sprites/"+"ani_bw_"+spriteIndex+".gif").exists())
+				return "sprites/"+"ani_bw_"+spriteIndex+".gif";
+			return "sprites/"+"ani_bw_"+spriteIndex+"_f.gif";
 		}
 	}
 	
