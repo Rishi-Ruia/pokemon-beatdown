@@ -31,20 +31,6 @@ public class AI extends Game {
 	}
 	//this is where the ai chooses what to do this turn
 	public String AITurn(Pokemon current) {
-//		for(int i =0; i < 4; i++) {
-//			if(Move.effective(this.current.getMove(i), current) >= 2.0) {
-//				String damage = Game.attack(this.current,
-//						this.current.getMove(i), current, this.current.getMove(i).isSpecial());
-//				if(current.getHp() ==0) {
-//					if(user.lost()) {
-//						game.displayLose();;
-//						return "you lost!";
-//					}
-//					game.forceSwitch();
-//				}
-//				return this.current.getName() + damage.substring(3);
-//			}
-//		}
 		Move use = new Move();
 		Move random;
 		String damage = "";
