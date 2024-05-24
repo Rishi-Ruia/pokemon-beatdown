@@ -196,6 +196,7 @@ public class GUI extends JFrame implements ActionListener{
 		AIconsole.setText(" ");
 		checkDead();
 		userMon.setIcon(gifsIcon(true));
+		switchBar(userHP, user.getCurrent());
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 		return false;
@@ -260,6 +261,7 @@ public class GUI extends JFrame implements ActionListener{
 				ai.fainted();
 				aiMon.setIcon(gifsIcon(false));
 				this.AIname.setText(ai.getCurrent().getName());
+				switchBar(aiHP, ai.getCurrent());
 			}
 		}
 		else {
@@ -267,7 +269,9 @@ public class GUI extends JFrame implements ActionListener{
 				skipturn = false;
 				return;
 			}
-			AIconsole.setText(ai.AITurn(user.getCurrent()));
+			String temp = ai.AITurn(user.getCurrent());
+			AIconsole.setText(temp);
+			temp = temp.replaceAll("[^\\d]", "");
 			if(user.getCurrent().getHp() ==0)
 			userMon.setIcon(gifsIcon(true));
 		}
@@ -282,6 +286,8 @@ public class GUI extends JFrame implements ActionListener{
 			AIconsole.setText("");
 			console.setText(round + "");
 		}
+		update(userHP, user.getCurrent());
+		update(aiHP, ai.getCurrent());
 	}
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
@@ -339,25 +345,29 @@ public class GUI extends JFrame implements ActionListener{
 	
 	public void userBar() {
 		userHP = new JProgressBar(0, user.getCurrent().getHp());	
+		userHP.setLayout(null);
+		userHP.setFont(new Font("Arial", Font.BOLD, 30));
 		userHP.setBounds( (int) (width/3.5), height/4, (int) (width/4.3), height/20);
 		userHP.setForeground(Color.green);
 		userHP.setValue(user.getCurrent().getHp());
-		add(userHP, Color.green);
+		userHP.setStringPainted(true);
+		add(userHP);
+	}
+	public void switchBar(JProgressBar s, Pokemon p) {
+		s.setMaximum(p.getHp());
+		s.setValue(p.getHp());
 	}
 	public void aiBar() {
 		aiHP = new JProgressBar(0, ai.getCurrent().getHp());	
+		aiHP.setLayout(null);
+		aiHP.setFont(new Font("Arial", Font.BOLD, 30));
 		aiHP.setBounds( (int) (width/1.7), height/9, (int) (width/4.3), height/20);
 		aiHP.setForeground(Color.green);
 		aiHP.setValue(ai.getCurrent().getHp());
-		add(aiHP, Color.green);
+		aiHP.setStringPainted(true);
+		add(aiHP);
 	}
-	public void update(JProgressBar hp) {
-		int i =0;
-		try {
-			whi
-		}
-		catch(Exception e) {
-			
-		}
+	public void update(JProgressBar hp, Pokemon current) {
+		hp.setValue(current.getHp());		
 	}
 }
