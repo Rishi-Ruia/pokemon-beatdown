@@ -478,11 +478,11 @@
 477,Dusknoir,525,,45,Ghost,100,135,65,135,45,4,FALSE
 478,Froslass,480,Ghost,70,Ice,80,70,80,70,110,4,FALSE
 479,Rotom,440,Ghost,50,Electric,50,77,95,77,91,4,FALSE
-479,RotomHeat Rotom,520,Fire,50,Electric,65,107,105,107,86,4,FALSE
-479,RotomWash Rotom,520,Water,50,Electric,65,107,105,107,86,4,FALSE
-479,RotomFrost Rotom,520,Ice,50,Electric,65,107,105,107,86,4,FALSE
-479,RotomFan Rotom,520,Flying,50,Electric,65,107,105,107,86,4,FALSE
-479,RotomMow Rotom,520,Grass,50,Electric,65,107,105,107,86,4,FALSE
+479,Rotom Heat,520,Fire,50,Electric,65,107,105,107,86,4,FALSE
+479,Rotom Wash,520,Water,50,Electric,65,107,105,107,86,4,FALSE
+479,Rotom Frost,520,Ice,50,Electric,65,107,105,107,86,4,FALSE
+479,Rotom Fan,520,Flying,50,Electric,65,107,105,107,86,4,FALSE
+479,Rotom Mow,520,Grass,50,Electric,65,107,105,107,86,4,FALSE
 480,Uxie,580,,75,Psychic,75,130,75,130,95,4,TRUE
 481,Mesprit,580,,80,Psychic,105,105,105,105,80,4,TRUE
 482,Azelf,580,,75,Psychic,125,70,125,70,115,4,TRUE

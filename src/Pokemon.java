@@ -32,12 +32,12 @@ public class Pokemon {
 	 */
 	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed,
 			String type1, String type2, int dex ) {
-		this.attack = (int)(((2*attack + Math.random()*32 + (Math.random()*253/4))*100)/100)+5;
-		this.spAttack = (int)(((2*spAttack + Math.random()*32 + (Math.random()*253/4))*100)/100)+5;
-		this.defense = (int)(((2*defense + Math.random()*32 + (Math.random()*253/4))*100)/100)+5;
-		this.spDefense = (int)(((2*spDefense + Math.random()*32 + (Math.random()*253/4))*100)/100)+5;
-		this.speed = (int)(((2*speed + Math.random()*32 + (Math.random()*253/4))*100)/100)+5;
-		this.hp = (int) ((2 * hp + ((Math.random() * 253)/4) + Math.random()*33) * 100)/100 + 110;
+		this.attack = (int)(((2*attack + 31 + (Math.random()*253/4))*100)/100)+5;
+		this.spAttack = (int)(((2*spAttack + 31 + (Math.random()*253/4))*100)/100)+5;
+		this.defense = (int)(((2*defense + 31 + (Math.random()*253/4))*100)/100)+5;
+		this.spDefense = (int)(((2*spDefense + 31 + (Math.random()*253/4))*100)/100)+5;
+		this.speed = (int)(((2*speed + 31 + (Math.random()*253/4))*100)/100)+5;
+		this.hp = (int) ((2 * hp + ((Math.random() * 253)/4) + 31) * 100)/100 + 110;
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;	

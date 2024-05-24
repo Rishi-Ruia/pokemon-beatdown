@@ -212,7 +212,7 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	//checks what is clicked on the GUI and calls the corresponding method
 	public void actionPerformed(ActionEvent e) {
-		userMon.enable();
+		
 		if(e.getSource() == pokemon1) {
 			if( playerSwitch(0))return;
 		}
@@ -231,6 +231,7 @@ public class GUI extends JFrame implements ActionListener{
 		else if(e.getSource() == pokemon6) {
 			if( playerSwitch(5))return;
 		}
+		userMon.enable();
 		if(user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
 			if(e.getSource()==move1) {
 				console.setText(
@@ -261,6 +262,7 @@ public class GUI extends JFrame implements ActionListener{
 				ballcount++;
 				skipturn = true;
 				if(ai.lost()) {
+					ball6.disable();
 					console.setText("GG, you win!");
 					aiMon.disable();
 				}
@@ -287,9 +289,10 @@ public class GUI extends JFrame implements ActionListener{
 				userMon.disable();
 			}
 			if(user.lost()) {
+				
 				this.forceSwitch();
 				AIconsole.setText("");
-				console.setText(round + "");
+				console.setText( "you lost");
 			}
 
 			update(userHP, user.getCurrent());
@@ -303,7 +306,7 @@ public class GUI extends JFrame implements ActionListener{
 			if(user.lost()) {
 				this.forceSwitch();
 				AIconsole.setText("");
-				console.setText(round + "");
+				console.setText("you lost");
 			} 
 		}
 		else {
@@ -325,7 +328,7 @@ public class GUI extends JFrame implements ActionListener{
 				if(user.lost()) {
 					this.forceSwitch();
 					AIconsole.setText("");
-					console.setText(round + "");
+					console.setText("you lost!");
 				}
 				update(userHP, user.getCurrent());
 				update(aiHP, ai.getCurrent());
@@ -362,6 +365,7 @@ public class GUI extends JFrame implements ActionListener{
 				ballcount++;
 				skipturn = true;
 				if(ai.lost()) {
+					ball6.disable();
 					console.setText("GG, you win!");
 					aiMon.disable();
 				}
@@ -382,7 +386,7 @@ public class GUI extends JFrame implements ActionListener{
 		if(user.lost()) {
 			this.forceSwitch();
 			AIconsole.setText("");
-			console.setText(round + "");
+			console.setText("you lost!");
 		}
 
 		update(userHP, user.getCurrent());
