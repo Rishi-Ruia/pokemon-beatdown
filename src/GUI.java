@@ -36,6 +36,13 @@ public class GUI extends JFrame implements ActionListener{
 	protected int round=0;
 	protected JProgressBar userHP;
 	protected JProgressBar aiHP;
+	protected JLabel ball1;
+	protected JLabel ball2;
+	protected JLabel ball3;
+	protected JLabel ball4;
+	protected JLabel ball5;
+	protected JLabel ball6;
+	protected int ballcount=1;
 	//the constructor to create the initial GUI 
 	public ImageIcon gifsIcon(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
@@ -45,17 +52,18 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	public JLabel pokemongifs(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
-			Image image = imageIcon.getImage(); 
-			Image newimg = image.getScaledInstance(width/6, width/6, Image.SCALE_DEFAULT); 
-			return new JLabel( new ImageIcon(newimg)); 
-		}
-		
+		Image image = imageIcon.getImage(); 
+		Image newimg = image.getScaledInstance(width/6, width/6, Image.SCALE_DEFAULT); 
+		return new JLabel( new ImageIcon(newimg)); 
+	}
+
 	public GUI(Player user, AI ai, Pokemon[] mons) throws  IOException{
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
 		userBar();
 		aiBar();
+		addBalls();
 		userMon = (pokemongifs(true));
 		this.add(userMon);
 		userMon.setBounds((int)(width/3.4),(int)( height/3.1),width/6, width/6);
@@ -97,8 +105,8 @@ public class GUI extends JFrame implements ActionListener{
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 	}
-	
-	
+
+
 	public void onPaintEvent(Graphics g) {
 		aiMon.update(g);
 	}
@@ -200,36 +208,12 @@ public class GUI extends JFrame implements ActionListener{
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 		return false;
-		
+
 	}
 	//checks what is clicked on the GUI and calls the corresponding method
 	public void actionPerformed(ActionEvent e) {
 		userMon.enable();
-		if(e.getSource()==move1) {
-			console.setText(
-					Game.attack(user.getCurrent(), user.getCurrent().getMove(0),
-							ai.getCurrent(), user.getCurrent().getMove(0).isSpecial()));
-			AIconsole.setText(" ");
-		}
-		else if(e.getSource() == move2) {
-			console.setText(
-					Game.attack(user.getCurrent(), user.getCurrent().getMove(1),
-							ai.getCurrent(), user.getCurrent().getMove(1).isSpecial()));
-			AIconsole.setText(" ");
-		}
-		else if(e.getSource() == move3) {
-			console.setText(
-					Game.attack(user.getCurrent(), user.getCurrent().getMove(2),
-							ai.getCurrent(), user.getCurrent().getMove(2).isSpecial()));
-			AIconsole.setText(" ");
-		}
-		else if(e.getSource() == move4) {
-			console.setText(
-					Game.attack(user.getCurrent(), user.getCurrent().getMove(3),
-							ai.getCurrent(), user.getCurrent().getMove(3).isSpecial()));
-		
-		}
-		else if(e.getSource() == pokemon1) {
+		if(e.getSource() == pokemon1) {
 			if( playerSwitch(0))return;
 		}
 		else if(e.getSource() == pokemon2) {
@@ -247,22 +231,80 @@ public class GUI extends JFrame implements ActionListener{
 		else if(e.getSource() == pokemon6) {
 			if( playerSwitch(5))return;
 		}
-		if(ai.getCurrent().getHp() ==0 ) {			
-			if(ai.lost()) {
-				console.setText("GG, you win!");
-				aiMon.disable();
-//				try {
-//					round = Game.nextRound();
-//				} catch (IOException e1) {
-//					e1.printStackTrace();
-//				}
+		if(user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
+			if(e.getSource()==move1) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(0),
+								ai.getCurrent(), user.getCurrent().getMove(0).isSpecial()));
+				AIconsole.setText(" ");
 			}
-			else {
-				ai.fainted();
-				aiMon.setIcon(gifsIcon(false));
-				this.AIname.setText(ai.getCurrent().getName());
-				switchBar(aiHP, ai.getCurrent());
+			else if(e.getSource() == move2) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(1),
+								ai.getCurrent(), user.getCurrent().getMove(1).isSpecial()));
+				AIconsole.setText(" ");
 			}
+			else if(e.getSource() == move3) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(2),
+								ai.getCurrent(), user.getCurrent().getMove(2).isSpecial()));
+				AIconsole.setText(" ");
+			}
+			else if(e.getSource() == move4) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(3),
+								ai.getCurrent(), user.getCurrent().getMove(3).isSpecial()));
+
+			}
+			if(ai.getCurrent().getHp() ==0 ) {
+				disableBall();
+				ballcount++;
+				skipturn = true;
+				if(ai.lost()) {
+					console.setText("GG, you win!");
+					aiMon.disable();
+				}
+				else {
+					ai.fainted();
+					aiMon.setIcon(gifsIcon(false));
+					this.AIname.setText(ai.getCurrent().getName());
+					switchBar(aiHP, ai.getCurrent());
+				}
+			}
+			if(skipturn == true) {
+				skipturn = false;
+				return;
+			}
+			String temp = ai.AITurn(user.getCurrent());
+			AIconsole.setText(temp);
+			temp = temp.replaceAll("[^\\d]", "");
+			if(user.getCurrent().getHp() ==0)
+				userMon.setIcon(gifsIcon(true));
+			this.setVisible(true);
+			this.repaint();
+			this.revalidate();
+			if(user.getCurrent().getHp()==0) {
+				userMon.disable();
+			}
+			if(user.lost()) {
+				this.forceSwitch();
+				AIconsole.setText("");
+				console.setText(round + "");
+			}
+
+			update(userHP, user.getCurrent());
+			update(aiHP, ai.getCurrent());
+			this.setVisible(true);
+			this.repaint();
+			this.revalidate();
+			if(user.getCurrent().getHp()==0) {
+				userMon.disable();
+			}
+			if(user.lost()) {
+				this.forceSwitch();
+				AIconsole.setText("");
+				console.setText(round + "");
+			} 
 		}
 		else {
 			if(skipturn == true) {
@@ -272,8 +314,64 @@ public class GUI extends JFrame implements ActionListener{
 			String temp = ai.AITurn(user.getCurrent());
 			AIconsole.setText(temp);
 			temp = temp.replaceAll("[^\\d]", "");
-			if(user.getCurrent().getHp() ==0)
-			userMon.setIcon(gifsIcon(true));
+			if(user.getCurrent().getHp() ==0) {
+				userMon.setIcon(gifsIcon(true));
+				this.setVisible(true);
+				this.repaint();
+				this.revalidate();
+				if(user.getCurrent().getHp()==0) {
+					userMon.disable();
+				}
+				if(user.lost()) {
+					this.forceSwitch();
+					AIconsole.setText("");
+					console.setText(round + "");
+				}
+				update(userHP, user.getCurrent());
+				update(aiHP, ai.getCurrent());
+				return;
+			}
+			if(e.getSource()==move1) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(0),
+								ai.getCurrent(), user.getCurrent().getMove(0).isSpecial()));
+				AIconsole.setText(" ");
+			}
+			else if(e.getSource() == move2) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(1),
+								ai.getCurrent(), user.getCurrent().getMove(1).isSpecial()));
+				AIconsole.setText(" ");
+			}
+			else if(e.getSource() == move3) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(2),
+								ai.getCurrent(), user.getCurrent().getMove(2).isSpecial()));
+				AIconsole.setText(" ");
+			}
+			else if(e.getSource() == move4) {
+				console.setText(
+						Game.attack(user.getCurrent(), user.getCurrent().getMove(3),
+								ai.getCurrent(), user.getCurrent().getMove(3).isSpecial()));
+
+			}
+
+
+			if(ai.getCurrent().getHp() ==0 ) {
+				disableBall();
+				ballcount++;
+				skipturn = true;
+				if(ai.lost()) {
+					console.setText("GG, you win!");
+					aiMon.disable();
+				}
+				else {
+					ai.fainted();
+					aiMon.setIcon(gifsIcon(false));
+					this.AIname.setText(ai.getCurrent().getName());
+					switchBar(aiHP, ai.getCurrent());
+				}
+			}
 		}
 		this.setVisible(true);
 		this.repaint();
@@ -286,9 +384,13 @@ public class GUI extends JFrame implements ActionListener{
 			AIconsole.setText("");
 			console.setText(round + "");
 		}
+
 		update(userHP, user.getCurrent());
 		update(aiHP, ai.getCurrent());
 	}
+
+
+
 	//checks if the user pokemon have fainted, if they have it prevents the user from being able to switch to them
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
@@ -322,7 +424,7 @@ public class GUI extends JFrame implements ActionListener{
 		if(isUser) {
 			Pokemon current = user.getCurrent();		
 			String spriteIndex = "" + current.getDex();
-			
+
 			while (spriteIndex.length() < 3) {
 				spriteIndex = "0" + spriteIndex;
 			}
@@ -341,20 +443,20 @@ public class GUI extends JFrame implements ActionListener{
 			return "sprites/"+"ani_bw_"+spriteIndex+"_f.gif";
 		}
 	}
-	
-	
+
+
 	public void userBar() {
 		userHP = new JProgressBar(0, user.getCurrent().getHp());	
 		userHP.setLayout(null);
 		userHP.setFont(new Font("Arial", Font.BOLD, 30));
 		userHP.setBounds( (int) (width/3.5), height/4, (int) (width/4.3), height/20);
 		userHP.setForeground(Color.green);
-		userHP.setValue(user.getCurrent().getHp());
+		userHP.setValue(user.getCurrent().getMaxHp());
 		userHP.setStringPainted(true);
 		add(userHP);
 	}
 	public void switchBar(JProgressBar s, Pokemon p) {
-		s.setMaximum(p.getHp());
+		s.setMaximum(p.getMaxHp());
 		s.setValue(p.getHp());
 	}
 	public void aiBar() {
@@ -363,11 +465,33 @@ public class GUI extends JFrame implements ActionListener{
 		aiHP.setFont(new Font("Arial", Font.BOLD, 30));
 		aiHP.setBounds( (int) (width/1.7), height/9, (int) (width/4.3), height/20);
 		aiHP.setForeground(Color.green);
-		aiHP.setValue(ai.getCurrent().getHp());
+		aiHP.setValue(ai.getCurrent().getMaxHp());
 		aiHP.setStringPainted(true);
 		add(aiHP);
 	}
 	public void update(JProgressBar hp, Pokemon current) {
 		hp.setValue(current.getHp());		
+	}
+	public void addBalls() {
+		ImageIcon imageIcon = new ImageIcon("pokeball.png"); 
+		Image image = imageIcon.getImage(); 
+		ImageIcon ballIcon = new ImageIcon( image.getScaledInstance(width/17, height/15, Image.SCALE_DEFAULT)); 
+		ball1 = new JLabel(ballIcon); ball2 = new JLabel(ballIcon); ball3 = new JLabel(ballIcon);
+		ball4 = new JLabel(ballIcon); ball5 = new JLabel(ballIcon); ball6 = new JLabel(ballIcon);
+		ball1.setBounds((int) (width/1.06), 0, width/16, height/15);
+		ball2.setBounds((int) (width/1.06), width/30, width/16, height/15);
+		ball3.setBounds((int) (width/1.06), width/30*2 , width/16, height/15);
+		ball4.setBounds((int) (width/1.06), width/30*3, width/16, height/15);
+		ball5.setBounds((int) (width/1.06), width/30*4, width/16, height/15);
+		ball6.setBounds((int) (width/1.06), width/30*5 , width/16, height/15);
+		add(ball1); add(ball2); add(ball3); add(ball4); add(ball5); add(ball6);
+	}
+	public void disableBall() {
+		if(ballcount ==1) ball1.disable();
+		if(ballcount ==2) ball2.disable();
+		if(ballcount ==3) ball3.disable();
+		if(ballcount ==4) ball4.disable();
+		if(ballcount ==5) ball5.disable();
+		if(ballcount ==6) ball6.disable();
 	}
 }

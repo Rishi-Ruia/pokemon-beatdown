@@ -117,7 +117,6 @@ public class Game {
 	}
 	public static int nextRound() throws IOException {
 		count++;
-		game.dispose();
 		//game = new GUI(new Player(), new AI(), poke);
 		return count;
 	}

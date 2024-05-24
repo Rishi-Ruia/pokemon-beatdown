@@ -41,7 +41,7 @@ public class Player extends Game {
 				return false;
 			}
 		}
-		game.dispose();
+		//game.dispose();
 		 return true;
 	}
 	//returns the pokemon at the position i 

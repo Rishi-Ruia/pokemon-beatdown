@@ -11,6 +11,7 @@ public class Pokemon {
 	protected String type1;
 	protected String type2;
 	protected int dex;
+	protected int maxHp;
 	protected ArrayList<Move> moves = new ArrayList<Move>(); 
 	
 	//default constructor 
@@ -41,7 +42,7 @@ public class Pokemon {
 		this.type1 = type1;
 		this.type2 = type2;	
 		this.dex = dex;
-		//gives them moves conresponding to their type and then randomly assigns the rest
+		maxHp = this.hp;
 		Move j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 		if(type1.equals("Normal")) {
 			if(this.attack >= this.spAttack) moves.add( Move.bodySlam);
@@ -219,6 +220,7 @@ public class Pokemon {
 	public int getSpeed() {return speed;}
 	public int getHp() {return hp;}
 	public int getDex() {return dex;}
+	public int getMaxHp() { return maxHp;}
 	public String getName() {
 		if (name.contains("Mega ")) {
 			return name.substring(name.indexOf("Mega "));
