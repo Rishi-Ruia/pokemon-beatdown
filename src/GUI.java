@@ -105,7 +105,7 @@ public class GUI extends JFrame implements ActionListener{
 		AIconsole.setFont(new Font("Arial", Font.ITALIC, 30));
 		AIconsole.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
-		this.add(AIconsole);		
+		this.add(AIconsole);
 		this.setVisible(true);
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
