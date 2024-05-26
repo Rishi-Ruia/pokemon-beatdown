@@ -3,6 +3,8 @@ import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F
 
 import javax.imageio.ImageIO;
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
+import javax.swing.event.*;
+
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
 import java.net.MalformedURLException;
 import java.net.*;
@@ -36,6 +38,7 @@ public class GUI extends JFrame implements ActionListener{
 	protected int round=0;
 	protected JProgressBar userHP;
 	protected JProgressBar aiHP;
+	private JButton mute;
 	protected JLabel ball1;
 	protected JLabel ball2;
 	protected JLabel ball3;
@@ -43,6 +46,7 @@ public class GUI extends JFrame implements ActionListener{
 	protected JLabel ball5;
 	protected JLabel ball6;
 	protected int ballcount=1;
+	protected boolean isMuted;
 	//the constructor to create the initial GUI 
 	public ImageIcon gifsIcon(boolean pokemon) {
 		ImageIcon imageIcon = new ImageIcon(spriteInit(pokemon)); 
@@ -61,6 +65,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
+		muteButton();
 		userBar();
 		aiBar();
 		addBalls();
@@ -80,7 +85,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.add(userImage);
 		this.add(aiImage);
 		addMoves();
-		addSwitch();		
+		addSwitch();
 		this.setSize(width, height);
 		this.setTitle("battle window"); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,6 +109,7 @@ public class GUI extends JFrame implements ActionListener{
 		this.setVisible(true);
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
+		
 	}
 
 
@@ -212,6 +218,18 @@ public class GUI extends JFrame implements ActionListener{
 	}
 	//checks what is clicked on the GUI and calls the corresponding method
 	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource() == mute) {
+			if (!isMuted) {
+				Game.mute();
+				isMuted = true;
+				return;
+			} else {
+				Game.unmute();
+				isMuted = false;
+				return;
+			}
+		}
 		
 		if(e.getSource() == pokemon1) {
 			if( playerSwitch(0))return;
@@ -447,7 +465,18 @@ public class GUI extends JFrame implements ActionListener{
 			return "sprites/"+"ani_bw_"+spriteIndex+"_f.gif";
 		}
 	}
-
+	
+	public void muteButton() {
+		isMuted = false;
+		mute = new JButton("Mute");
+		mute.setLayout(null);
+		mute.setFont(new Font("Arial", Font.PLAIN, 20));
+//		mute.setBounds(width / 200, height - height / 36, width / 16, width / 32);
+		mute.setBounds(width / 50, height - (height / 7), width / 16, width / 32);
+		mute.addActionListener(this);
+		add(mute);
+		this.setVisible(true);
+	}
 
 	public void userBar() {
 		userHP = new JProgressBar(0, user.getCurrent().getHp());	

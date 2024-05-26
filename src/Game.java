@@ -19,6 +19,7 @@ public class Game {
 	protected static Player user;
 	protected static AI ai;
 	protected static int count =0;
+	protected static FloatControl volume;
 	//main method used to start and set up game
 	public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
 		String fileName = "diamondAndPearlBattleTheme.wav";
@@ -29,7 +30,7 @@ public class Game {
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioStream);
 		// For adjusting volume
-		FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+		volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		// The parameter of setValue is how many decibels you want to adjust the volume by
 		volume.setValue(-12.0f);
 		clip.start();
@@ -122,5 +123,13 @@ public class Game {
 		count++;
 		//game = new GUI(new Player(), new AI(), poke);
 		return count;
+	}
+	
+	public static void mute() {
+		volume.setValue(-100000f);
+	}
+	
+	public static void unmute() {
+		volume.setValue(-12.0f);
 	}
 }
