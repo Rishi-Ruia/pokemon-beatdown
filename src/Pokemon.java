@@ -12,6 +12,7 @@ public class Pokemon {
 	protected String type2;
 	protected int dex;
 	protected int maxHp;
+	protected int baseStats;
 	protected ArrayList<Move> moves = new ArrayList<Move>(); 
 	
 	//default constructor 
@@ -31,7 +32,7 @@ public class Pokemon {
 	 * @param type2 the secondary type of the pokemon 
 	 */
 	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed,
-			String type1, String type2, int dex ) {
+			String type1, String type2, int dex, int base ) {
 		this.attack = (int)(((2*attack + 31 + (Math.random()*253/4))*100)/100)+5;
 		this.spAttack = (int)(((2*spAttack + 31 + (Math.random()*253/4))*100)/100)+5;
 		this.defense = (int)(((2*defense + 31 + (Math.random()*253/4))*100)/100)+5;
@@ -42,6 +43,7 @@ public class Pokemon {
 		this.type1 = type1;
 		this.type2 = type2;	
 		this.dex = dex;
+		this.baseStats = base;
 		maxHp = this.hp;
 		Move j = Move.getMove((int) (Math.random()* (Move.moveLength())));
 		if(type1.equals("Normal")) {
@@ -221,6 +223,7 @@ public class Pokemon {
 	public int getHp() {return hp;}
 	public int getDex() {return dex;}
 	public int getMaxHp() { return maxHp;}
+	public int getBase() { return baseStats;}
 	public String getName() {
 		if (name.contains("Mega ")) {
 			return name.substring(name.indexOf("Mega "));

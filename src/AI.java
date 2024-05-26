@@ -9,8 +9,8 @@ public class AI extends Game {
 		AIPokemon.add(Game.poke[(int) (Math.random() * Game.poke.length)]);
 		for(int i =0; i < 6; i ++) {
 			for(int j =i+1; j < 6; j++) {
-				while(AIPokemon.get(j).equals(AIPokemon.get(i)))
-					AIPokemon.set(i, Game.poke[(int) (Math.random() * poke.length)]);
+				while(AIPokemon.get(j).equals(AIPokemon.get(i)) || AIPokemon.get(j).getBase() < 319)
+					AIPokemon.set(j, Game.poke[(int) (Math.random() * poke.length)]);
 			}
 		}
 		current = AIPokemon.get(0);

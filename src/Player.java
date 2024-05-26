@@ -11,9 +11,9 @@ public class Player extends Game {
 			playerPokemons.add(Game.poke[(pokemon)]);
 		}
 			
-		for(int i =1; i < 6; i ++) {
+		for(int i =0; i < 6; i ++) {
 			for(int j =i+1; j < 6; j++) {
-				while( playerPokemons.get(j).equals(playerPokemons.get(i))) {
+				while(playerPokemons.get(j).equals(playerPokemons.get(i)) || playerPokemons.get(j).getBase() < 319) {
 					playerPokemons.set(j, Game.poke[(int) (Math.random() * poke.length)]);
 				}
 					
