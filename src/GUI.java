@@ -234,27 +234,80 @@ public class GUI extends JFrame implements ActionListener{
 				return;
 			}
 		}
-		
-		if(e.getSource() == pokemon1) {
-			if( playerSwitch(0))return;
-		}
-		else if(e.getSource() == pokemon2) {
-			if( playerSwitch(1))return;
-		}
-		else if(e.getSource() == pokemon3) {
-			if( playerSwitch(2))return;
-		}
-		else if(e.getSource() == pokemon4) {
-			if( playerSwitch(3))return;
-		}
-		else if(e.getSource() == pokemon5) {
-			if( playerSwitch(4))return;
-		}
-		else if(e.getSource() == pokemon6) {
-			if( playerSwitch(5))return;
-		}
-		userMon.enable();
-		if(user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
+		else if(e.getSource() == pokemon1 || e.getSource() == pokemon2|| e.getSource() == pokemon3 ||
+				e.getSource() == pokemon4|| e.getSource() == pokemon5|| e.getSource() == pokemon6) {
+			if(e.getSource() == pokemon1) {
+				if( playerSwitch(0))return;
+			}
+			else if(e.getSource() == pokemon2) {
+				if( playerSwitch(1))return;
+			}
+			else if(e.getSource() == pokemon3) {
+				if( playerSwitch(2))return;
+			}
+			else if(e.getSource() == pokemon4) {
+				if( playerSwitch(3))return;
+			}
+			else if(e.getSource() == pokemon5) {
+				if( playerSwitch(4))return;
+			}
+			else if(e.getSource() == pokemon6) {
+				if( playerSwitch(5))return;
+			}
+			userMon.enable();
+			if(ai.getCurrent().getHp() ==0 ) {
+				disableBall();
+				ballcount++;
+				skipturn = true;
+				if(ai.lost()) {
+					ball6.disable();
+					console.setText("GG, you win!");
+					aiMon.disable();
+				}
+				else {
+					ai.fainted();
+					aiMon.setIcon(gifsIcon(false));
+					this.AIname.setText(ai.getCurrent().getName());
+					switchBar(aiHP, ai.getCurrent());
+				}
+			}
+			if(skipturn == true) {
+				skipturn = false;
+				return;
+			}
+			String temp = ai.AITurn(user.getCurrent());
+			AIconsole.setText(temp);
+			temp = temp.replaceAll("[^\\d]", "");
+			if(user.getCurrent().getHp() ==0)
+				userMon.setIcon(gifsIcon(true));
+			this.setVisible(true);
+			this.repaint();
+			this.revalidate();
+			if(user.getCurrent().getHp()==0) {
+				userMon.disable();
+			}
+			if(user.lost()) {
+				
+				this.forceSwitch();
+				AIconsole.setText("");
+				console.setText( "you lost");
+			}
+
+			update(userHP, user.getCurrent());
+			update(aiHP, ai.getCurrent());
+			this.setVisible(true);
+			this.repaint();
+			this.revalidate();
+			if(user.getCurrent().getHp()==0) {
+				userMon.disable();
+			}
+			if(user.lost()) {
+				this.forceSwitch();
+				AIconsole.setText("");
+				console.setText("you lost");
+			}
+		}		
+		else if(user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
 			if(e.getSource()==move1) {
 				console.setText(
 						Game.attack(user.getCurrent(), user.getCurrent().getMove(0),
@@ -332,10 +385,7 @@ public class GUI extends JFrame implements ActionListener{
 			} 
 		}
 		else {
-			if(skipturn == true) {
 				skipturn = false;
-				return;
-			}
 			String temp = ai.AITurn(user.getCurrent());
 			AIconsole.setText(temp);
 			temp = temp.replaceAll("[^\\d]", "");
