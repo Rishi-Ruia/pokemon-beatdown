@@ -78,7 +78,11 @@ public class GUI extends JFrame implements ActionListener{
 		ImageIcon tempIcon = new ImageIcon("AISprite_CSAProject_Raeed.png");
 		Image temp = tempIcon.getImage();
 		Image newTemp = temp.getScaledInstance(width/4, height/2, Image.SCALE_DEFAULT); 
-		JLabel userImage = new JLabel(new ImageIcon(newTemp)); 
+		
+		Image userTemp = new ImageIcon("trainer-back.png").getImage();
+		Image newUserTemp = userTemp.getScaledInstance(width/4, height/2, Image.SCALE_DEFAULT);
+		
+		JLabel userImage = new JLabel(new ImageIcon(newUserTemp)); 
 		JLabel aiImage =new JLabel(new ImageIcon(newTemp)); 
 		userImage.setBounds(width/12,height/6,width/4, height/2);
 		aiImage.setBounds((int) (width/1.28), -height/27,width/4,height/2);
