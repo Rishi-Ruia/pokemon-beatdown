@@ -33,12 +33,13 @@ public class Pokemon {
 	 */
 	public Pokemon(String name, int hp, int attack, int spAttack, int defense, int spDefense, int speed,
 			String type1, String type2, int dex, int base ) {
-		this.attack = (int)(((2*attack + 31 + (Math.random()*253/4))*100)/100)+5;
-		this.spAttack = (int)(((2*spAttack + 31 + (Math.random()*253/4))*100)/100)+5;
-		this.defense = (int)(((2*defense + 31 + (Math.random()*253/4))*100)/100)+5;
-		this.spDefense = (int)(((2*spDefense + 31 + (Math.random()*253/4))*100)/100)+5;
-		this.speed = (int)(((2*speed + 31 + (Math.random()*253/4))*100)/100)+5;
-		this.hp = (int) ((2 * hp + ((Math.random() * 253)/4) + 31) * 100)/100 + 110;
+		// stat calculations scraped from Pokemon database
+		this.attack = 2 * attack + 57;
+		this.spAttack = 2 * spAttack + 57;
+		this.defense = 2 * defense + 57;
+		this.spDefense = 2 * spDefense + 57;
+		this.speed = 2 * speed + 57;
+		this.hp = 2 * hp + 162;
 		this.name = name;
 		this.type1 = type1;
 		this.type2 = type2;	
@@ -181,7 +182,7 @@ public class Pokemon {
 			if(type2.equals("Psychic")) moves.add(   Move.psybeam);
 			if(type2.equals("Ice")) {
 				if(this.attack <= this.spAttack) moves.add(   Move.icebeam);
-				else moves.add(   Move.icebeam);
+				else moves.add(   Move.icicleCrash);
 			}
 			if(type2.equals("Dragon")) {
 				if(this.attack >= this.spAttack) moves.add(   Move.outrage);
@@ -212,6 +213,10 @@ public class Pokemon {
 	public String getType1() {return type1;}
 	public String getType2() {return type2;	}
 	public int setHp(int damage) {
+		if(damage == -2) {
+			hp = maxHp;
+			return maxHp;
+		}
 		hp -= damage;
 		if(hp < 0) hp = 0;
 		return hp;}

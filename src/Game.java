@@ -86,8 +86,9 @@ public class Game {
 	public static String attack(Pokemon attacker, Move attack,
 			Pokemon attacked, boolean special) {
 		if(attack.getName().equals("Recover")) {
-			int heal = (int)(attacker.getHp()*.25);
+			int heal = (int)(attacker.getMaxHp()*.5);
 			attacker.setHp(-heal);
+			if(attacker.getHp() > attacker.getMaxHp()) attacker.setHp(-2);
 			return attacker.getName() + " healed for "+ heal +
 					" and is now " + attacker.getHp() + " HP !";
 		}
@@ -125,11 +126,10 @@ public class Game {
 		return count;
 	}
 	
-	public static void mute() {
+	public static void mute(boolean mute) {
 		volume.setValue(-100000f);
-	}
-	
-	public static void unmute() {
-		volume.setValue(-12.0f);
+		if (!mute) {
+			volume.setValue(-12.f);
+		}
 	}
 }
