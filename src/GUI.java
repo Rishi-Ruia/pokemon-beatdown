@@ -225,11 +225,11 @@ public class GUI extends JFrame implements ActionListener{
 		
 		if (e.getSource() == mute) {
 			if (!isMuted) {
-				Game.mute();
+				Game.mute(false);
 				isMuted = true;
 				return;
 			} else {
-				Game.unmute();
+				Game.mute(true);
 				isMuted = false;
 				return;
 			}
