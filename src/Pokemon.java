@@ -13,7 +13,7 @@ public class Pokemon {
 	protected int dex;
 	protected int maxHp;
 	protected int baseStats;
-	protected ArrayList<Move> moves = new ArrayList<Move>(); 
+	protected ArrayList<Move> moves = new ArrayList<Move>();
 	
 	//default constructor 
 	public Pokemon() {
