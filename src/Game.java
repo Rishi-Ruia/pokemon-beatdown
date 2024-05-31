@@ -94,26 +94,40 @@ public class Game {
 
 	// method for attacking another pokemon
 	public static String attack(Pokemon attacker, Move attack, Pokemon attacked, boolean special) {
+		String superEffective;
+		String crit = "";
+		if(Move.effective(attack, attacked) >= 2) {
+			superEffective = " it was SUPER EFFECTIVE! ";
+		}
+		else if(Move.effective(attack, attacked) <= 0.5) {
+			superEffective = " it was not very effective! ";
+		}
+		else {
+			superEffective = " ";
+		}
 		if (attack.getName().equals("Recover")) {
 			int heal = (int) (attacker.getMaxHp() * .5);
 			attacker.setHp(-heal);
 			if (attacker.getHp() > attacker.getMaxHp())
 				attacker.setHp(-2);
-			return attacker.getName() + " healed for " + heal + " and is now " + attacker.getHp() + " HP !";
+			return attacker.getName() + " healed for "  + "50% and now has " + attacker.getHp() + " HP!";
 		}
 		double stab = 1;
 		if (attacker.getType1().equals(attack.getType()) || attacker.getType2().equals(attack.getType()))
 			stab = 1.5;
+		if(Math.random()*101 > 6.25) {
+			crit = " it was a Critial Hit!";
+			stab *=1.5;
+		}
 		double random = stab * (Math.random() * 0.15 + 0.85);
 		int damage = damageCalc(attacker, attack, attacked, special, random);
 		if ((int) (Math.random() * 101) <= attack.getAccuracy()) {
 			attacked.setHp(damage);
 			if (attacked.getHp() <= 0) {
 				attacked.setHp(0);
-				return attacker.getName() + " used " + attack.getName() + " and " + attacked.getName() + " fainted!";
+				return attacker.getName() + " used " + attack.getName() + " and " + attacked.getName() + " fainted!"  + crit;
 			}
-			return attacker.getName() + " used " + attack.getName() + " and it did " + damage + " damage to "
-					+ attacked.getName() + "!";
+			return attacker.getName() + " used " + attack.getName() + superEffective +  "and it did " + damage + crit;
 		}
 		return attack.getName() + " missed!";
 	}
