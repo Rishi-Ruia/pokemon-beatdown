@@ -20,7 +20,6 @@ public class Game {
 	protected static GUI game;
 	protected static Player user;
 	protected static AI ai;
-	protected static int count = 0;
 	protected static FloatControl volume;
 
 	// main method used to start and set up game
@@ -88,17 +87,6 @@ public class Game {
 			speed[i] = Integer.parseInt(pokemons[i][10]);
 			poke[i] = (new Pokemon(name[i], hp[i], attack[i], spAttack[i], defense[i], spDefense[i], speed[i], type1[i],
 					type2[i], dex[i], base[i]));
-			dex[i] = Integer.parseInt(pokemons[i][0]);
-			name[i] = pokemons[i][1];
-			base[i] = Integer.parseInt(pokemons[i][2]);
-			type2[i] = pokemons[i][3];
-			hp[i] = Integer.parseInt(pokemons[i][4]);
-			type1[i] = pokemons[i][5];
-			attack[i] = (Integer.parseInt(pokemons[i][6]));
-			spAttack[i] = Integer.parseInt(pokemons[i][8]);
-			defense[i] = (Integer.parseInt(pokemons[i][7]));
-			spDefense[i] = Integer.parseInt(pokemons[i][9]);
-			speed[i] = Integer.parseInt(pokemons[i][10]);
 			pokeAI[i] = (new Pokemon(name[i], hp[i], attack[i], spAttack[i], defense[i], spDefense[i], speed[i],
 					type1[i], type2[i], dex[i], base[i]));
 		}
@@ -139,13 +127,6 @@ public class Game {
 		return (int) ((((((((2 * 100) / 5) + 2) * attacker.getSPAttack() * attack.getPower()) / attacked.getSPDefense())
 				/ 50) + 2) * Move.effective(attack, attacked) * random);
 	}
-
-	public static int nextRound() throws IOException {
-		count++;
-		// game = new GUI(new Player(), new AI(), poke);
-		return count;
-	}
-
 	public static void mute(boolean mute) {
 		volume.setValue(-100000f);
 		if (!mute) {
