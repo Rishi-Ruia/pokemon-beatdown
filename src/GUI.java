@@ -556,6 +556,7 @@ public class GUI extends JFrame implements ActionListener {
 		userHP.setFont(new Font("Arial", Font.BOLD, 30));
 		userHP.setBounds((int) (width / 3.5), height / 4, (int) (width / 4.3), height / 20);
 		userHP.setForeground(Color.green);
+		userHP.setBackground(Color.black);
 		userHP.setValue(user.getCurrent().getMaxHp());
 		userHP.setStringPainted(true);
 		add(userHP);
@@ -564,6 +565,7 @@ public class GUI extends JFrame implements ActionListener {
 	public void switchBar(JProgressBar s, Pokemon p) {
 		s.setMaximum(p.getMaxHp());
 		s.setValue(p.getHp());
+		update(s, p);
 	}
 
 	public void aiBar() {
@@ -572,17 +574,22 @@ public class GUI extends JFrame implements ActionListener {
 		aiHP.setFont(new Font("Arial", Font.BOLD, 30));
 		aiHP.setBounds((int) (width / 1.7), height / 9, (int) (width / 4.3), height / 20);
 		aiHP.setForeground(Color.green);
+		aiHP.setBackground(Color.black);
 		aiHP.setValue(ai.getCurrent().getMaxHp());
 		aiHP.setStringPainted(true);
 		add(aiHP);
 	}
 
 	public void update(JProgressBar hp, Pokemon current)  {
-		int beforeattack = hp.getValue();
-		for(int i = beforeattack; i >= current.getHp() ; i--) {
-			hp.setValue(i);
-		}
+		hp.setValue(current.getHp());
 		
+		if ((double) current.getHp() / current.getMaxHp() < 0.2) {
+			hp.setForeground(Color.red);
+		} else if ((double) current.getHp() / current.getMaxHp() < 0.5) {
+			hp.setForeground(Color.yellow);
+		} else {
+			hp.setForeground(Color.green);
+		}
 	}
 
 	public void addBalls() {
