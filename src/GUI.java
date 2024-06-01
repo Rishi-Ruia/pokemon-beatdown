@@ -8,12 +8,13 @@ import javax.swing.event.*;
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
 import java.net.MalformedURLException;
 import java.net.*;
+import java.util.*;
 
 public class GUI extends JFrame implements ActionListener {
 	// default serial version UID
 	private static final long serialVersionUID = 1L;
 	// the buttons that are on the Jframe
-	private JButton move1;
+	private JLabel move1;
 	private JButton move2;
 	private JButton move3;
 	private JButton move4;
@@ -126,11 +127,43 @@ public class GUI extends JFrame implements ActionListener {
 	// adds the moves and resizes them to the Jframe
 	public void addMoves() {
 		add(aiMon);
-		move1 = new JButton(user.getCurrent().getMove(0).getName());
-		move1.setBounds(width / 5, (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move1 = new JLabel();
+		move1.setText(user.getCurrent().getMove(0).getName());
+		// Sets Move 1's image to a scaled instance of the move button of its type
+		Image move1Img = new ImageIcon("MOVE_BUTTONS/moveButton" 
+								+ user.getCurrent().getMove(0).getType() 
+								+ ".png").getImage();
+		Image move1Scaled = move1Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton1 = new ImageIcon(move1Scaled);
+		move1.setIcon(moveButton1);
+		move1.setHorizontalTextPosition(JLabel.CENTER);
+		move1.setBounds(width / 5, (int) (height - height / 3), (int) (width / 6.3), height / 12);
 		move1.setFont(new Font("Arial", Font.PLAIN, 25));
+		move1.setForeground(Color.white);
 		move1.setBackground(Color.WHITE);
-		move1.addActionListener(this);
+		move1.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {}
+			
+			public void mousePressed(MouseEvent e) {}
+			
+			public void mouseExited(MouseEvent e) {}
+			
+			public void mouseEntered(MouseEvent e) {}
+			
+			public void mouseClicked(MouseEvent e) {
+				if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
+					console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+							user.getCurrent().getMove(0).isSpecial()));
+					AIconsole.setText(" ");
+				} else {
+					Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+							user.getCurrent().getMove(0).isSpecial());
+					console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+							user.getCurrent().getMove(0).isSpecial()));
+				}
+			}
+		});
+		
 		move2 = new JButton(user.getCurrent().getMove(1).getName());
 		move2.setBounds(2 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 14);
 		move2.setFont(new Font("Arial", Font.PLAIN, 25));
