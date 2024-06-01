@@ -14,9 +14,7 @@ public class Player extends Game {
 				while (playerPokemons.get(j).equals(playerPokemons.get(i)) || playerPokemons.get(j).getBase() < 370) {
 					playerPokemons.set(j, Game.poke[(int) (Math.random() * poke.length)]);
 				}
-
 			}
-			playerPokemons.set(0, Game.poke[481]);
 		}
 		current = playerPokemons.get(0);
 	}

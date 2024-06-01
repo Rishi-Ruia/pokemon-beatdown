@@ -539,6 +539,11 @@ public class GUI extends JFrame implements ActionListener {
 			while (spriteIndex.length() < 3) {
 				spriteIndex = "0" + spriteIndex;
 			}
+			if(current.getName().contains("Wash")) return "sprites/" + "ani_bw_" + spriteIndex + "-wash" + ".gif";
+			if(current.getName().contains("Mow")) return "sprites/" + "ani_bw_" + spriteIndex + "-mow" + ".gif";
+			if(current.getName().contains(" Heat")) return "sprites/" + "ani_bw_" + spriteIndex + "-heat" + ".gif";
+			if(current.getName().contains("Fan")) return "sprites/" + "ani_bw_" + spriteIndex + "-fan" + ".gif";
+			if(current.getName().contains("Frost")) return "sprites/" + "ani_bw_" + spriteIndex + "-frost" + ".gif";
 			if (new File("sprites/" + "ani_bw_" + spriteIndex + ".gif").exists())
 				return "sprites/" + "ani_bw_" + spriteIndex + ".gif";
 			return "sprites/" + "ani_bw_" + spriteIndex + "_f.gif";
