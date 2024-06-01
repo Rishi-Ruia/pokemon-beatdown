@@ -26,17 +26,20 @@ public class Game {
 	public static void main(String[] args)
 			throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
 		String fileName = "diamondAndPearlBattleTheme.wav";
-		// 50% chance of being Blunder theme
-		if (Math.random() <= 0.5)
+		// 80% chance of being Blunder theme
+		if (Math.random() <= .8)
 			fileName = "blunder theme.wav";
 		File file = new File(fileName); // From https://www.youtube.com/watch?v=0_SeDY8Y3g8
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+		audioStream.skip(2282000);
 		Clip clip = AudioSystem.getClip();
+		
 		clip.open(audioStream);
 		// For adjusting volume
 		volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		// The parameter of setValue is how many decibels you want to adjust the volume
 		// by
+		
 		volume.setValue(-12.0f);
 		clip.start();
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -97,10 +100,10 @@ public class Game {
 		String superEffective;
 		String crit = "";
 		if(Move.effective(attack, attacked) >= 2) {
-			superEffective = " it was SUPER EFFECTIVE! ";
+			superEffective = " it was SUPER EFFECTIVE ";
 		}
 		else if(Move.effective(attack, attacked) <= 0.5) {
-			superEffective = " it was not very effective! ";
+			superEffective = " it was not very effective ";
 		}
 		else {
 			superEffective = " ";
@@ -115,7 +118,7 @@ public class Game {
 		double stab = 1;
 		if (attacker.getType1().equals(attack.getType()) || attacker.getType2().equals(attack.getType()))
 			stab = 1.5;
-		if(Math.random()*101 > 6.25) {
+		if(Math.random()*101 < 6.25) {
 			crit = " it was a Critial Hit!";
 			stab *=1.5;
 		}

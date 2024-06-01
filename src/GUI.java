@@ -360,7 +360,8 @@ public class GUI extends JFrame implements ActionListener {
 				ballcount++;
 				skipturn = true;
 				if (ai.lost()) {
-					// ball6.disable();
+					disaBall();
+					repaint();
 					console.setText("GG, you win!");
 					aiMon.disable();
 				} else {
@@ -412,6 +413,7 @@ public class GUI extends JFrame implements ActionListener {
 				skipturn = false;
 				return;
 			}
+			if(ai.lost()) return;
 			String temp = ai.AITurn(user.getCurrent(), m);
 			AIconsole.setText(temp);
 			temp = temp.replaceAll("[^\\d]", "");
@@ -455,7 +457,7 @@ public class GUI extends JFrame implements ActionListener {
 				ballcount++;
 
 				if (ai.lost()) {
-					ball6.disable();
+					//ball6.disable();
 					console.setText("GG, you win!");
 					aiMon.disable();
 
