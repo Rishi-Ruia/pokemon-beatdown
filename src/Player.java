@@ -16,6 +16,7 @@ public class Player extends Game {
 				}
 
 			}
+			playerPokemons.set(0, Game.poke[481]);
 		}
 		current = playerPokemons.get(0);
 	}
