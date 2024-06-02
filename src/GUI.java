@@ -258,31 +258,37 @@ public class GUI extends JFrame implements ActionListener {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
 		pokemon1.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon1.setBounds(width / 200, height / 36, width / 8, width / 16);
+		pokemon1.setIcon(getFrontSprite(0));
 		pokemon1.addActionListener(this);
 		this.add(pokemon1);
 		pokemon2 = new JButton(user.getPokemon(1).getName());
 		pokemon2.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon2.setBounds(width / 200, height / 36 + (width / 14), width / 8, width / 16);
+		pokemon2.setIcon(getFrontSprite(1));
 		pokemon2.addActionListener(this);
 		this.add(pokemon2);
 		pokemon3 = new JButton(user.getPokemon(2).getName());
 		pokemon3.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon3.setBounds(width / 200, height / 36 + 2 * (width / 14), width / 8, width / 16);
+		pokemon3.setIcon(getFrontSprite(2));
 		pokemon3.addActionListener(this);
 		this.add(pokemon3);
 		pokemon4 = new JButton(user.getPokemon(3).getName());
 		pokemon4.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon4.setBounds(width / 200, height / 36 + 3 * (width / 14), width / 8, width / 16);
+		pokemon4.setIcon(getFrontSprite(3));
 		pokemon4.addActionListener(this);
 		this.add(pokemon4);
 		pokemon5 = new JButton(user.getPokemon(4).getName());
 		pokemon5.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon5.setBounds(width / 200, height / 36 + 4 * (width / 14), width / 8, width / 16);
+		pokemon5.setIcon(getFrontSprite(4));
 		pokemon5.addActionListener(this);
 		this.add(pokemon5);
 		pokemon6 = new JButton(user.getPokemon(5).getName());
 		pokemon6.setFont(new Font("Arial", Font.BOLD, 20));
 		pokemon6.setBounds(width / 200, height / 36 + 5 * (width / 14), width / 8, width / 16);
+		pokemon6.setIcon(getFrontSprite(5));
 		pokemon6.addActionListener(this);
 		this.add(pokemon6);
 		this.setVisible(true);
@@ -662,6 +668,22 @@ public class GUI extends JFrame implements ActionListener {
 				return "sprites/" + "ani_bw_" + spriteIndex + ".gif";
 			return "sprites/" + "ani_bw_" + spriteIndex + "_f.gif";
 		}
+	}
+	
+	public ImageIcon getFrontSprite(int dex) {
+		Pokemon current = user.getPokemon(dex);
+		String spriteIndex = "" + current.getDex();
+		while (spriteIndex.length() < 3) {
+			spriteIndex = "0" + spriteIndex;
+		}
+		if(current.getName().contains("Wash")) return new ImageIcon("sprites/" + "ani_bw_" + spriteIndex + "-wash" + ".gif");
+		if(current.getName().contains("Mow")) return new ImageIcon("sprites/" + "ani_bw_" + spriteIndex + "-mow" + ".gif");
+		if(current.getName().contains(" Heat")) return new ImageIcon("sprites/" + "ani_bw_" + spriteIndex + "-heat" + ".gif");
+		if(current.getName().contains("Fan")) return new ImageIcon("sprites/" + "ani_bw_" + spriteIndex + "-fan" + ".gif");
+		if(current.getName().contains("Frost")) return new ImageIcon("sprites/" + "ani_bw_" + spriteIndex + "-frost" + ".gif");
+		if (new File("sprites/" + "ani_bw_" + spriteIndex + ".gif").exists())
+			return new ImageIcon("sprites/" + "ani_bw_" + spriteIndex + ".gif");
+		return new ImageIcon("sprites/" + "ani_bw_" + spriteIndex + "_f.gif");
 	}
 
 	public void muteButton() {
