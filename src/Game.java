@@ -130,7 +130,7 @@ public class Game {
 				attacked.setHp(0);
 				return attacker.getName() + " used " + attack.getName() + " and " + attacked.getName() + " fainted!"  + crit;
 			}
-			return attacker.getName() + " used " + attack.getName() + superEffective +  "and it did " + damage + crit;
+			return attacker.getName() + " used " + attack.getName() + superEffective +  "and it did " + damage*100/attacked.getMaxHp() + "%" + crit;
 		}
 		return attack.getName() + " missed!";
 	}
