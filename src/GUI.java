@@ -15,9 +15,9 @@ public class GUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	// the buttons that are on the Jframe
 	private JLabel move1;
-	private JButton move2;
-	private JButton move3;
-	private JButton move4;
+	private JLabel move2;
+	private JLabel move3;
+	private JLabel move4;
 	private JButton pokemon1;
 	private JButton pokemon2;
 	private JButton pokemon3;
@@ -151,34 +151,94 @@ public class GUI extends JFrame implements ActionListener {
 			public void mouseEntered(MouseEvent e) {}
 			
 			public void mouseClicked(MouseEvent e) {
-				if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
-					console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
-							user.getCurrent().getMove(0).isSpecial()));
-					AIconsole.setText(" ");
-				} else {
-					Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
-							user.getCurrent().getMove(0).isSpecial());
-					console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
-							user.getCurrent().getMove(0).isSpecial()));
-				}
+				doAction("move1");
 			}
 		});
 		
-		move2 = new JButton(user.getCurrent().getMove(1).getName());
-		move2.setBounds(2 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move2 = new JLabel();
+		move2.setText(user.getCurrent().getMove(1).getName());
+		// Sets Move 1's image to a scaled instance of the move button of its type
+		Image move2Img = new ImageIcon("MOVE_BUTTONS/moveButton" 
+								+ user.getCurrent().getMove(1).getType() 
+								+ ".png").getImage();
+		Image move2Scaled = move2Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton2 = new ImageIcon(move2Scaled);
+		move2.setIcon(moveButton2);
+		move2.setHorizontalTextPosition(JLabel.CENTER);
+		move2.setBounds(2 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
 		move2.setFont(new Font("Arial", Font.PLAIN, 25));
+		move2.setForeground(Color.white);
 		move2.setBackground(Color.WHITE);
-		move2.addActionListener(this);
-		move3 = new JButton(user.getCurrent().getMove(2).getName());
-		move3.setBounds(3 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move2.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {}
+			
+			public void mousePressed(MouseEvent e) {}
+			
+			public void mouseExited(MouseEvent e) {}
+			
+			public void mouseEntered(MouseEvent e) {}
+			
+			public void mouseClicked(MouseEvent e) {
+				doAction("move2");
+			}
+		});
+		
+		move3 = new JLabel();
+		move3.setText(user.getCurrent().getMove(2).getName());
+		// Sets Move 1's image to a scaled instance of the move button of its type
+		Image move3Img = new ImageIcon("MOVE_BUTTONS/moveButton" 
+								+ user.getCurrent().getMove(2).getType() 
+								+ ".png").getImage();
+		Image move3Scaled = move3Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton3 = new ImageIcon(move3Scaled);
+		move3.setIcon(moveButton3);
+		move3.setHorizontalTextPosition(JLabel.CENTER);
+		move3.setBounds(3 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
 		move3.setFont(new Font("Arial", Font.PLAIN, 25));
+		move3.setForeground(Color.white);
 		move3.setBackground(Color.WHITE);
-		move3.addActionListener(this);
-		move4 = new JButton(user.getCurrent().getMove(3).getName());
-		move4.setBounds(4 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 14);
+		move3.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {}
+			
+			public void mousePressed(MouseEvent e) {}
+			
+			public void mouseExited(MouseEvent e) {}
+			
+			public void mouseEntered(MouseEvent e) {}
+			
+			public void mouseClicked(MouseEvent e) {
+				doAction("move3");
+			}
+		});
+		
+		move4 = new JLabel();
+		move4.setText(user.getCurrent().getMove(3).getName());
+		// Sets Move 1's image to a scaled instance of the move button of its type
+		Image move4Img = new ImageIcon("MOVE_BUTTONS/moveButton" 
+								+ user.getCurrent().getMove(3).getType() 
+								+ ".png").getImage();
+		Image move4Scaled = move4Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton4 = new ImageIcon(move4Scaled);
+		move4.setIcon(moveButton4);
+		move4.setHorizontalTextPosition(JLabel.CENTER);
+		move4.setBounds(4 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
 		move4.setFont(new Font("Arial", Font.PLAIN, 25));
+		move4.setForeground(Color.white);
 		move4.setBackground(Color.WHITE);
-		move4.addActionListener(this);
+		move4.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {}
+			
+			public void mousePressed(MouseEvent e) {}
+			
+			public void mouseExited(MouseEvent e) {}
+			
+			public void mouseEntered(MouseEvent e) {}
+			
+			public void mouseClicked(MouseEvent e) {
+				doAction("move4");
+			}
+		});
+		
 		this.add(move1);
 		this.add(move2);
 		this.add(move3);
@@ -256,6 +316,7 @@ public class GUI extends JFrame implements ActionListener {
 		checkDead();
 		userMon.setIcon(gifsIcon(true));
 		switchBar(userHP, user.getCurrent());
+		switchMoveButton();
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 		return false;
@@ -286,9 +347,259 @@ public class GUI extends JFrame implements ActionListener {
 
 	// checks what is clicked on the GUI and calls the corresponding method
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mute) {
+			doAction("mute");
+		} else if (e.getSource() == pokemon1) {
+			doAction("pokemon1");
+		} else if (e.getSource() == pokemon2) {
+			doAction("pokemon2");
+		} else if (e.getSource() == pokemon3) {
+			doAction("pokemon3");
+		} else if (e.getSource() == pokemon4) {
+			doAction("pokemon4");
+		} else if (e.getSource() == pokemon5) {
+			doAction("pokemon5");
+		} else if (e.getSource() == pokemon6) {
+			doAction("pokemon6");
+		} 
+		
+//
+//		Move m = AIMove();
+//		if (e.getSource() == mute) {
+//			if (!isMuted) {
+//				Game.mute(false);
+//				isMuted = true;
+//				return;
+//			} else {
+//				Game.mute(true);
+//				isMuted = false;
+//				return;
+//			}
+//		} else if (e.getSource() == pokemon1 || e.getSource() == pokemon2 || e.getSource() == pokemon3
+//				|| e.getSource() == pokemon4 || e.getSource() == pokemon5 || e.getSource() == pokemon6) {
+//			if (e.getSource() == pokemon1) {
+//				if (playerSwitch(0))
+//					return;
+//			} else if (e.getSource() == pokemon2) {
+//				if (playerSwitch(1))
+//					return;
+//			} else if (e.getSource() == pokemon3) {
+//				if (playerSwitch(2))
+//					return;
+//			} else if (e.getSource() == pokemon4) {
+//				if (playerSwitch(3))
+//					return;
+//			} else if (e.getSource() == pokemon5) {
+//				if (playerSwitch(4))
+//					return;
+//			} else if (e.getSource() == pokemon6) {
+//				if (playerSwitch(5))
+//					return;
+//			}
+//			userMon.enable();
+//			if (ai.getCurrent().getHp() == 0) {
+//				disaBall();
+//				ballcount++;
+//				skipturn = true;
+//				if (ai.lost()) {
+//					ball6.disable();
+//					console.setText("GG, you win!");
+//					aiMon.disable();
+//				} else {
+//					ai.fainted();
+//					aiMon.setIcon(gifsIcon(false));
+//					this.AIname.setText(ai.getCurrent().getName());
+//					switchBar(aiHP, ai.getCurrent());
+//				}
+//			}
+//			if (skipturn == true) {
+//				skipturn = false;
+//				return;
+//			}
+//			String temp = ai.AITurn(user.getCurrent(), m);
+//			AIconsole.setText(temp);
+//			temp = temp.replaceAll("[^\\d]", "");
+//			if (user.getCurrent().getHp() == 0)
+//				userMon.setIcon(gifsIcon(true));
+//			this.setVisible(true);
+//			this.repaint();
+//			this.revalidate();
+//			if (user.getCurrent().getHp() == 0) {
+//				userMon.disable();
+//			}
+//			if (user.lost()) {
+//
+//				this.forceSwitch();
+//				AIconsole.setText("");
+//				console.setText("you lost");
+//			}
+//
+//			update(userHP, user.getCurrent());
+//			update(aiHP, ai.getCurrent());
+//			this.setVisible(true);
+//			this.repaint();
+//			this.revalidate();
+//			if (user.getCurrent().getHp() == 0) {
+//				userMon.disable();
+//			}
+//			if (user.lost()) {
+//				this.forceSwitch();
+//				AIconsole.setText("");
+//				console.setText("you lost");
+//			}
+//		} else if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
+//			if (e.getSource() == move1) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+//						user.getCurrent().getMove(0).isSpecial()));
+//				AIconsole.setText(" ");
+//			} else if (e.getSource() == move2) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
+//						user.getCurrent().getMove(1).isSpecial()));
+//				AIconsole.setText(" ");
+//			} else if (e.getSource() == move3) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
+//						user.getCurrent().getMove(2).isSpecial()));
+//				AIconsole.setText(" ");
+//			} else if (e.getSource() == move4) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
+//						user.getCurrent().getMove(3).isSpecial()));
+//
+//			}
+//			if (ai.getCurrent().getHp() == 0) {
+//				disaBall();
+//				ballcount++;
+//				skipturn = true;
+//				if (ai.lost()) {
+//					disaBall();
+//					repaint();
+//					console.setText("GG, you win!");
+//					aiMon.disable();
+//				} else {
+//					ai.fainted();
+//					aiMon.setIcon(gifsIcon(false));
+//					this.AIname.setText(ai.getCurrent().getName());
+//					switchBar(aiHP, ai.getCurrent());
+//				}
+//				update(userHP, user.getCurrent());
+//				update(aiHP, ai.getCurrent());
+//			}
+//			if (skipturn == true) {
+//				skipturn = false;
+//				return;
+//			}
+//			String temp = ai.AITurn(user.getCurrent(), m);
+//			AIconsole.setText(temp);
+//			temp = temp.replaceAll("[^\\d]", "");
+//			if (user.getCurrent().getHp() == 0)
+//				userMon.setIcon(gifsIcon(true));
+//			this.setVisible(true);
+//			this.repaint();
+//			this.revalidate();
+//			if (user.getCurrent().getHp() == 0) {
+//				userMon.disable();
+//			}
+//			if (user.lost()) {
+//
+//				this.forceSwitch();
+//				AIconsole.setText("");
+//				console.setText("you lost");
+//			}
+//
+//			update(userHP, user.getCurrent());
+//			update(aiHP, ai.getCurrent());
+//			this.setVisible(true);
+//			this.repaint();
+//			this.revalidate();
+//			if (user.getCurrent().getHp() == 0) {
+//				userMon.disable();
+//			}
+//			if (user.lost()) {
+//				this.forceSwitch();
+//				AIconsole.setText("");
+//				console.setText("you lost");
+//			}
+//		} else {
+//			if (skipturn) {
+//				skipturn = false;
+//				return;
+//			}
+//			if(ai.lost()) return;
+//			String temp = ai.AITurn(user.getCurrent(), m);
+//			AIconsole.setText(temp);
+//			temp = temp.replaceAll("[^\\d]", "");
+//			if (user.getCurrent().getHp() == 0) {
+//				userMon.setIcon(gifsIcon(true));
+//				this.setVisible(true);
+//				this.repaint();
+//				this.revalidate();
+//				if (user.getCurrent().getHp() == 0) {
+//					userMon.disable();
+//				}
+//				if (user.lost()) {
+//					this.forceSwitch();
+//					AIconsole.setText("");
+//					console.setText("you lost!");
+//				}
+//				update(userHP, user.getCurrent());
+//				update(aiHP, ai.getCurrent());
+//				return;
+//			}
+//			if (e.getSource() == move1) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+//						user.getCurrent().getMove(0).isSpecial()));
+//				//AIconsole.setText(" ");
+//			} else if (e.getSource() == move2) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
+//						user.getCurrent().getMove(1).isSpecial()));
+//				//AIconsole.setText(" ");
+//			} else if (e.getSource() == move3) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
+//						user.getCurrent().getMove(2).isSpecial()));
+//				//AIconsole.setText(" ");
+//			} else if (e.getSource() == move4) {
+//				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
+//						user.getCurrent().getMove(3).isSpecial()));
+//
+//			}
+//
+//			if (ai.getCurrent().getHp() == 0) {
+//				disaBall();
+//				ballcount++;
+//
+//				if (ai.lost()) {
+//					//ball6.disable();
+//					console.setText("GG, you win!");
+//					aiMon.disable();
+//
+//				} else {
+//					ai.fainted();
+//					aiMon.setIcon(gifsIcon(false));
+//					this.AIname.setText(ai.getCurrent().getName());
+//					switchBar(aiHP, ai.getCurrent());
+//				}
+//			}
+//		}
+//		this.setVisible(true);
+//		this.repaint();
+//		this.revalidate();
+//		if (user.getCurrent().getHp() == 0) {
+//			skipturn = true;
+//			userMon.disable();
+//		}
+//		if (user.lost()) {
+//			this.forceSwitch();
+//			AIconsole.setText("");
+//			console.setText("you lost!");
+//		}
+//
+//		update(userHP, user.getCurrent());
+//		update(aiHP, ai.getCurrent());
+	}
+	
+	public void doAction(String source) {
 
 		Move m = AIMove();
-		if (e.getSource() == mute) {
+		if (source.equals("mute")) {
 			if (!isMuted) {
 				Game.mute(false);
 				isMuted = true;
@@ -298,24 +609,24 @@ public class GUI extends JFrame implements ActionListener {
 				isMuted = false;
 				return;
 			}
-		} else if (e.getSource() == pokemon1 || e.getSource() == pokemon2 || e.getSource() == pokemon3
-				|| e.getSource() == pokemon4 || e.getSource() == pokemon5 || e.getSource() == pokemon6) {
-			if (e.getSource() == pokemon1) {
+		} else if (source.equals("pokemon1") || source.equals("pokemon2") || source.equals("pokemon3")
+				|| source.equals("pokemon4") || source.equals("pokemon5") || source.equals("pokemon6")) {
+			if (source.equals("pokemon1")) {
 				if (playerSwitch(0))
 					return;
-			} else if (e.getSource() == pokemon2) {
+			} else if (source.equals("pokemon2")) {
 				if (playerSwitch(1))
 					return;
-			} else if (e.getSource() == pokemon3) {
+			} else if (source.equals("pokemon3")) {
 				if (playerSwitch(2))
 					return;
-			} else if (e.getSource() == pokemon4) {
+			} else if (source.equals("pokemon4")) {
 				if (playerSwitch(3))
 					return;
-			} else if (e.getSource() == pokemon5) {
+			} else if (source.equals("pokemon5")) {
 				if (playerSwitch(4))
 					return;
-			} else if (e.getSource() == pokemon6) {
+			} else if (source.equals("pokemon6")) {
 				if (playerSwitch(5))
 					return;
 			}
@@ -371,19 +682,19 @@ public class GUI extends JFrame implements ActionListener {
 				console.setText("you lost");
 			}
 		} else if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
-			if (e.getSource() == move1) {
+			if (source.equals("move1")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
 						user.getCurrent().getMove(0).isSpecial()));
 				AIconsole.setText(" ");
-			} else if (e.getSource() == move2) {
+			} else if (source.equals("move2")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
 						user.getCurrent().getMove(1).isSpecial()));
 				AIconsole.setText(" ");
-			} else if (e.getSource() == move3) {
+			} else if (source.equals("move3")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
 						user.getCurrent().getMove(2).isSpecial()));
 				AIconsole.setText(" ");
-			} else if (e.getSource() == move4) {
+			} else if (source.equals("move4")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
 						user.getCurrent().getMove(3).isSpecial()));
 
@@ -467,19 +778,19 @@ public class GUI extends JFrame implements ActionListener {
 				update(aiHP, ai.getCurrent());
 				return;
 			}
-			if (e.getSource() == move1) {
+			if (source.equals("move1")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
 						user.getCurrent().getMove(0).isSpecial()));
 				//AIconsole.setText(" ");
-			} else if (e.getSource() == move2) {
+			} else if (source.equals("move2")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
 						user.getCurrent().getMove(1).isSpecial()));
 				//AIconsole.setText(" ");
-			} else if (e.getSource() == move3) {
+			} else if (source.equals("move3")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
 						user.getCurrent().getMove(2).isSpecial()));
 				//AIconsole.setText(" ");
-			} else if (e.getSource() == move4) {
+			} else if (source.equals("move4")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
 						user.getCurrent().getMove(3).isSpecial()));
 
@@ -611,6 +922,32 @@ public class GUI extends JFrame implements ActionListener {
 		s.setMaximum(p.getMaxHp());
 		s.setValue(p.getHp());
 		update(s, p);
+	}
+	
+	public void switchMoveButton() {
+		Image move1Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(0).getType() + ".png")
+				.getImage();
+		Image move1Scaled = move1Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton1 = new ImageIcon(move1Scaled);
+		move1.setIcon(moveButton1);
+		
+		Image move2Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(1).getType() + ".png")
+				.getImage();
+		Image move2Scaled = move2Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton2 = new ImageIcon(move2Scaled);
+		move2.setIcon(moveButton2);
+		
+		Image move3Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(2).getType() + ".png")
+				.getImage();
+		Image move3Scaled = move3Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton3 = new ImageIcon(move3Scaled);
+		move3.setIcon(moveButton3);
+		
+		Image move4Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(3).getType() + ".png")
+				.getImage();
+		Image move4Scaled = move4Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		ImageIcon moveButton4 = new ImageIcon(move4Scaled);
+		move4.setIcon(moveButton4);
 	}
 
 	public void aiBar() {
