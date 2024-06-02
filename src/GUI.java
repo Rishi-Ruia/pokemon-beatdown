@@ -450,6 +450,7 @@ public class GUI extends JFrame implements ActionListener {
 				console.setText("you lost");
 			}
 		} else if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
+			if(user.getCurrent().getHp() <= 0) return;
 			if (source.equals("move1")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
 						user.getCurrent().getMove(0).isSpecial()));
@@ -521,6 +522,7 @@ public class GUI extends JFrame implements ActionListener {
 				console.setText("you lost");
 			}
 		} else {
+			if(user.getCurrent().getHp()<=0 ) return;
 			if (skipturn) {
 				skipturn = false;
 				return;
