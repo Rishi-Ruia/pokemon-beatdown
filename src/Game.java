@@ -26,12 +26,13 @@ public class Game {
 	public static void main(String[] args)
 			throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
 		String fileName = "diamondAndPearlBattleTheme.wav";
-		// 80% chance of being Blunder theme
-		if (Math.random() <= .8)
+		// 75% chance of being Blunder theme
+		if (Math.random() <= .75)
 			fileName = "blunder theme.wav";
 		File file = new File(fileName); // From https://www.youtube.com/watch?v=0_SeDY8Y3g8
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
-		audioStream.skip(2282000);
+		if (fileName.equals("blunder theme.wav"))
+			audioStream.skip(2282000);
 		Clip clip = AudioSystem.getClip();
 		
 		clip.open(audioStream);
