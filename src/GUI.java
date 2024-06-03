@@ -52,6 +52,7 @@ public class GUI extends JFrame implements ActionListener {
 	protected int ballcount = 1;
 	protected boolean isMuted;
 	private Font pokemonFont;
+	private JLabel consoleBG;
 
 	// the constructor to create the initial GUI
 	public ImageIcon gifsIcon(boolean pokemon) {
@@ -117,14 +118,24 @@ public class GUI extends JFrame implements ActionListener {
 		AIname.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
 		AIname.setBounds((int) (width / 1.7), (int) (-height / 2.5), width / 2, (int) (height / 1.1));
 		this.add(AIname);
-		console.setBounds(width / 6, (int) (height - height / 4), width - width / 6, height / 12);
+		console.setBounds((int) (width / 4.5), (int) (height - height / 4.5), width - width / 6, height / 12);
 		console.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
+		console.setForeground(Color.white);
 		this.add(console);
-		AIconsole.setBounds(width / 6, (int) (height - height / 5), width - width / 6, height / 12);
+		AIconsole.setBounds((int) (width / 4.5), (int) (height - height / 5.5), width - width / 6, height / 12);
 		AIconsole.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
+		AIconsole.setForeground(Color.white);
 		AIconsole.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		this.add(AIconsole);
+		
+		Image consoleTemp = new ImageIcon("console.png").getImage();
+		Image newConsoleTemp = consoleTemp.getScaledInstance(width - width / 4, (int) (height / 5), Image.SCALE_DEFAULT);
+
+		consoleBG = new JLabel(new ImageIcon(newConsoleTemp));
+		consoleBG.setBounds((int) (width / 5), (int) (height - height / 2.55), width - width / 4, height / 2);
+		consoleBG.setAlignmentX(JFrame.CENTER_ALIGNMENT);
+		this.add(consoleBG);
 		this.setVisible(true);
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
