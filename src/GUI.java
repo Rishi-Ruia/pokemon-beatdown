@@ -149,6 +149,7 @@ public class GUI extends JFrame implements ActionListener {
 		move1.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move1.setForeground(Color.white);
 		move1.setBackground(Color.WHITE);
+		move1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		move1.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
@@ -177,6 +178,7 @@ public class GUI extends JFrame implements ActionListener {
 		move2.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move2.setForeground(Color.white);
 		move2.setBackground(Color.WHITE);
+		move2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		move2.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
@@ -205,6 +207,7 @@ public class GUI extends JFrame implements ActionListener {
 		move3.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move3.setForeground(Color.white);
 		move3.setBackground(Color.WHITE);
+		move3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		move3.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
@@ -233,6 +236,7 @@ public class GUI extends JFrame implements ActionListener {
 		move4.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move4.setForeground(Color.white);
 		move4.setBackground(Color.WHITE);
+		move4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		move4.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
@@ -264,37 +268,37 @@ public class GUI extends JFrame implements ActionListener {
 	// adds the switch buttons to the Jframe
 	private void addSwitch() {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
-		pokemon1.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
+		pokemon1.setFont(new Font("Lucida Console", Font.PLAIN, 20));
 		pokemon1.setBounds(width / 200, height / 36, width / 8, width / 16);
 		pokemon1.setIcon(getFrontSprite(0));
 		pokemon1.addActionListener(this);
 		this.add(pokemon1);
 		pokemon2 = new JButton(user.getPokemon(1).getName());
-		pokemon2.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
+		pokemon2.setFont(new Font("Lucida Console", Font.PLAIN, 20));
 		pokemon2.setBounds(width / 200, height / 36 + (width / 14), width / 8, width / 16);
 		pokemon2.setIcon(getFrontSprite(1));
 		pokemon2.addActionListener(this);
 		this.add(pokemon2);
 		pokemon3 = new JButton(user.getPokemon(2).getName());
-		pokemon3.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
+		pokemon3.setFont(new Font("Lucida Console", Font.PLAIN, 20));
 		pokemon3.setBounds(width / 200, height / 36 + 2 * (width / 14), width / 8, width / 16);
 		pokemon3.setIcon(getFrontSprite(2));
 		pokemon3.addActionListener(this);
 		this.add(pokemon3);
 		pokemon4 = new JButton(user.getPokemon(3).getName());
-		pokemon4.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
+		pokemon4.setFont(new Font("Lucida Console", Font.PLAIN, 20));
 		pokemon4.setBounds(width / 200, height / 36 + 3 * (width / 14), width / 8, width / 16);
 		pokemon4.setIcon(getFrontSprite(3));
 		pokemon4.addActionListener(this);
 		this.add(pokemon4);
 		pokemon5 = new JButton(user.getPokemon(4).getName());
-		pokemon5.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
+		pokemon5.setFont(new Font("Lucida Console", Font.PLAIN, 20));
 		pokemon5.setBounds(width / 200, height / 36 + 4 * (width / 14), width / 8, width / 16);
 		pokemon5.setIcon(getFrontSprite(4));
 		pokemon5.addActionListener(this);
 		this.add(pokemon5);
 		pokemon6 = new JButton(user.getPokemon(5).getName());
-		pokemon6.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
+		pokemon6.setFont(new Font("Lucida Console", Font.PLAIN, 20));
 		pokemon6.setBounds(width / 200, height / 36 + 5 * (width / 14), width / 8, width / 16);
 		pokemon6.setIcon(getFrontSprite(5));
 		pokemon6.addActionListener(this);
@@ -379,7 +383,6 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public void doAction(String source) {
-
 		Move m = AIMove();
 		if (source.equals("mute")) {
 			if (!isMuted) {
@@ -698,7 +701,7 @@ public class GUI extends JFrame implements ActionListener {
 		isMuted = false;
 		mute = new JButton("Mute");
 		mute.setLayout(null);
-		mute.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
+		mute.setFont(new Font("Lucida Console", Font.PLAIN, 20));
 		// mute.setBounds(width / 200, height - height / 36, width / 16, width / 32);
 		mute.setBounds(width / 50, height - (height / 7), width / 16, width / 32);
 		mute.addActionListener(this);
