@@ -323,7 +323,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	// makes the user unable to click a move thus forcing them to switch
 	public void forceSwitch() {
-		console.setText("Your Pokemon has fainted!");
+		slowPrint("Your Pokemon has fainted!", AIconsole);
 		move1.setEnabled(false);
 		move2.setEnabled(false);
 		move3.setEnabled(false);
@@ -333,7 +333,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	// sets the GUI to say you have lost and prevents you from moving
 	public void displayLose() {
-		AIconsole.setText("You have lost :(");
+		slowPrint("You have lost :(", AIconsole);
 		forceSwitch();
 	}
 
@@ -342,8 +342,7 @@ public class GUI extends JFrame implements ActionListener {
 		String canSwitch = user.Switch(position);
 		if (canSwitch == null)
 			return true;
-		console.setText(canSwitch);
-		AIconsole.setText(" ");
+		slowPrint(canSwitch, console);
 		checkDead();
 		userMon.setIcon(gifsIcon(true));
 		switchBar(userHP, user.getCurrent());
@@ -357,9 +356,7 @@ public class GUI extends JFrame implements ActionListener {
 	public Move AIMove() {
 		Move use = new Move();
 		Move random = new Move();
-		String damage = "";
 		int max = 0;
-
 		for (int i = 0; i < 4; i++) {
 			random = ai.getCurrent().getMove(i);
 			double stab = 1;
@@ -449,6 +446,7 @@ public class GUI extends JFrame implements ActionListener {
 				return;
 			}
 			String temp = ai.AITurn(user.getCurrent(), m);
+			slowPrint(temp, AIconsole);
 			AIconsole.setText(temp);
 			temp = temp.replaceAll("[^\\d]", "");
 			if (user.getCurrent().getHp() == 0)
