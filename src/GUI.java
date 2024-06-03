@@ -70,16 +70,16 @@ public class GUI extends JFrame implements ActionListener {
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
+		
+		File pokemonFontFile = new File("pokemon-font.ttf");
+		pokemonFont = Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile);
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile));
+		
 		muteButton();
 		userBar();
 		aiBar();
 		addBalls();
-		
-		File pokemonFontFile = new File("pokemon-font.ttf");
-		pokemonFont = Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile);
-//		pokemonFont = pokemonFont.deriveFont(Font.PLAIN);
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile));
 		
 		ImageIcon tempIcon = new ImageIcon("AISprite_CSAProject_Raeed.png");
 		Image temp = tempIcon.getImage();
@@ -698,7 +698,7 @@ public class GUI extends JFrame implements ActionListener {
 		isMuted = false;
 		mute = new JButton("Mute");
 		mute.setLayout(null);
-		mute.setFont(new Font("Arial", Font.PLAIN, 20));
+		mute.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		// mute.setBounds(width / 200, height - height / 36, width / 16, width / 32);
 		mute.setBounds(width / 50, height - (height / 7), width / 16, width / 32);
 		mute.addActionListener(this);
