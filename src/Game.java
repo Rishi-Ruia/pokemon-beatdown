@@ -27,21 +27,17 @@ public class Game {
 			throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
 		// Equal chance of all songs
 		String[] songs = {"diamondAndPearlBattleTheme.wav", 
-				"blackAndWhiteBattleTheme.wav", "blunder theme.wav"};
+				"blackAndWhiteBattleTheme.wav", "blunder theme.wav","blunder theme.wav",
+				"blunder theme.wav"};
 		int songIndex = (int) (Math.random() * songs.length);
 		String fileName = songs[songIndex];
-		File file = new File(fileName); // From https://www.youtube.com/watch?v=0_SeDY8Y3g8
+		File file = new File(fileName); 
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
 		if (fileName.equals("blunder theme.wav"))
 			audioStream.skip(2282000);
 		Clip clip = AudioSystem.getClip();
-		
 		clip.open(audioStream);
-		// For adjusting volume
 		volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-		// The parameter of setValue is how many decibels you want to adjust the volume
-		// by
-		
 		volume.setValue(-12.0f);
 		clip.start();
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -54,8 +50,6 @@ public class Game {
 
 	// method to create the Pokemon objects
 	public static void setup() throws IOException {
-		// poke[0] = (new Pokemon("Raeed Rahman", 120,120,120,120,120,120, "Dragon",
-		// "Fairy"));
 		String line = "";
 		String[][] pokemons = new String[651][13];
 		BufferedReader br = new BufferedReader(new FileReader("Gen5Pokedex.csv"));

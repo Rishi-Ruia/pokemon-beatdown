@@ -182,7 +182,7 @@
 182,Bellossom,490,,75,Grass,80,95,90,100,50,2,FALSE
 183,Marill,250,Fairy,70,Water,20,50,20,50,40,2,FALSE
 184,Azumarill,420,Fairy,100,Water,50,80,60,80,50,2,FALSE
-185,Sudowoodo,410,,70,Rock,100,115,30,65,30,2,FALSE
+185,BasedLord CTC,410,,70,Rock,100,115,30,65,30,2,FALSE
 186,Politoed,500,,90,Water,75,75,90,100,70,2,FALSE
 187,Hoppip,250,Flying,35,Grass,35,40,35,55,50,2,FALSE
 188,Skiploom,340,Flying,55,Grass,45,50,45,65,80,2,FALSE
@@ -411,8 +411,8 @@
 411,Bastiodon,495,Steel,60,Rock,52,168,47,138,30,4,FALSE
 412,Burmy,224,,40,Bug,29,45,29,45,36,4,FALSE
 413,WormadamPlant Cloak,424,Grass,60,Bug,59,85,79,105,36,4,FALSE
-413,WormadamSandy Cloak,424,Ground,60,Bug,79,105,59,85,36,4,FALSE
-413,WormadamTrash Cloak,424,Steel,60,Bug,69,95,69,95,36,4,FALSE
+413,Wormadam-Sandy,424,Ground,60,Bug,79,105,59,85,36,4,FALSE
+413,Wormadam-Trash,424,Steel,60,Bug,69,95,69,95,36,4,FALSE
 414,Mothim,424,Flying,70,Bug,94,50,94,50,66,4,FALSE
 415,Combee,244,Flying,30,Bug,30,42,30,42,70,4,FALSE
 416,Vespiquen,474,Flying,70,Bug,80,102,80,102,40,4,FALSE
