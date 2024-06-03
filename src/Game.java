@@ -46,6 +46,7 @@ public class Game {
 		user = new Player();
 		AI ai = new AI();
 		game = new GUI(user, ai, poke);
+		game.repaint();
 	}
 
 	// method to create the Pokemon objects
