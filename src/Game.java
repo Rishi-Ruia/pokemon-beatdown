@@ -109,12 +109,12 @@ public class Game {
 			attacker.setHp(-heal);
 			if (attacker.getHp() > attacker.getMaxHp())
 				attacker.setHp(-2);
-			return attacker.getName() + " healed for "  + "50% and now has " + attacker.getHp() + " HP!";
+			return attacker.getName() + " healed for "  + "50 percent and now has " + attacker.getHp() + " HP!";
 		}
 		double stab = 1;
 		if (attacker.getType1().equals(attack.getType()) || attacker.getType2().equals(attack.getType()))
 			stab = 1.5;
-		if(Math.random()*101 < 6.25) {
+		if(Math.random()*101 <= 6.25) {
 			crit = " it was a Critial Hit!";
 			stab *=1.5;
 		}
@@ -126,7 +126,7 @@ public class Game {
 				attacked.setHp(0);
 				return attacker.getName() + " used " + attack.getName() + " and " + attacked.getName() + " fainted!"  + crit;
 			}
-			return attacker.getName() + " used " + attack.getName() + superEffective +  "and it did " + damage*100/attacked.getMaxHp() + "%" + crit;
+			return attacker.getName() + " used " + attack.getName() + superEffective +  "and it did " + damage*100/attacked.getMaxHp() + " percent" + crit;
 		}
 		return attack.getName() + " missed!";
 	}
