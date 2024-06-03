@@ -81,12 +81,6 @@ public class GUI extends JFrame implements ActionListener {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile));
 		
-		userMon = (pokemongifs(true));
-		this.add(userMon);
-		userMon.setBounds((int) (width / 3.4), (int) (height / 3.1), width / 6, width / 6);
-		aiMon = (pokemongifs(false));
-		add(aiMon);
-		aiMon.setBounds((int) (width / 1.65), height / 6, width / 6, width / 6);
 		ImageIcon tempIcon = new ImageIcon("AISprite_CSAProject_Raeed.png");
 		Image temp = tempIcon.getImage();
 		Image newTemp = temp.getScaledInstance(width / 4, height / 2, Image.SCALE_DEFAULT);
@@ -100,6 +94,13 @@ public class GUI extends JFrame implements ActionListener {
 		aiImage.setBounds((int) (width / 1.28), -height / 27, width / 4, height / 2);
 		this.add(userImage);
 		this.add(aiImage);
+		
+		userMon = (pokemongifs(true));
+		this.add(userMon);
+		userMon.setBounds((int) (width / 3.4), (int) (height / 3.1), width / 6, width / 6);
+		aiMon = (pokemongifs(false));
+		add(aiMon);
+		aiMon.setBounds((int) (width / 1.65), height / 6, width / 6, width / 6);
 		addMoves();
 		addSwitch();
 		this.setSize(width, height);
