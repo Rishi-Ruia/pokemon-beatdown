@@ -49,6 +49,7 @@ public class GUI extends JFrame implements ActionListener {
 	protected JLabel ball6;
 	protected int ballcount = 1;
 	protected boolean isMuted;
+	private Font pokemonFont;
 
 	// the constructor to create the initial GUI
 	public ImageIcon gifsIcon(boolean pokemon) {
@@ -65,7 +66,7 @@ public class GUI extends JFrame implements ActionListener {
 		return new JLabel(new ImageIcon(newimg));
 	}
 
-	public GUI(Player user, AI ai, Pokemon[] mons) throws IOException {
+	public GUI(Player user, AI ai, Pokemon[] mons) throws IOException, FontFormatException {
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
@@ -73,6 +74,13 @@ public class GUI extends JFrame implements ActionListener {
 		userBar();
 		aiBar();
 		addBalls();
+		
+		File pokemonFontFile = new File("pokemon-font.ttf");
+		pokemonFont = Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile);
+//		pokemonFont = pokemonFont.deriveFont(Font.PLAIN);
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile));
+		
 		userMon = (pokemongifs(true));
 		this.add(userMon);
 		userMon.setBounds((int) (width / 3.4), (int) (height / 3.1), width / 6, width / 6);
@@ -100,24 +108,23 @@ public class GUI extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		userName = new JLabel(user.getCurrent().getName());
 		AIname = new JLabel(ai.getCurrent().getName());
-		userName.setFont(new Font("Arial", Font.BOLD, 80));
+		userName.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
 		userName.setBounds((int) (width / 3.5), (int) (-height / 4), width / 2, (int) (height / 1.1));
 		this.add(userName);
-		AIname.setFont(new Font("Arial", Font.BOLD, 80));
+		AIname.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
 		AIname.setBounds((int) (width / 1.7), (int) (-height / 2.5), width / 2, (int) (height / 1.1));
 		this.add(AIname);
 		console.setBounds(width / 6, (int) (height - height / 4), width - width / 6, height / 12);
-		console.setFont(new Font("Arial", Font.ITALIC, 30));
+		console.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
 		this.add(console);
 		AIconsole.setBounds(width / 6, (int) (height - height / 5), width - width / 6, height / 12);
-		AIconsole.setFont(new Font("Arial", Font.ITALIC, 30));
+		AIconsole.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
 		AIconsole.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		this.add(AIconsole);
 		this.setVisible(true);
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
-
 	}
 
 	public void onPaintEvent(Graphics g) {
@@ -138,7 +145,7 @@ public class GUI extends JFrame implements ActionListener {
 		move1.setIcon(moveButton1);
 		move1.setHorizontalTextPosition(JLabel.CENTER);
 		move1.setBounds(width / 5, (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move1.setFont(new Font("Arial", Font.PLAIN, 25));
+		move1.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move1.setForeground(Color.white);
 		move1.setBackground(Color.WHITE);
 		move1.addMouseListener(new MouseListener() {
@@ -166,7 +173,7 @@ public class GUI extends JFrame implements ActionListener {
 		move2.setIcon(moveButton2);
 		move2.setHorizontalTextPosition(JLabel.CENTER);
 		move2.setBounds(2 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move2.setFont(new Font("Arial", Font.PLAIN, 25));
+		move2.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move2.setForeground(Color.white);
 		move2.setBackground(Color.WHITE);
 		move2.addMouseListener(new MouseListener() {
@@ -194,7 +201,7 @@ public class GUI extends JFrame implements ActionListener {
 		move3.setIcon(moveButton3);
 		move3.setHorizontalTextPosition(JLabel.CENTER);
 		move3.setBounds(3 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move3.setFont(new Font("Arial", Font.PLAIN, 25));
+		move3.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move3.setForeground(Color.white);
 		move3.setBackground(Color.WHITE);
 		move3.addMouseListener(new MouseListener() {
@@ -222,7 +229,7 @@ public class GUI extends JFrame implements ActionListener {
 		move4.setIcon(moveButton4);
 		move4.setHorizontalTextPosition(JLabel.CENTER);
 		move4.setBounds(4 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move4.setFont(new Font("Arial", Font.PLAIN, 25));
+		move4.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
 		move4.setForeground(Color.white);
 		move4.setBackground(Color.WHITE);
 		move4.addMouseListener(new MouseListener() {
@@ -256,37 +263,37 @@ public class GUI extends JFrame implements ActionListener {
 	// adds the switch buttons to the Jframe
 	private void addSwitch() {
 		pokemon1 = new JButton(user.getPokemon(0).getName());
-		pokemon1.setFont(new Font("Arial", Font.BOLD, 20));
+		pokemon1.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
 		pokemon1.setBounds(width / 200, height / 36, width / 8, width / 16);
 		pokemon1.setIcon(getFrontSprite(0));
 		pokemon1.addActionListener(this);
 		this.add(pokemon1);
 		pokemon2 = new JButton(user.getPokemon(1).getName());
-		pokemon2.setFont(new Font("Arial", Font.BOLD, 20));
+		pokemon2.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
 		pokemon2.setBounds(width / 200, height / 36 + (width / 14), width / 8, width / 16);
 		pokemon2.setIcon(getFrontSprite(1));
 		pokemon2.addActionListener(this);
 		this.add(pokemon2);
 		pokemon3 = new JButton(user.getPokemon(2).getName());
-		pokemon3.setFont(new Font("Arial", Font.BOLD, 20));
+		pokemon3.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
 		pokemon3.setBounds(width / 200, height / 36 + 2 * (width / 14), width / 8, width / 16);
 		pokemon3.setIcon(getFrontSprite(2));
 		pokemon3.addActionListener(this);
 		this.add(pokemon3);
 		pokemon4 = new JButton(user.getPokemon(3).getName());
-		pokemon4.setFont(new Font("Arial", Font.BOLD, 20));
+		pokemon4.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
 		pokemon4.setBounds(width / 200, height / 36 + 3 * (width / 14), width / 8, width / 16);
 		pokemon4.setIcon(getFrontSprite(3));
 		pokemon4.addActionListener(this);
 		this.add(pokemon4);
 		pokemon5 = new JButton(user.getPokemon(4).getName());
-		pokemon5.setFont(new Font("Arial", Font.BOLD, 20));
+		pokemon5.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
 		pokemon5.setBounds(width / 200, height / 36 + 4 * (width / 14), width / 8, width / 16);
 		pokemon5.setIcon(getFrontSprite(4));
 		pokemon5.addActionListener(this);
 		this.add(pokemon5);
 		pokemon6 = new JButton(user.getPokemon(5).getName());
-		pokemon6.setFont(new Font("Arial", Font.BOLD, 20));
+		pokemon6.setFont(pokemonFont.deriveFont(Font.PLAIN, 15));
 		pokemon6.setBounds(width / 200, height / 36 + 5 * (width / 14), width / 8, width / 16);
 		pokemon6.setIcon(getFrontSprite(5));
 		pokemon6.addActionListener(this);
