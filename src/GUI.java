@@ -144,15 +144,15 @@ public class GUI extends JFrame implements ActionListener {
 		move1.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
-			public void mousePressed(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {
+				doAction("move1");
+			}
 			
 			public void mouseExited(MouseEvent e) {}
 			
 			public void mouseEntered(MouseEvent e) {}
 			
-			public void mouseClicked(MouseEvent e) {
-				doAction("move1");
-			}
+			public void mouseClicked(MouseEvent e) {}
 		});
 		
 		move2 = new JLabel();
@@ -172,15 +172,15 @@ public class GUI extends JFrame implements ActionListener {
 		move2.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
-			public void mousePressed(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {
+				doAction("move2");
+			}
 			
 			public void mouseExited(MouseEvent e) {}
 			
 			public void mouseEntered(MouseEvent e) {}
 			
-			public void mouseClicked(MouseEvent e) {
-				doAction("move2");
-			}
+			public void mouseClicked(MouseEvent e) {}
 		});
 		
 		move3 = new JLabel();
@@ -200,15 +200,15 @@ public class GUI extends JFrame implements ActionListener {
 		move3.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
-			public void mousePressed(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {
+				doAction("move3");
+			}
 			
 			public void mouseExited(MouseEvent e) {}
 			
 			public void mouseEntered(MouseEvent e) {}
 			
-			public void mouseClicked(MouseEvent e) {
-				doAction("move3");
-			}
+			public void mouseClicked(MouseEvent e) {}
 		});
 		
 		move4 = new JLabel();
@@ -228,15 +228,15 @@ public class GUI extends JFrame implements ActionListener {
 		move4.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			
-			public void mousePressed(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {
+				doAction("move4");
+			}
 			
 			public void mouseExited(MouseEvent e) {}
 			
 			public void mouseEntered(MouseEvent e) {}
 			
-			public void mouseClicked(MouseEvent e) {
-				doAction("move4");
-			}
+			public void mouseClicked(MouseEvent e) {}
 		});
 		
 		this.add(move1);
