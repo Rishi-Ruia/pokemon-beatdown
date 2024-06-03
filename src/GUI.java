@@ -14,6 +14,8 @@ public class GUI extends JFrame implements ActionListener {
 	// default serial version UID
 	private static final long serialVersionUID = 1L;
 	// the buttons that are on the Jframe
+	private javax.swing.Timer timer;
+
 	private JLabel move1;
 	private JLabel move2;
 	private JLabel move3;
@@ -469,8 +471,8 @@ public class GUI extends JFrame implements ActionListener {
 		} else if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
 			if(user.getCurrent().getHp() <= 0) return;
 			if (source.equals("move1")) {
-				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
-						user.getCurrent().getMove(0).isSpecial()));
+				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+						user.getCurrent().getMove(0).isSpecial()),console);
 				AIconsole.setText(" ");
 			} else if (source.equals("move2")) {
 				console.setText(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
@@ -815,4 +817,24 @@ public class GUI extends JFrame implements ActionListener {
 		else if (ballcount == 6)
 			ball6.disable();
 	}
+	int index =0;
+	  public void slowPrint(String message, JLabel texter) {
+
+	        if(timer != null && timer.isRunning()) return;
+	        index = 0;
+	        texter.setText("");
+
+	        timer = new javax.swing.Timer(30,new AbstractAction() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	
+	                texter.setText(texter.getText() + String.valueOf(message.charAt(index)));
+	                index++;
+	                if (index >= message.length()) {
+	                    timer.stop();
+	                }
+	            }
+	        });
+	        timer.start();
+	    }
 }
