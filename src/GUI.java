@@ -450,7 +450,7 @@ public class GUI extends JFrame implements ActionListener {
 
 				this.forceSwitch();
 				AIconsole.setText("");
-				console.setText("you lost");
+				console.setText("You lost");
 			}
 
 			update(userHP, user.getCurrent());
@@ -464,7 +464,7 @@ public class GUI extends JFrame implements ActionListener {
 			if (user.lost()) {
 				this.forceSwitch();
 				AIconsole.setText("");
-				console.setText("you lost");
+				console.setText("You lost");
 			}
 		} else if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
 			if(user.getCurrent().getHp() <= 0) return;
@@ -522,7 +522,7 @@ public class GUI extends JFrame implements ActionListener {
 
 				this.forceSwitch();
 				AIconsole.setText("");
-				console.setText("you lost");
+				console.setText("You lost");
 			}
 
 			update(userHP, user.getCurrent());
@@ -536,7 +536,7 @@ public class GUI extends JFrame implements ActionListener {
 			if (user.lost()) {
 				this.forceSwitch();
 				AIconsole.setText("");
-				console.setText("you lost");
+				console.setText("You lost");
 			}
 		} else {
 			if(user.getCurrent().getHp()<=0 ) return;
@@ -559,7 +559,7 @@ public class GUI extends JFrame implements ActionListener {
 				if (user.lost()) {
 					this.forceSwitch();
 					AIconsole.setText("");
-					console.setText("you lost!");
+					console.setText("You lost!");
 				}
 				update(userHP, user.getCurrent());
 				update(aiHP, ai.getCurrent());
@@ -610,7 +610,7 @@ public class GUI extends JFrame implements ActionListener {
 		if (user.lost()) {
 			this.forceSwitch();
 			AIconsole.setText("");
-			console.setText("you lost!");
+			console.setText("You lost!");
 		}
 
 		update(userHP, user.getCurrent());
