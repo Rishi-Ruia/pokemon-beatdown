@@ -16,16 +16,18 @@ public class GUI extends JFrame implements ActionListener {
 	// the buttons that are on the Jframe
 	private javax.swing.Timer timer;
 
-	private JLabel move1;
-	private JLabel move2;
-	private JLabel move3;
-	private JLabel move4;
-	private JButton pokemon1;
-	private JButton pokemon2;
-	private JButton pokemon3;
-	private JButton pokemon4;
-	private JButton pokemon5;
-	private JButton pokemon6;
+	private JLabel move1 = new JLabel();
+	private JLabel move2 = new JLabel();
+	private JLabel move3 = new JLabel();
+	private JLabel move4 = new JLabel();
+	private JLabel[] moveButtons = {move1, move2, move3, move4};
+	private JButton pokemon1 = new JButton();
+	private JButton pokemon2 = new JButton();
+	private JButton pokemon3 = new JButton();
+	private JButton pokemon4 = new JButton();
+	private JButton pokemon5 = new JButton();
+	private JButton pokemon6 = new JButton();
+	private JButton[] switchButtons = {pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6};;
 	private Player user;
 	private AI ai;
 	private JLabel userName;
@@ -73,7 +75,6 @@ public class GUI extends JFrame implements ActionListener {
 		this.user = user;
 		this.ai = ai;
 		this.setLayout(null);
-
 		File pokemonFontFile = new File("pokemon-font.ttf");
 		pokemonFont = Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile);
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -138,8 +139,7 @@ public class GUI extends JFrame implements ActionListener {
 		consoleBG.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		this.add(consoleBG);
 		this.setVisible(true);
-		this.remove(backgroundFinal);
-		this.add(backgroundFinal);
+		addBackground();
 	}
 
 	public void onPaintEvent(Graphics g) {
@@ -149,139 +149,42 @@ public class GUI extends JFrame implements ActionListener {
 	// adds the moves and resizes them to the Jframe
 	public void addMoves() {
 		add(aiMon);
-		move1 = new JLabel();
-		move1.setText(user.getCurrent().getMove(0).getName());
-		// Sets Move 1's image to a scaled instance of the move button of its type
-		Image move1Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(0).getType() + ".png")
-				.getImage();
-		Image move1Scaled = move1Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
-		ImageIcon moveButton1 = new ImageIcon(move1Scaled);
-		move1.setIcon(moveButton1);
-		move1.setHorizontalTextPosition(JLabel.CENTER);
-		move1.setBounds(width / 5, (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move1.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
-		move1.setForeground(Color.white);
-		move1.setBackground(Color.WHITE);
-		move1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		move1.addMouseListener(new MouseListener() {
-			public void mouseReleased(MouseEvent e) {
-			}
+		
+		for (int i = 0; i < moveButtons.length; i++) {
+			moveButtons[i].setText(user.getCurrent().getMove(i).getName());
+			// Sets Move's image to a scaled instance of the move button of its type
+			Image moveImage = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(i).getType() + ".png")
+					.getImage();
+			Image moveScaled = moveImage.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+			ImageIcon moveButton = new ImageIcon(moveScaled);
+			moveButtons[i].setIcon(moveButton);
+			moveButtons[i].setHorizontalTextPosition(JLabel.CENTER);
+			moveButtons[i].setBounds((i + 1) * width / 5, (int) (height - height / 3), (int) (width / 6.3), height / 12);
+			moveButtons[i].setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
+			moveButtons[i].setForeground(Color.white);
+			moveButtons[i].setBackground(Color.WHITE);
+			moveButtons[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			int index = i;
+			moveButtons[i].addMouseListener(new MouseListener() {
+				public void mouseReleased(MouseEvent e) {}
 
-			public void mousePressed(MouseEvent e) {
-				doAction("move1");
-			}
+				public void mousePressed(MouseEvent e) {
+					doAction("move" + (index + 1));
+				}
 
-			public void mouseExited(MouseEvent e) {
-			}
+				public void mouseExited(MouseEvent e) {}
 
-			public void mouseEntered(MouseEvent e) {
-			}
+				public void mouseEntered(MouseEvent e) {}
 
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-
-		move2 = new JLabel();
-		move2.setText(user.getCurrent().getMove(1).getName());
-		// Sets Move 1's image to a scaled instance of the move button of its type
-		Image move2Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(1).getType() + ".png")
-				.getImage();
-		Image move2Scaled = move2Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
-		ImageIcon moveButton2 = new ImageIcon(move2Scaled);
-		move2.setIcon(moveButton2);
-		move2.setHorizontalTextPosition(JLabel.CENTER);
-		move2.setBounds(2 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move2.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
-		move2.setForeground(Color.white);
-		move2.setBackground(Color.WHITE);
-		move2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		move2.addMouseListener(new MouseListener() {
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-				doAction("move2");
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-
-		move3 = new JLabel();
-		move3.setText(user.getCurrent().getMove(2).getName());
-		// Sets Move 1's image to a scaled instance of the move button of its type
-		Image move3Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(2).getType() + ".png")
-				.getImage();
-		Image move3Scaled = move3Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
-		ImageIcon moveButton3 = new ImageIcon(move3Scaled);
-		move3.setIcon(moveButton3);
-		move3.setHorizontalTextPosition(JLabel.CENTER);
-		move3.setBounds(3 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move3.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
-		move3.setForeground(Color.white);
-		move3.setBackground(Color.WHITE);
-		move3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		move3.addMouseListener(new MouseListener() {
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-				doAction("move3");
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-
-		move4 = new JLabel();
-		move4.setText(user.getCurrent().getMove(3).getName());
-		// Sets Move 1's image to a scaled instance of the move button of its type
-		Image move4Img = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(3).getType() + ".png")
-				.getImage();
-		Image move4Scaled = move4Img.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
-		ImageIcon moveButton4 = new ImageIcon(move4Scaled);
-		move4.setIcon(moveButton4);
-		move4.setHorizontalTextPosition(JLabel.CENTER);
-		move4.setBounds(4 * (width / 5), (int) (height - height / 3), (int) (width / 6.3), height / 12);
-		move4.setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
-		move4.setForeground(Color.white);
-		move4.setBackground(Color.WHITE);
-		move4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		move4.addMouseListener(new MouseListener() {
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			public void mousePressed(MouseEvent e) {
-				doAction("move4");
-			}
-
-			public void mouseExited(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-
-		this.add(move1);
-		this.add(move2);
-		this.add(move3);
-		this.add(move4);
+				public void mouseClicked(MouseEvent e) {}
+			});
+			
+			this.add(moveButtons[i]);
+		}		
 		this.setVisible(true);
+	}
+	
+	public void addBackground() {
 		ImageIcon background = new ImageIcon("city.jpg");
 		Image backgroundTemp = background.getImage();
 		Image backgroundscaled = backgroundTemp.getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -293,54 +196,21 @@ public class GUI extends JFrame implements ActionListener {
 
 	// adds the switch buttons to the Jframe
 	private void addSwitch() {
-		pokemon1 = new JButton(user.getPokemon(0).getName());
-		pokemon1.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		pokemon1.setBounds(width / 200, height / 36, width / 8, width / 16);
-		pokemon1.setIcon(getFrontSprite(0));
-		pokemon1.addActionListener(this);
-		this.add(pokemon1);
-		pokemon2 = new JButton(user.getPokemon(1).getName());
-		pokemon2.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		pokemon2.setBounds(width / 200, height / 36 + (width / 14), width / 8, width / 16);
-		pokemon2.setIcon(getFrontSprite(1));
-		pokemon2.addActionListener(this);
-		this.add(pokemon2);
-		pokemon3 = new JButton(user.getPokemon(2).getName());
-		pokemon3.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		pokemon3.setBounds(width / 200, height / 36 + 2 * (width / 14), width / 8, width / 16);
-		pokemon3.setIcon(getFrontSprite(2));
-		pokemon3.addActionListener(this);
-		this.add(pokemon3);
-		pokemon4 = new JButton(user.getPokemon(3).getName());
-		pokemon4.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		pokemon4.setBounds(width / 200, height / 36 + 3 * (width / 14), width / 8, width / 16);
-		pokemon4.setIcon(getFrontSprite(3));
-		pokemon4.addActionListener(this);
-		this.add(pokemon4);
-		pokemon5 = new JButton(user.getPokemon(4).getName());
-		pokemon5.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		pokemon5.setBounds(width / 200, height / 36 + 4 * (width / 14), width / 8, width / 16);
-		pokemon5.setIcon(getFrontSprite(4));
-		pokemon5.addActionListener(this);
-		this.add(pokemon5);
-		pokemon6 = new JButton(user.getPokemon(5).getName());
-		pokemon6.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		pokemon6.setBounds(width / 200, height / 36 + 5 * (width / 14), width / 8, width / 16);
-		pokemon6.setIcon(getFrontSprite(5));
-		pokemon6.addActionListener(this);
-		this.add(pokemon6);
+		for (int i = 0; i < switchButtons.length; i++) {
+			switchButtons[i].setText(user.getPokemon(i).getName());
+			switchButtons[i].setFont(new Font("Lucida Console", Font.PLAIN, 20));
+			switchButtons[i].setBounds(width / 200, height / 36 + i * (width / 14), width / 8, width / 16);
+			switchButtons[i].setIcon(getFrontSprite(i));
+			switchButtons[i].addActionListener(this);
+			this.add(switchButtons[i]);
+		}
 		this.setVisible(true);
-		this.remove(backgroundFinal);
-		this.add(backgroundFinal);
 	}
 
 	// makes the user unable to click a move thus forcing them to switch
 	public void forceSwitch() {
 		slowPrint("Your Pokemon has fainted!", console2);
-		move1.setEnabled(false);
-		move2.setEnabled(false);
-		move3.setEnabled(false);
-		move4.setEnabled(false);
+		for(int i =0; i < 4; i++) moveButtons[i].setEnabled(false);
 		skipturn = true;
 	}
 
@@ -404,6 +274,52 @@ public class GUI extends JFrame implements ActionListener {
 			doAction("pokemon6");
 		}
 	}
+	
+	public void updateGuiForAiFaint() {
+		disaBall();
+		ballcount++;
+		skipturn = true;
+		if (ai.lost()) {
+			ball6.disable();
+			console.setText("GG, you win!");
+			aiMon.disable();
+		} else {
+			ai.fainted();
+			aiMon.setIcon(gifsIcon(false));
+			this.AIname.setText(ai.getCurrent().getName());
+			switchBar(aiHP, ai.getCurrent());
+		}
+	}
+	
+	public void refreshGUI() {
+		this.setVisible(true);
+		this.repaint();
+		this.revalidate();
+	}
+	
+	public void printMoveToConsole(String source) {
+		if (source.equals("move1")) {
+			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+					user.getCurrent().getMove(0).isSpecial()), console);
+		} else if (source.equals("move2")) {
+			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
+					user.getCurrent().getMove(1).isSpecial()), console);
+		} else if (source.equals("move3")) {
+			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
+					user.getCurrent().getMove(2).isSpecial()), console);
+		} else if (source.equals("move4")) {
+			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
+					user.getCurrent().getMove(3).isSpecial()), console);
+		}
+	}
+	
+	public void doMove(int moveNumber) {
+		
+	}
+	
+	public void doSwitch(int switchNumber) {
+		
+	}
 
 	public void doAction(String source) {
 		Move m = AIMove();
@@ -420,116 +336,75 @@ public class GUI extends JFrame implements ActionListener {
 		} else if (source.equals("pokemon1") || source.equals("pokemon2") || source.equals("pokemon3")
 				|| source.equals("pokemon4") || source.equals("pokemon5") || source.equals("pokemon6")) {
 			if (source.equals("pokemon1")) {
-				if (playerSwitch(0))
-					return;
+				if (playerSwitch(0)) return;
 			} else if (source.equals("pokemon2")) {
-				if (playerSwitch(1))
-					return;
+				if (playerSwitch(1)) return;
 			} else if (source.equals("pokemon3")) {
-				if (playerSwitch(2))
-					return;
+				if (playerSwitch(2)) return;
 			} else if (source.equals("pokemon4")) {
-				if (playerSwitch(3))
-					return;
+				if (playerSwitch(3)) return;
 			} else if (source.equals("pokemon5")) {
-				if (playerSwitch(4))
-					return;
+				if (playerSwitch(4)) return;
 			} else if (source.equals("pokemon6")) {
-				if (playerSwitch(5))
-					return;
+				if (playerSwitch(5)) return;
 			}
 			
 			userMon.enable();
 			if (ai.getCurrent().getHp() == 0) {
-				disaBall();
-				ballcount++;
-				skipturn = true;
-				if (ai.lost()) {
-					ball6.disable();
-					console.setText("GG, you win!");
-					aiMon.disable();
-				} else {
-					ai.fainted();
-					aiMon.setIcon(gifsIcon(false));
-					this.AIname.setText(ai.getCurrent().getName());
-					switchBar(aiHP, ai.getCurrent());
-				}
+				updateGuiForAiFaint();
 			}
+			
 			if (skipturn == true) {
 				skipturn = false;
 				return;
 			}
-			String temp = ai.AITurn(user.getCurrent(), m);
-			slowPrint(temp, console2);
-			console2.setText(temp);
-			temp = temp.replaceAll("[^\\d]", "");
+			
+			String AITurn = ai.AITurn(user.getCurrent(), m);
+			slowPrint(AITurn, console2);
+			console2.setText(AITurn);
 			if (user.getCurrent().getHp() == 0)
 				userMon.setIcon(gifsIcon(true));
-			this.setVisible(true);
-			this.repaint();
-			this.revalidate();
+			
+			refreshGUI();
+			
 			if (user.getCurrent().getHp() == 0) {
 				userMon.disable();
 			}
+			
 			if (user.lost()) {
-
 				this.forceSwitch();
 				slowPrint("You lost", console2);
 			}
 
 			update(userHP, user.getCurrent());
 			update(aiHP, ai.getCurrent());
-			this.setVisible(true);
-			this.repaint();
-			this.revalidate();
+			
+			refreshGUI();
+			
 		} else if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
 			if (user.getCurrent().getHp() <= 0)
 				return;
-			if (source.equals("move1")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
-						user.getCurrent().getMove(0).isSpecial()), console);
-			} else if (source.equals("move2")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
-						user.getCurrent().getMove(1).isSpecial()), console);
-			} else if (source.equals("move3")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
-						user.getCurrent().getMove(2).isSpecial()), console);
-			} else if (source.equals("move4")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
-						user.getCurrent().getMove(3).isSpecial()), console);
-			}
+			
+			printMoveToConsole(source);
 			
 			timer.start();
+			
 			if (ai.getCurrent().getHp() == 0) {
-				disaBall();
-				ballcount++;
-				skipturn = true;
-				if (ai.lost()) {
-					disaBall();
-					repaint();
-					slowPrint("GG, you win!", console);
-					aiMon.disable();
-				} else {
-					ai.fainted();
-					aiMon.setIcon(gifsIcon(false));
-					this.AIname.setText(ai.getCurrent().getName());
-					switchBar(aiHP, ai.getCurrent());
-				}
+				updateGuiForAiFaint();
 				update(userHP, user.getCurrent());
 				update(aiHP, ai.getCurrent());
 			}
+			
 			if (skipturn == true) {
 				skipturn = false;
 				return;
 			}
+			
 			String temp = ai.AITurn(user.getCurrent(), m);
 			slowPrint(temp, console2);
-			//temp = temp.replaceAll("[^\\d]", "");
 			if (user.getCurrent().getHp() == 0)
 				userMon.setIcon(gifsIcon(true));
-			this.setVisible(true);
-			this.repaint();
-			this.revalidate();
+			refreshGUI();
 			if (user.getCurrent().getHp() == 0) {
 				userMon.disable();
 			}
@@ -540,26 +415,25 @@ public class GUI extends JFrame implements ActionListener {
 
 			update(userHP, user.getCurrent());
 			update(aiHP, ai.getCurrent());
-			this.setVisible(true);
-			this.repaint();
-			this.revalidate();
+			refreshGUI();
 		} else {
 			if (user.getCurrent().getHp() <= 0)
 				return;
+			
 			if (skipturn) {
 				skipturn = false;
 				return;
 			}
+			
 			if (ai.lost())
 				return;
+			
 			String temp = ai.AITurn(user.getCurrent(), m);
 			slowPrint(temp, console2);
-			temp = temp.replaceAll("[^\\d]", "");
+			
 			if (user.getCurrent().getHp() == 0) {
 				userMon.setIcon(gifsIcon(true));
-				this.setVisible(true);
-				this.repaint();
-				this.revalidate();
+				refreshGUI();
 				if (user.getCurrent().getHp() == 0) {
 					userMon.disable();
 					slowPrint("Your Pokemon has fainted!", console2);
@@ -572,43 +446,20 @@ public class GUI extends JFrame implements ActionListener {
 				update(aiHP, ai.getCurrent());
 				return;
 			}
-			if (source.equals("move1")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
-						user.getCurrent().getMove(0).isSpecial()), console2);
-			} else if (source.equals("move2")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
-						user.getCurrent().getMove(1).isSpecial()), console2);
-			} else if (source.equals("move3")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
-						user.getCurrent().getMove(2).isSpecial()), console2);
-			} else if (source.equals("move4")) {
-				slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
-						user.getCurrent().getMove(3).isSpecial()), console2);
-
-			}
+			
+			printMoveToConsole(source);
 			
 			if (ai.getCurrent().getHp() == 0) {
-				disaBall();
-				ballcount++;
-				if (ai.lost()) {
-					slowPrint("GG, you win!", console2);
-					aiMon.disable();
-
-				} else {
-					ai.fainted();
-					aiMon.setIcon(gifsIcon(false));
-					this.AIname.setText(ai.getCurrent().getName());
-					switchBar(aiHP, ai.getCurrent());
-				}
+				updateGuiForAiFaint();
 			}
 		}
-		this.setVisible(true);
-		this.repaint();
-		this.revalidate();
+		
+		refreshGUI();
 		if (user.getCurrent().getHp() == 0) {
 			skipturn = true;
 			userMon.disable();
 		}
+		
 		if (user.lost()) {
 			this.forceSwitch();
 			slowPrint("You lost!", console2);
@@ -623,32 +474,48 @@ public class GUI extends JFrame implements ActionListener {
 	public void checkDead() {
 		userName.setText(user.getCurrent().getName());
 		this.spriteInit(true);
-		move1.setText(user.getCurrent().getMove(0).getName());
-		move2.setText(user.getCurrent().getMove(1).getName());
-		move3.setText(user.getCurrent().getMove(2).getName());
-		move4.setText(user.getCurrent().getMove(3).getName());
-		if (user.getPokemon(0).getHp() == 0)
-			pokemon1.setEnabled(false);
-		if (user.getPokemon(1).getHp() == 0)
-			pokemon2.setEnabled(false);
-		if (user.getPokemon(2).getHp() == 0)
-			pokemon3.setEnabled(false);
-		if (user.getPokemon(3).getHp() == 0)
-			pokemon4.setEnabled(false);
-		if (user.getPokemon(4).getHp() == 0)
-			pokemon5.setEnabled(false);
-		if (user.getPokemon(5).getHp() == 0)
-			pokemon6.setEnabled(false);
+		
+		for (int i = 0; i < moveButtons.length; i++) {
+			moveButtons[i].setText(user.getCurrent().getMove(i).getName());
+			moveButtons[i].setEnabled(true);
+		}
+		
+		for (int i = 0; i < switchButtons.length; i++) {
+			if (user.getPokemon(i).getHp() == 0)
+				switchButtons[i].setEnabled(false);
+		}
+		
 		revalidate();
-		move1.setEnabled(true);
-		move2.setEnabled(true);
-		move3.setEnabled(true);
-		move4.setEnabled(true);
-		this.remove(backgroundFinal);
-		this.add(backgroundFinal);
 		this.setVisible(true);
 	}
-
+	
+	public String getSpriteIcon(Pokemon current, String spriteIndex, String folder) {
+		String[] rotoms = {" Wash", " Mow", " Heat", " Fan", " Frost"};
+		
+		for (String rotomVariant : rotoms) {
+			if (current.getName().contains(rotomVariant))
+				return folder + "/" + "a-b_bw_" + spriteIndex + "-" + rotomVariant.toLowerCase().substring(1) + ".gif";
+		}
+		
+//		if (current.getName().contains("Wash"))
+//			return folder + "/" + "a-b_bw_" + spriteIndex + "-wash" + ".gif";
+//		if (current.getName().contains("Mow"))
+//			return folder + "/" + "a-b_bw_" + spriteIndex + "-mow" + ".gif";
+//		if (current.getName().contains(" Heat"))
+//			return folder + "/" + "a-b_bw_" + spriteIndex + "-heat" + ".gif";
+//		if (current.getName().contains("Fan"))
+//			return folder + "/" + "a-b_bw_" + spriteIndex + "-fan" + ".gif";
+//		if (current.getName().contains("Frost"))
+//			return folder + "/" + "a-b_bw_" + spriteIndex + "-frost" + ".gif";
+		
+		
+		// ADD BOOLEAN THAT MAKES IT A-B_BW_ OR ANI_BW BECAUSE ITS DIFFERENT BETWEEN
+		// SPRITES AND SPRITESBACK
+		if (new File(folder + "/" + "a-b_bw_" + spriteIndex + ".gif").exists())
+			return folder + "/" + "a-b_bw_" + spriteIndex + ".gif";
+		return folder + "/" + "a-b_bw_" + spriteIndex + "_f.gif";
+	}
+	
 	public String spriteInit(boolean isUser) {
 		if (isUser) {
 			Pokemon current = user.getCurrent();
@@ -657,38 +524,42 @@ public class GUI extends JFrame implements ActionListener {
 			while (spriteIndex.length() < 3) {
 				spriteIndex = "0" + spriteIndex;
 			}
-			if (current.getName().contains("Wash"))
-				return "spritesback/" + "a-b_bw_" + spriteIndex + "-wash" + ".gif";
-			if (current.getName().contains("Mow"))
-				return "spritesback/" + "a-b_bw_" + spriteIndex + "-mow" + ".gif";
-			if (current.getName().contains(" Heat"))
-				return "spritesback/" + "a-b_bw_" + spriteIndex + "-heat" + ".gif";
-			if (current.getName().contains("Fan"))
-				return "spritesback/" + "a-b_bw_" + spriteIndex + "-fan" + ".gif";
-			if (current.getName().contains("Frost"))
-				return "spritesback/" + "a-b_bw_" + spriteIndex + "-frost" + ".gif";
-			if (new File("spritesback/" + "a-b_bw_" + spriteIndex + ".gif").exists())
-				return "spritesback/" + "a-b_bw_" + spriteIndex + ".gif";
-			return "spritesback/" + "a-b_bw_" + spriteIndex + "_f.gif";
+			
+			return getSpriteIcon(current, spriteIndex, "spritesback");
+//			if (current.getName().contains("Wash"))
+//				return "spritesback/" + "a-b_bw_" + spriteIndex + "-wash" + ".gif";
+//			if (current.getName().contains("Mow"))
+//				return "spritesback/" + "a-b_bw_" + spriteIndex + "-mow" + ".gif";
+//			if (current.getName().contains(" Heat"))
+//				return "spritesback/" + "a-b_bw_" + spriteIndex + "-heat" + ".gif";
+//			if (current.getName().contains("Fan"))
+//				return "spritesback/" + "a-b_bw_" + spriteIndex + "-fan" + ".gif";
+//			if (current.getName().contains("Frost"))
+//				return "spritesback/" + "a-b_bw_" + spriteIndex + "-frost" + ".gif";
+//			if (new File("spritesback/" + "a-b_bw_" + spriteIndex + ".gif").exists())
+//				return "spritesback/" + "a-b_bw_" + spriteIndex + ".gif";
+//			return "spritesback/" + "a-b_bw_" + spriteIndex + "_f.gif";
 		} else {
 			Pokemon current = ai.getCurrent();
 			String spriteIndex = "" + current.getDex();
 			while (spriteIndex.length() < 3) {
 				spriteIndex = "0" + spriteIndex;
 			}
-			if (current.getName().contains("Wash"))
-				return "sprites/" + "ani_bw_" + spriteIndex + "-wash" + ".gif";
-			if (current.getName().contains("Mow"))
-				return "sprites/" + "ani_bw_" + spriteIndex + "-mow" + ".gif";
-			if (current.getName().contains(" Heat"))
-				return "sprites/" + "ani_bw_" + spriteIndex + "-heat" + ".gif";
-			if (current.getName().contains("Fan"))
-				return "sprites/" + "ani_bw_" + spriteIndex + "-fan" + ".gif";
-			if (current.getName().contains("Frost"))
-				return "sprites/" + "ani_bw_" + spriteIndex + "-frost" + ".gif";
-			if (new File("sprites/" + "ani_bw_" + spriteIndex + ".gif").exists())
-				return "sprites/" + "ani_bw_" + spriteIndex + ".gif";
-			return "sprites/" + "ani_bw_" + spriteIndex + "_f.gif";
+			
+			return getSpriteIcon(current, spriteIndex, "sprites");
+//			if (current.getName().contains("Wash"))
+//				return "sprites/" + "ani_bw_" + spriteIndex + "-wash" + ".gif";
+//			if (current.getName().contains("Mow"))
+//				return "sprites/" + "ani_bw_" + spriteIndex + "-mow" + ".gif";
+//			if (current.getName().contains(" Heat"))
+//				return "sprites/" + "ani_bw_" + spriteIndex + "-heat" + ".gif";
+//			if (current.getName().contains("Fan"))
+//				return "sprites/" + "ani_bw_" + spriteIndex + "-fan" + ".gif";
+//			if (current.getName().contains("Frost"))
+//				return "sprites/" + "ani_bw_" + spriteIndex + "-frost" + ".gif";
+//			if (new File("sprites/" + "ani_bw_" + spriteIndex + ".gif").exists())
+//				return "sprites/" + "ani_bw_" + spriteIndex + ".gif";
+//			return "sprites/" + "ani_bw_" + spriteIndex + "_f.gif";
 		}
 	}
 

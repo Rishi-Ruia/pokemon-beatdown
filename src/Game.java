@@ -116,7 +116,7 @@ public class Game {
 		if (attacker.getType1().equals(attack.getType()) || attacker.getType2().equals(attack.getType()))
 			stab = 1.5;
 		if(Math.random()*101 <= 6.25) {
-			crit = " it was a Critial Hit!";
+			crit = " it was a critical hit!";
 			stab *=1.5;
 		}
 		double random = stab * (Math.random() * 0.15 + 0.85);
