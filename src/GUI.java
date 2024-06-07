@@ -21,13 +21,13 @@ public class GUI extends JFrame implements ActionListener {
 	private JLabel move3 = new JLabel();
 	private JLabel move4 = new JLabel();
 	private JLabel[] moveButtons = {move1, move2, move3, move4};
-	private JButton pokemon1 = new JButton();
-	private JButton pokemon2 = new JButton();
-	private JButton pokemon3 = new JButton();
-	private JButton pokemon4 = new JButton();
-	private JButton pokemon5 = new JButton();
-	private JButton pokemon6 = new JButton();
-	private JButton[] switchButtons = {pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6};;
+	private JLabel pokemon1 = new JLabel();
+	private JLabel pokemon2 = new JLabel();
+	private JLabel pokemon3 = new JLabel();
+	private JLabel pokemon4 = new JLabel();
+	private JLabel pokemon5 = new JLabel();
+	private JLabel pokemon6 = new JLabel();
+	private JLabel[] switchButtons = {pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6};;
 	private Player user;
 	private AI ai;
 	private JLabel userName;
@@ -80,6 +80,11 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public static ImageIcon getScaledIcon(String filename, int scaleX, int scaleY) {
 		ImageIcon imageIcon = new ImageIcon(filename);
+		Image image = imageIcon.getImage();
+		return new ImageIcon(image.getScaledInstance(scaleX, scaleY, Image.SCALE_DEFAULT));
+	}
+	
+	public static ImageIcon getScaledIcon(ImageIcon imageIcon, int scaleX, int scaleY) {
 		Image image = imageIcon.getImage();
 		return new ImageIcon(image.getScaledInstance(scaleX, scaleY, Image.SCALE_DEFAULT));
 	}
@@ -195,12 +200,44 @@ public class GUI extends JFrame implements ActionListener {
 	public void addSwitches() {
 		for (int i = 0; i < switchButtons.length; i++) {
 			switchButtons[i].setText(user.getPokemon(i).getName());
-			switchButtons[i].setFont(new Font("Lucida Console", Font.PLAIN, 20));
-			switchButtons[i].setBounds(width / 200, height / 36 + i * (width / 14), width / 8, width / 16);
-			switchButtons[i].setIcon(getFrontSprite(i));
-			switchButtons[i].addActionListener(this);
+			JLabel buttonSprite = new JLabel();
+			buttonSprite.setIcon(getScaledIcon(getFrontSprite(i), width / 20, width / 20));
+			switchButtons[i].setIcon(getScaledIcon("switchButton.png", width / 8, width / 16));
+			switchButtons[i].setHorizontalTextPosition(JLabel.CENTER);
+			buttonSprite.setBounds(width / 10, height / 22 + i * (width / 14), width / 10, height / 10);
+			switchButtons[i].setBounds(width / 200, height / 36 + i * (width / 14), (int) width / 6, height / 9);
+			switchButtons[i].setFont(pokemonFont.deriveFont(Font.PLAIN, width / 100));
+			switchButtons[i].setForeground(Color.white);
+			switchButtons[i].setBackground(Color.WHITE);
+			switchButtons[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			int buttonNumber = i + 1;
+			switchButtons[i].addMouseListener(new MouseListener() {
+				public void mouseReleased(MouseEvent e) {}
+
+				public void mousePressed(MouseEvent e) {
+					doAction("pokemon" + buttonNumber);
+				}
+
+				public void mouseExited(MouseEvent e) {}
+
+				public void mouseEntered(MouseEvent e) {}
+
+				public void mouseClicked(MouseEvent e) {}
+			});
+			
+			
+			this.add(buttonSprite);
 			this.add(switchButtons[i]);
 		}
+				
+//		for (int i = 0; i < switchButtons.length; i++) {
+//			switchButtons[i].setText(user.getPokemon(i + 1).getName());
+//			switchButtons[i].setFont(new Font("Lucida Console", Font.PLAIN, 20));
+//			switchButtons[i].setBounds(width / 200, height / 36 + (i + 1) * (width / 14), width / 8, width / 16);
+//			switchButtons[i].setIcon(getFrontSprite(i + 1));
+//			switchButtons[i].addActionListener(this);
+//			this.add(switchButtons[i]);
+//		}
 		this.setVisible(true);
 	}
 	
