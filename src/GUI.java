@@ -61,24 +61,21 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI(Player user, AI ai, Pokemon[] mons) throws IOException, FontFormatException {
 		this.user = user;
 		this.ai = ai;
+		
+		// It is important to keep the order of the following methods
 		this.setLayout(null);
-		addFont();
-		addMuteButton();
-		addUserBar();
-		addAIBar();
-		addBalls();
-		addTrainerSprites();
-		addPokemonSprites();
-		addMoves();
-		addSwitches();
-		initializeWindow();
-		addUserName();
-		addAIName();		
-		addConsole();
-		addConsole2();
-		addConsoleBG();
+		this.addFont();
+		this.addMuteButton();
+		this.addHpBars();
+		this.addBalls();
+		this.addSprites();
+		this.addMoves();
+		this.addSwitches();
+		this.initializeWindow();
+		this.addNames();
+		this.addConsoles();
 		this.setVisible(true);
-		addBackground();
+		this.addBackground();
 	}
 	
 	public static ImageIcon getScaledIcon(String filename, int scaleX, int scaleY) {
@@ -94,68 +91,6 @@ public class GUI extends JFrame implements ActionListener {
 		return new ImageIcon(moveScaled);
 	}
 	
-	public void initializeWindow() {
-		this.setSize(width, height);
-		this.setTitle("Battle Window");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-	}
-	
-	public void addPokemonSprites() {
-		userMon = new JLabel(getCurrentSprite(true));
-		this.add(userMon);
-		userMon.setBounds((int) (width / 3.4), (int) (height / 3.1), width / 6, width / 6);
-		aiMon = new JLabel(getCurrentSprite(false));
-		add(aiMon);
-		aiMon.setBounds((int) (width / 1.65), height / 6, width / 6, width / 6);
-	}
-	
-	public void addTrainerSprites() {
-		JLabel userImage = new JLabel(getScaledIcon("trainer-back.png", width / 4, height / 2));
-		JLabel aiImage = new JLabel(getScaledIcon("AISprite_CSAProject_Raeed.png", width / 4, height / 2));
-		userImage.setBounds(width / 12, height / 6, width / 4, height / 2);
-		aiImage.setBounds((int) (width / 1.28), -height / 27, width / 4, height / 2);
-		this.add(userImage);
-		this.add(aiImage);
-	}
-	
-	public void addAIName() {
-		AIname = new JLabel(ai.getCurrent().getName());
-		AIname.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
-		AIname.setBounds((int) (width / 1.7), (int) (-height / 2.5), width / 2, (int) (height / 1.1));
-		this.add(AIname);
-	}
-	
-	public void addUserName() {
-		userName = new JLabel(user.getCurrent().getName());
-		userName.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
-		userName.setBounds((int) (width / 3.5), (int) (-height / 4), width / 2, (int) (height / 1.1));
-		this.add(userName);
-	}
-	
-	public void addConsole() {
-		console.setBounds((int) (width / 4.5), (int) (height - height / 4.5), width - width / 6, height / 12);
-		console.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
-		console.setForeground(Color.white);
-		this.add(console);
-	}
-	
-	public void addConsole2() {
-		console2.setBounds((int) (width / 4.5), (int) (height - height / 5.5), width - width / 6, height / 12);
-		console2.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
-		console2.setForeground(Color.white);
-		console2.setAlignmentX(JFrame.CENTER_ALIGNMENT);
-		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
-		this.add(console2);
-	}
-	
-	public void addConsoleBG() {
-		consoleBG = new JLabel(getScaledIcon("console.png", width - width / 4, (int) height / 5));
-		consoleBG.setBounds((int) (width / 5), (int) (height - height / 2.55), width - width / 4, height / 2);
-		consoleBG.setAlignmentX(JFrame.CENTER_ALIGNMENT);
-		this.add(consoleBG);
-	}
-	
 	public void addFont() throws FontFormatException, IOException {
 		File pokemonFontFile = new File("pokemon-font.ttf");
 		pokemonFont = Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile);
@@ -163,25 +98,66 @@ public class GUI extends JFrame implements ActionListener {
 		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile));
 	}
 	
-	public ImageIcon getCurrentSprite(boolean isUser) {
-		Pokemon current = user.getCurrent();
-		String folder = "spritesback";
-		
-		if (!isUser) {
-			current = ai.getCurrent();
-			folder = "sprites";
+	public void addMuteButton() {
+		isMuted = false;
+		mute = new JButton("Mute");
+		mute.setLayout(null);
+		mute.setFont(new Font("Lucida Console", Font.PLAIN, 20));
+		mute.setBounds(width / 50, height - (height / 7), width / 16, width / 32);
+		mute.addActionListener(this);
+		add(mute);
+		this.setVisible(true);
+	}
+	
+	public void addHpBars() {
+		// Adding user's HP bar
+		userHP = new JProgressBar(0, user.getCurrent().getHp());
+		userHP.setLayout(null);
+		userHP.setFont(new Font("Arial", Font.BOLD, 30));
+		userHP.setBounds((int) (width / 3.5), height / 4, (int) (width / 4.3), height / 20);
+		userHP.setForeground(Color.green);
+		userHP.setBackground(Color.black);
+		userHP.setValue(user.getCurrent().getMaxHp());
+		userHP.setStringPainted(true);
+		add(userHP);
+		// Adding AI's HP bar
+		aiHP = new JProgressBar(0, ai.getCurrent().getHp());
+		aiHP.setLayout(null);
+		aiHP.setFont(new Font("Arial", Font.BOLD, 30));
+		aiHP.setBounds((int) (width / 1.7), height / 9, (int) (width / 4.3), height / 20);
+		aiHP.setForeground(Color.green);
+		aiHP.setBackground(Color.black);
+		aiHP.setValue(ai.getCurrent().getMaxHp());
+		aiHP.setStringPainted(true);
+		add(aiHP);
+	}
+	
+	public void addBalls() {
+		for (int i = 0; i < pokeballs.length; i++) {
+			pokeballs[i].setIcon(getScaledIcon("pokeball.png", width / 17, height / 15));
+			pokeballs[i].setBounds((int) (width / 1.06), (width / 30) * i, width / 16, height / 15);
+			add(pokeballs[i]);
 		}
-		
-		String spritePath = getSpritePath(current, getSpriteIndex(current.getDex()), folder);
-		
-		return getScaledIcon(spritePath, width / 6, width / 6);
 	}
-
-	public void onPaintEvent(Graphics g) {
-		aiMon.update(g);
+	
+	public void addSprites() {
+		// Adding user Pokemon sprites
+		userMon = new JLabel(getCurrentSprite(true));
+		this.add(userMon);
+		userMon.setBounds((int) (width / 3.4), (int) (height / 3.1), width / 6, width / 6);
+		// Adding AI Pokemon sprites
+		aiMon = new JLabel(getCurrentSprite(false));
+		add(aiMon);
+		aiMon.setBounds((int) (width / 1.65), height / 6, width / 6, width / 6);
+		// Adding Trainer sprites
+		JLabel userImage = new JLabel(getScaledIcon("user-trainer.png", width / 4, height / 2));
+		JLabel aiImage = new JLabel(getScaledIcon("ai-trainer.png", width / 4, height / 2));
+		userImage.setBounds(width / 12, height / 6, width / 4, height / 2);
+		aiImage.setBounds((int) (width / 1.28), -height / 27, width / 4, height / 2);
+		this.add(userImage);
+		this.add(aiImage);
 	}
-
-	// adds the moves and resizes them to the Jframe
+	
 	public void addMoves() {
 		add(aiMon);
 		
@@ -216,18 +192,7 @@ public class GUI extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 	
-	public void addBackground() {
-		ImageIcon background = new ImageIcon("city.jpg");
-		Image backgroundTemp = background.getImage();
-		Image backgroundscaled = backgroundTemp.getScaledInstance(width, height, Image.SCALE_DEFAULT);
-		backgroundFinal = new JLabel(new ImageIcon(backgroundscaled));
-		backgroundFinal.setBounds(0, 0, width, height);
-		this.remove(backgroundFinal);
-		this.add(backgroundFinal);
-	}
-
-	// adds the switch buttons to the Jframe
-	private void addSwitches() {
+	public void addSwitches() {
 		for (int i = 0; i < switchButtons.length; i++) {
 			switchButtons[i].setText(user.getPokemon(i).getName());
 			switchButtons[i].setFont(new Font("Lucida Console", Font.PLAIN, 20));
@@ -237,6 +202,74 @@ public class GUI extends JFrame implements ActionListener {
 			this.add(switchButtons[i]);
 		}
 		this.setVisible(true);
+	}
+	
+	public void initializeWindow() {
+		this.setSize(width, height);
+		this.setTitle("Battle Window");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+	}
+	
+	public void addNames() {
+		// Adding AI Name
+		AIname = new JLabel(ai.getCurrent().getName());
+		AIname.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
+		AIname.setBounds((int) (width / 1.7), (int) (-height / 2.5), width / 2, (int) (height / 1.1));
+		this.add(AIname);
+		// Adding User Name
+		userName = new JLabel(user.getCurrent().getName());
+		userName.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
+		userName.setBounds((int) (width / 3.5), (int) (-height / 4), width / 2, (int) (height / 1.1));
+		this.add(userName);
+	}
+	
+	public void addConsoles() {
+		// Adding console 1
+		console.setBounds((int) (width / 4.5), (int) (height - height / 4.5), width - width / 6, height / 12);
+		console.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
+		console.setForeground(Color.white);
+		this.add(console);
+		// Adding console 2
+		console2.setBounds((int) (width / 4.5), (int) (height - height / 5.5), width - width / 6, height / 12);
+		console2.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
+		console2.setForeground(Color.white);
+		console2.setAlignmentX(JFrame.CENTER_ALIGNMENT);
+		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
+		this.add(console2);
+		// Adding console background
+		consoleBG = new JLabel(getScaledIcon("console.png", width - width / 4, (int) height / 5));
+		consoleBG.setBounds((int) (width / 5), (int) (height - height / 2.55), width - width / 4, height / 2);
+		consoleBG.setAlignmentX(JFrame.CENTER_ALIGNMENT);
+		this.add(consoleBG);
+	}
+	
+	public void addBackground() {
+		ImageIcon background = new ImageIcon("city.jpg");
+		Image backgroundTemp = background.getImage();
+		Image backgroundscaled = backgroundTemp.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+		backgroundFinal = new JLabel(new ImageIcon(backgroundscaled));
+		backgroundFinal.setBounds(0, 0, width, height);
+		this.remove(backgroundFinal);
+		this.add(backgroundFinal);
+	}
+	
+	public ImageIcon getCurrentSprite(boolean isUser) {
+		Pokemon current = user.getCurrent();
+		String folder = "spritesback";
+		
+		if (!isUser) {
+			current = ai.getCurrent();
+			folder = "sprites";
+		}
+		
+		String spritePath = getSpritePath(current, getSpriteIndex(current.getDex()), folder);
+		
+		return getScaledIcon(spritePath, width / 6, width / 6);
+	}
+
+	public void onPaintEvent(Graphics g) {
+		aiMon.update(g);
 	}
 
 	// makes the user unable to click a move thus forcing them to switch
@@ -555,29 +588,6 @@ public class GUI extends JFrame implements ActionListener {
 		return new ImageIcon(getSpritePath(mon, getSpriteIndex(mon.getDex()), "sprites"));
 	}
 
-	public void addMuteButton() {
-		isMuted = false;
-		mute = new JButton("Mute");
-		mute.setLayout(null);
-		mute.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		mute.setBounds(width / 50, height - (height / 7), width / 16, width / 32);
-		mute.addActionListener(this);
-		add(mute);
-		this.setVisible(true);
-	}
-
-	public void addUserBar() {
-		userHP = new JProgressBar(0, user.getCurrent().getHp());
-		userHP.setLayout(null);
-		userHP.setFont(new Font("Arial", Font.BOLD, 30));
-		userHP.setBounds((int) (width / 3.5), height / 4, (int) (width / 4.3), height / 20);
-		userHP.setForeground(Color.green);
-		userHP.setBackground(Color.black);
-		userHP.setValue(user.getCurrent().getMaxHp());
-		userHP.setStringPainted(true);
-		add(userHP);
-	}
-
 	public void switchBar(JProgressBar s, Pokemon p) {
 		s.setMaximum(p.getMaxHp());
 		s.setValue(p.getHp());
@@ -590,18 +600,6 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 
-	public void addAIBar() {
-		aiHP = new JProgressBar(0, ai.getCurrent().getHp());
-		aiHP.setLayout(null);
-		aiHP.setFont(new Font("Arial", Font.BOLD, 30));
-		aiHP.setBounds((int) (width / 1.7), height / 9, (int) (width / 4.3), height / 20);
-		aiHP.setForeground(Color.green);
-		aiHP.setBackground(Color.black);
-		aiHP.setValue(ai.getCurrent().getMaxHp());
-		aiHP.setStringPainted(true);
-		add(aiHP);
-	}
-
 	public void update(JProgressBar hp, Pokemon current) {
 		hp.setValue(current.getHp());
 
@@ -611,14 +609,6 @@ public class GUI extends JFrame implements ActionListener {
 			hp.setForeground(Color.yellow);
 		} else {
 			hp.setForeground(Color.green);
-		}
-	}
-
-	public void addBalls() {
-		for (int i = 0; i < pokeballs.length; i++) {
-			pokeballs[i].setIcon(getScaledIcon("pokeball.png", width / 17, height / 15));
-			pokeballs[i].setBounds((int) (width / 1.06), (width / 30) * i, width / 16, height / 15);
-			add(pokeballs[i]);
 		}
 	}
 
