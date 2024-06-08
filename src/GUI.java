@@ -86,8 +86,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public static ImageIcon getScaledIcon(String filename, int scaleX, int scaleY) {
-		ImageIcon imageIcon = new ImageIcon(filename);
-		Image image = imageIcon.getImage();
+		Image image = new ImageIcon(filename).getImage();
 		return new ImageIcon(image.getScaledInstance(scaleX, scaleY, Image.SCALE_DEFAULT));
 	}
 	
@@ -97,10 +96,10 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public ImageIcon getScaledMoveButton(int index) {
-		Image moveImage = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(index).getType() + ".png")
-				.getImage();
-		Image moveScaled = moveImage.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
-		return new ImageIcon(moveScaled);
+//		Image moveImage = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(index).getType() + ".png")
+//				.getImage();
+//		Image moveScaled = moveImage.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
+		return getScaledIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(index).getType() + ".png", (int) (width / 6.3), height / 12);
 	}
 	
 	public void addFont() throws FontFormatException, IOException {
@@ -208,7 +207,11 @@ public class GUI extends JFrame implements ActionListener {
 		for (int i = 0; i < switchButtons.length; i++) {
 			switchButtons[i].setText(user.getPokemon(i).getName());
 			switchSprites[i].setIcon(getScaledIcon(getFrontSprite(i), width / 20, width / 20));
-			switchButtons[i].setIcon(getScaledIcon("switchButton.png", width / 8, width / 16));
+			if (i == 0) {
+				switchButtons[i].setIcon(getScaledIcon("switchButtonSelected.png", width / 8, width / 16));
+			} else {
+				switchButtons[i].setIcon(getScaledIcon("switchButton.png", width / 8, width / 16));
+			}
 			switchButtons[i].setHorizontalTextPosition(JLabel.CENTER);
 			switchSprites[i].setBounds(width / 10, height / 22 + i * (width / 14), width / 10, height / 10);
 			switchButtons[i].setBounds(width / 200, height / 36 + i * (width / 14), (int) width / 6, height / 9);
@@ -338,6 +341,7 @@ public class GUI extends JFrame implements ActionListener {
 		userMon.setIcon(getCurrentSprite(true));
 		switchBar(userHP, user.getCurrent());
 		switchMoveButtons();
+		highlightSelectedSwitchButton(position);
 		this.remove(backgroundFinal);
 		this.add(backgroundFinal);
 		return false;
@@ -477,6 +481,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			if (user.getCurrent().getHp() == 0) {
 				userMon.disable();
+				checkDead();
 			}
 			
 			if (user.lost()) {
@@ -515,6 +520,7 @@ public class GUI extends JFrame implements ActionListener {
 			refreshGUI();
 			if (user.getCurrent().getHp() == 0) {
 				userMon.disable();
+				checkDead();
 			}
 			if (user.lost()) {
 				this.forceSwitch();
@@ -544,6 +550,7 @@ public class GUI extends JFrame implements ActionListener {
 				refreshGUI();
 				if (user.getCurrent().getHp() == 0) {
 					userMon.disable();
+					checkDead();
 					slowPrint("Your Pokemon has fainted!", console2);
 				}
 				if (user.lost()) {
@@ -566,6 +573,7 @@ public class GUI extends JFrame implements ActionListener {
 		if (user.getCurrent().getHp() == 0) {
 			skipturn = true;
 			userMon.disable();
+			checkDead();
 		}
 		
 		if (user.lost()) {
@@ -591,6 +599,12 @@ public class GUI extends JFrame implements ActionListener {
 			if (user.getPokemon(i).getHp() == 0) {
 				switchButtons[i].setEnabled(false);
 				switchSprites[i].setEnabled(false);
+			}
+		}
+		
+		for (int i = 0; i < moveButtons.length; i++) {
+			if (user.getCurrent().getHp() == 0) {
+				moveButtons[i].setEnabled(false);
 			}
 		}
 		
@@ -643,6 +657,14 @@ public class GUI extends JFrame implements ActionListener {
 		for (int i = 0; i < moveButtons.length; i++) {
 			moveButtons[i].setIcon(getScaledMoveButton(i));
 		}
+	}
+	
+	public void highlightSelectedSwitchButton(int index) {		
+		for (int i = 0; i < switchButtons.length; i++) {
+			switchButtons[i].setIcon(getScaledIcon("switchButton.png", (int) width / 8, height / 9));
+		}
+		
+		switchButtons[index].setIcon(getScaledIcon("switchButtonSelected.png", (int) width / 8, height / 9));
 	}
 
 	public void update(JProgressBar hp, Pokemon current) {
