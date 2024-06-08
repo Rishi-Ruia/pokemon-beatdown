@@ -96,9 +96,6 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public ImageIcon getScaledMoveButton(int index) {
-//		Image moveImage = new ImageIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(index).getType() + ".png")
-//				.getImage();
-//		Image moveScaled = moveImage.getScaledInstance((int) (width / 6.3), height / 12, Image.SCALE_DEFAULT);
 		return getScaledIcon("MOVE_BUTTONS/moveButton" + user.getCurrent().getMove(index).getType() + ".png", (int) (width / 6.3), height / 12);
 	}
 	
@@ -238,15 +235,6 @@ public class GUI extends JFrame implements ActionListener {
 			this.add(switchSprites[i]);
 			this.add(switchButtons[i]);
 		}
-				
-//		for (int i = 0; i < switchButtons.length; i++) {
-//			switchButtons[i].setText(user.getPokemon(i + 1).getName());
-//			switchButtons[i].setFont(new Font("Lucida Console", Font.PLAIN, 20));
-//			switchButtons[i].setBounds(width / 200, height / 36 + (i + 1) * (width / 14), width / 8, width / 16);
-//			switchButtons[i].setIcon(getFrontSprite(i + 1));
-//			switchButtons[i].addActionListener(this);
-//			this.add(switchButtons[i]);
-//		}
 		this.setVisible(true);
 	}
 	
@@ -659,7 +647,7 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void highlightSelectedSwitchButton(int index) {		
+	public void highlightSelectedSwitchButton(int index) {
 		for (int i = 0; i < switchButtons.length; i++) {
 			switchButtons[i].setIcon(getScaledIcon("switchButton.png", (int) width / 8, height / 9));
 		}
