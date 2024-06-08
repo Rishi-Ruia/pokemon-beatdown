@@ -27,7 +27,14 @@ public class GUI extends JFrame implements ActionListener {
 	private JLabel pokemon4 = new JLabel();
 	private JLabel pokemon5 = new JLabel();
 	private JLabel pokemon6 = new JLabel();
-	private JLabel[] switchButtons = {pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6};;
+	private JLabel switchSprite1 = new JLabel();
+	private JLabel switchSprite2 = new JLabel();
+	private JLabel switchSprite3 = new JLabel();
+	private JLabel switchSprite4 = new JLabel();
+	private JLabel switchSprite5 = new JLabel();
+	private JLabel switchSprite6 = new JLabel();
+	private JLabel[] switchButtons = {pokemon1, pokemon2, pokemon3, pokemon4, pokemon5, pokemon6};
+	private JLabel[] switchSprites = {switchSprite1, switchSprite2, switchSprite3, switchSprite4, switchSprite5, switchSprite6};
 	private Player user;
 	private AI ai;
 	private JLabel userName;
@@ -200,11 +207,10 @@ public class GUI extends JFrame implements ActionListener {
 	public void addSwitches() {
 		for (int i = 0; i < switchButtons.length; i++) {
 			switchButtons[i].setText(user.getPokemon(i).getName());
-			JLabel buttonSprite = new JLabel();
-			buttonSprite.setIcon(getScaledIcon(getFrontSprite(i), width / 20, width / 20));
+			switchSprites[i].setIcon(getScaledIcon(getFrontSprite(i), width / 20, width / 20));
 			switchButtons[i].setIcon(getScaledIcon("switchButton.png", width / 8, width / 16));
 			switchButtons[i].setHorizontalTextPosition(JLabel.CENTER);
-			buttonSprite.setBounds(width / 10, height / 22 + i * (width / 14), width / 10, height / 10);
+			switchSprites[i].setBounds(width / 10, height / 22 + i * (width / 14), width / 10, height / 10);
 			switchButtons[i].setBounds(width / 200, height / 36 + i * (width / 14), (int) width / 6, height / 9);
 			switchButtons[i].setFont(pokemonFont.deriveFont(Font.PLAIN, width / 100));
 			switchButtons[i].setForeground(Color.white);
@@ -226,7 +232,7 @@ public class GUI extends JFrame implements ActionListener {
 			});
 			
 			
-			this.add(buttonSprite);
+			this.add(switchSprites[i]);
 			this.add(switchButtons[i]);
 		}
 				
@@ -582,8 +588,10 @@ public class GUI extends JFrame implements ActionListener {
 		}
 		
 		for (int i = 0; i < switchButtons.length; i++) {
-			if (user.getPokemon(i).getHp() == 0)
+			if (user.getPokemon(i).getHp() == 0) {
 				switchButtons[i].setEnabled(false);
+				switchSprites[i].setEnabled(false);
+			}
 		}
 		
 		revalidate();
