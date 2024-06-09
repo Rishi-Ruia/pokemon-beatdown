@@ -45,8 +45,14 @@ public class Pokemon {
 		this.type2 = type2;	
 		this.dex = dex;
 		this.baseStats = base;
-		maxHp = this.hp;
-		Move j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+		maxHp = this.hp;	
+		addMoves();
+	}
+	public void addMoves() {
+		Move j = new Move();
+		if(attack > spAttack)
+			 j = Move.getPMove((int) (Math.random()* (Move.PmoveLength())));
+		else j = Move.getSMove((int) (Math.random()* (Move.SmoveLength())));
 		if(type1.equals("Normal")) {
 			if(this.attack >= this.spAttack) moves.add( Move.bodySlam);
 			else  moves.add(  Move.recover);
@@ -114,17 +120,29 @@ public class Pokemon {
 			else moves.add(  Move.playRough);
 		}
 		if(type2.length() < 2) {
-			while(j.equals(moves.get(0))) {
-				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			while(j.equals(moves.get(0))
+					|| (j.getType().equals(moves.get(0).getType()))) {
+				if(this.attack > this.spAttack)
+				j = Move.getPMove((int) (Math.random()* (Move.PmoveLength())));
+				else j = Move.getSMove((int) (Math.random()* (Move.SmoveLength())));
 			}
 			moves.add(j);
-			while(j.equals(moves.get(0))|| j.equals(moves.get(1))) {
-				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			while((j.equals(moves.get(0))|| j.equals(moves.get(1))) 
+					|| (j.getType().equals(moves.get(0).getType()))
+					|| (j.getType().equals(moves.get(1).getType()))) {
+				if(this.attack > this.spAttack)
+					j = Move.getPMove((int) (Math.random()* (Move.PmoveLength())));
+					else j = Move.getSMove((int) (Math.random()* (Move.SmoveLength())));
 			}
 			moves.add(j);
-			while(j.equals(moves.get(0))|| j.equals(moves.get(1))
-					|| j.equals(moves.get(2))) {
-				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			while((j.equals(moves.get(0))|| j.equals(moves.get(1))
+					|| j.equals(moves.get(2))) 
+					|| (j.getType().equals(moves.get(0).getType()))
+					|| (j.getType().equals(moves.get(1).getType()))
+				    || (j.getType().equals(moves.get(2).getType()))) {
+				if(this.attack > this.spAttack)
+					j = Move.getPMove((int) (Math.random()* (Move.PmoveLength())));
+					else j = Move.getSMove((int) (Math.random()* (Move.SmoveLength())));
 			}
 			moves.add(j);
 		}
@@ -196,14 +214,22 @@ public class Pokemon {
 				if(this.attack <= this.spAttack) moves.add(   Move.moonBlast);
 				else moves.add(   Move.playRough);
 			}
-			while(j.equals(moves.get(0))|| j.equals(moves.get(1))
-					) {
-				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			while((j.equals(moves.get(0))|| j.equals(moves.get(1)))
+					|| (j.getType().equals(moves.get(0).getType()))
+					|| (j.getType().equals(moves.get(1).getType()))) {
+				if(this.attack > this.spAttack)
+					j = Move.getPMove((int) (Math.random()* (Move.PmoveLength())));
+					else j = Move.getSMove((int) (Math.random()* (Move.SmoveLength())));
 			}
 			moves.add(j);
-			while(j.equals(moves.get(0))|| j.equals(moves.get(1))
-					|| j.equals(moves.get(2))) {
-				j = Move.getMove((int) (Math.random()* (Move.moveLength())));
+			while((j.equals(moves.get(0))|| j.equals(moves.get(1))
+					|| j.equals(moves.get(2))) 
+					|| (j.getType().equals(moves.get(0).getType()))
+					|| (j.getType().equals(moves.get(1).getType()))
+				    || (j.getType().equals(moves.get(2).getType()))) {
+				if(this.attack > this.spAttack)
+					j = Move.getPMove((int) (Math.random()* (Move.PmoveLength())));
+					else j = Move.getSMove((int) (Math.random()* (Move.SmoveLength())));
 			}
 			moves.add(j);
 
