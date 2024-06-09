@@ -7,7 +7,6 @@ public class Move {
 	private int accuracy;
 	private boolean special;
 	//list of every move that is possible for a pokemon to have
-	private static ArrayList<Move> moves = new ArrayList<Move>();
 	private static ArrayList<Move> P = new ArrayList<Move>();
 	private static ArrayList<Move> S = new ArrayList<Move>();
 	public final static Move thunderbolt = new Move("Thunderbolt", "Electric", 90, 100, true);
@@ -103,49 +102,49 @@ public class Move {
 			new String[] {}};
 	//adds moves to the array list
 	public static void addMoves() {
-		moves.add(auraSphere); S.add(auraSphere);
-		moves.add(earthquake); P.add(earthquake);
-		moves.add(energyBall); S.add(energyBall);
-		moves.add(fireBlast); S.add(fireBlast);
-		moves.add(flamethrower); S.add(flamethrower);
-		moves.add(huricane); S.add(huricane);
-		moves.add(icebeam); S.add(icebeam);
-		moves.add(icicleCrash); P.add(icicleCrash);
-		moves.add(ironHead); P.add(ironHead);
-		moves.add(leafBlade); P.add(leafBlade);
-		moves.add(outrage); P.add(outrage);
-		moves.add(psybeam); S.add(psybeam);
-		moves.add(recover); S.add(recover); P.add(recover);
-		moves.add(rockSlide); P.add(rockSlide);
-		moves.add(sludgeWave); S.add(sludgeWave);
-		moves.add(thunder); S.add(thunder);
-		moves.add(thunderbolt); S.add(thunderbolt);
-		moves.add(airSlash); S.add(airSlash);
-		moves.add(bodySlam); P.add(bodySlam);
-		moves.add(crunch); P.add(crunch);
-		moves.add(closeCombat); P.add(closeCombat);
-		moves.add(focusBlast); S.add(focusBlast);
-		moves.add(gunkShot); P.add(gunkShot);
-		moves.add(hydroPump); S.add(hydroPump);
-		moves.add(moonBlast); S.add(moonBlast);
-		moves.add(liquidation); P.add(liquidation);
-		moves.add(shadowBall); S.add(shadowBall);
-		moves.add(uTurn); P.add(uTurn);
-		moves.add(flashCannon); S.add(flashCannon);
-		moves.add(fireLash); P.add(fireLash);
-		moves.add(poltergeist); P.add(poltergeist);
-		moves.add(dragonPulse); S.add(dragonPulse);
-		moves.add(powerGem); S.add(powerGem);
-		moves.add(acrobatics); P.add(acrobatics);
-		moves.add(darkPulse); S.add(darkPulse);
-		moves.add(playRough); P.add(playRough);
+		S.add(auraSphere);
+		P.add(earthquake);
+		S.add(energyBall);
+		S.add(fireBlast);
+		S.add(flamethrower);
+		S.add(huricane);
+		S.add(icebeam);
+		P.add(icicleCrash);
+		P.add(ironHead);
+		P.add(leafBlade);
+		P.add(outrage);
+		S.add(psybeam);
+		S.add(recover); P.add(recover);
+		P.add(rockSlide);
+		S.add(sludgeWave);
+		S.add(thunder);
+		S.add(thunderbolt);
+		S.add(airSlash);
+		P.add(bodySlam);
+		P.add(crunch);
+		P.add(closeCombat);
+		S.add(focusBlast);
+		P.add(gunkShot);
+		S.add(hydroPump);
+		S.add(moonBlast);
+		P.add(liquidation);
+		S.add(shadowBall);
+		P.add(uTurn);
+		S.add(flashCannon);
+		P.add(fireLash);
+		P.add(poltergeist);
+		S.add(dragonPulse);
+		S.add(powerGem);
+		P.add(acrobatics);
+		S.add(darkPulse);
+		P.add(playRough);
 	}
 	//returns the size of the array list of moves
-	public static int moveLength() {return moves.size();}
+
 	public static int PmoveLength() {return P.size();}
 	public static int SmoveLength() {return S.size();}
 	//returns a specific move at the position j
-	public static Move getMove(int j) { return moves.get(j);}
+
 	public static Move getPMove(int j) { return P.get(j);}
 	public static Move getSMove(int j) { return S.get(j);}
 	//constructor to create moves
@@ -158,12 +157,12 @@ public class Move {
 	}
 	//deafault constructor
 	public Move() {
-		
+
 	}
 	/*
 	 * calculates the effectiveness of the move against the attacker pokemon uses a dictionary with a bunch of 2d arrays 
 	 * to find if a type is supper effective or not returns a double value with the effectiveness	
-	*/
+	 */
 	public static double effective(Move attack, Pokemon attacked) {
 		String moveType = attack.getType();
 		String attackedType1 = attacked.getType1();
@@ -214,7 +213,7 @@ public class Move {
 			else effective *= 1;
 			return effective;
 		}
-		
+
 	}
 	//helper methods
 	public String getName() {return name;}
