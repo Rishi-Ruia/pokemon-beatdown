@@ -252,11 +252,13 @@ public class GUI extends JFrame implements ActionListener {
 		// Adding AI Name
 		AIname = new JLabel(ai.getCurrent().getName());
 		AIname.setFont(pokemonFont.deriveFont(Font.BOLD, (15 * width) / 384));
+		AIname.setForeground(Color.WHITE);
 		AIname.setBounds((int) (width / 1.7), (int) (-height / 3), width / 2, (int) (height / 1.1));
 		this.add(AIname);
 		// Adding User Name
 		userName = new JLabel(user.getCurrent().getName());
 		userName.setFont(pokemonFont.deriveFont(Font.BOLD, (15 * width) / 384));
+		userName.setForeground(Color.WHITE);
 		userName.setBounds((int) (width / 3.5), (int) (-height / 4), width / 2, (int) (height / 1.1));
 		this.add(userName);
 	}
