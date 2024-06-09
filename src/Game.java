@@ -24,7 +24,7 @@ public class Game {
 	// main method used to start and set up game
 	public static void main(String[] args)
 			throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
-		// Equal chance of all songs
+		// Equal chance of all songs 
 		String[] songs = {"diamondAndPearlBattleTheme.wav", 
 				"blackAndWhiteBattleTheme.wav", "blunder theme.wav","blunder theme.wav",
 				"blunder theme.wav", "CTC1.wav", "CTC2.wav"};
