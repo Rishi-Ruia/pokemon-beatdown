@@ -21,7 +21,7 @@ public class Game {
 	protected static AI ai;
 	protected static FloatControl volume;
 
-	// main method used to start and set up game
+	// main method used to start and set up game 
 	public static void main(String[] args)
 			throws IOException, UnsupportedAudioFileException, LineUnavailableException, FontFormatException {
 		// Equal chance of all songs  
