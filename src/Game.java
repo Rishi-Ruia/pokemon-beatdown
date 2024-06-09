@@ -1,7 +1,6 @@
 import java.awt.FontFormatException;
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
 import javax.sound.sampled.*; //from https://docs.oracle.com/javase/8/docs/api/javax/sound/sampled/package-summary.html
-
 public class Game {
 	// global static variables used to create the Pokemon objects
 	protected static String[] name;
@@ -28,7 +27,7 @@ public class Game {
 		// Equal chance of all songs
 		String[] songs = {"diamondAndPearlBattleTheme.wav", 
 				"blackAndWhiteBattleTheme.wav", "blunder theme.wav","blunder theme.wav",
-				"blunder theme.wav"};
+				"blunder theme.wav", "CTC1.wav", "CTC2.wav"};
 		int songIndex = (int) (Math.random() * songs.length);
 		String fileName = songs[songIndex];
 		File file = new File(fileName); 
@@ -36,6 +35,7 @@ public class Game {
 		if (fileName.equals("blunder theme.wav"))
 			audioStream.skip(2282000);
 		Clip clip = AudioSystem.getClip();
+		clip.loop(Clip.LOOP_CONTINUOUSLY);;
 		clip.open(audioStream);
 		volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		volume.setValue(-12.0f);
