@@ -103,7 +103,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public void addFont() throws FontFormatException, IOException {
-		File pokemonFontFile = new File("pokemon-font.ttf");
+		File pokemonFontFile = new File("FONTS/pkmndp.ttf");
 		pokemonFont = Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile);
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, pokemonFontFile));
@@ -124,7 +124,7 @@ public class GUI extends JFrame implements ActionListener {
 		// Adding user's HP bar
 		userHP = new JProgressBar(0, user.getCurrent().getHp());
 		userHP.setLayout(null);
-		userHP.setFont(new Font("Arial", Font.BOLD, 30));
+		userHP.setFont(pokemonFont.deriveFont(Font.BOLD, (6 * width) / 384));
 		userHP.setBounds((int) (width / 3.5), height / 4, (int) (width / 4.3), height / 20);
 		userHP.setForeground(Color.green);
 		userHP.setBackground(Color.black);
@@ -134,8 +134,8 @@ public class GUI extends JFrame implements ActionListener {
 		// Adding AI's HP bar
 		aiHP = new JProgressBar(0, ai.getCurrent().getHp());
 		aiHP.setLayout(null);
-		aiHP.setFont(new Font("Arial", Font.BOLD, 30));
-		aiHP.setBounds((int) (width / 1.7), height / 9, (int) (width / 4.3), height / 20);
+		aiHP.setFont(pokemonFont.deriveFont(Font.BOLD, (6 * width) / 384));
+		aiHP.setBounds((int) (width / 1.7), height / 6, (int) (width / 4.3), height / 20);
 		aiHP.setForeground(Color.green);
 		aiHP.setBackground(Color.black);
 		aiHP.setValue(ai.getCurrent().getMaxHp());
@@ -159,7 +159,7 @@ public class GUI extends JFrame implements ActionListener {
 		// Adding AI Pokemon sprites
 		aiMon = new JLabel(getCurrentSprite(false));
 		add(aiMon);
-		aiMon.setBounds((int) (width / 1.65), height / 6, width / 6, width / 6);
+		aiMon.setBounds((int) (width / 1.65), (int) (height / 4.5), width / 6, width / 6);
 		// Adding Trainer sprites
 		JLabel userImage = new JLabel(getScaledIcon("user-trainer.png", width / 4, height / 2));
 		JLabel aiImage = new JLabel(getScaledIcon("ai-trainer.png", width / 4, height / 2));
@@ -179,7 +179,7 @@ public class GUI extends JFrame implements ActionListener {
 			moveButtons[i].setIcon(moveButton);
 			moveButtons[i].setHorizontalTextPosition(JLabel.CENTER);
 			moveButtons[i].setBounds((i + 1) * width / 5, (int) (height - height / 3), (int) (width / 6.3), height / 12);
-			moveButtons[i].setFont(pokemonFont.deriveFont(Font.PLAIN, 20));
+			moveButtons[i].setFont(pokemonFont.deriveFont(Font.PLAIN, (7 * width) / 384));
 			moveButtons[i].setForeground(Color.white);
 			moveButtons[i].setBackground(Color.WHITE);
 			moveButtons[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -188,7 +188,7 @@ public class GUI extends JFrame implements ActionListener {
 				public void mouseReleased(MouseEvent e) {}
 
 				public void mousePressed(MouseEvent e) {
-					doAction("move" + (index + 1));
+					doAction("move" + (index + 1));					
 				}
 
 				public void mouseExited(MouseEvent e) {}
@@ -215,7 +215,7 @@ public class GUI extends JFrame implements ActionListener {
 			switchButtons[i].setHorizontalTextPosition(JLabel.CENTER);
 			switchSprites[i].setBounds(width / 10, height / 22 + i * (width / 14), width / 10, height / 10);
 			switchButtons[i].setBounds(width / 200, height / 36 + i * (width / 14), (int) width / 6, height / 9);
-			switchButtons[i].setFont(pokemonFont.deriveFont(Font.PLAIN, width / 100));
+			switchButtons[i].setFont(pokemonFont.deriveFont(Font.PLAIN, (6 * width) / 384));
 			switchButtons[i].setForeground(Color.white);
 			switchButtons[i].setBackground(Color.WHITE);
 			switchButtons[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -251,12 +251,12 @@ public class GUI extends JFrame implements ActionListener {
 	public void addNames() {
 		// Adding AI Name
 		AIname = new JLabel(ai.getCurrent().getName());
-		AIname.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
-		AIname.setBounds((int) (width / 1.7), (int) (-height / 2.5), width / 2, (int) (height / 1.1));
+		AIname.setFont(pokemonFont.deriveFont(Font.BOLD, (15 * width) / 384));
+		AIname.setBounds((int) (width / 1.7), (int) (-height / 3), width / 2, (int) (height / 1.1));
 		this.add(AIname);
 		// Adding User Name
 		userName = new JLabel(user.getCurrent().getName());
-		userName.setFont(pokemonFont.deriveFont(Font.BOLD, 50));
+		userName.setFont(pokemonFont.deriveFont(Font.BOLD, (15 * width) / 384));
 		userName.setBounds((int) (width / 3.5), (int) (-height / 4), width / 2, (int) (height / 1.1));
 		this.add(userName);
 	}
@@ -264,12 +264,12 @@ public class GUI extends JFrame implements ActionListener {
 	public void addConsoles() {
 		// Adding console 1
 		console.setBounds((int) (width / 4.5), (int) (height - height / 4.5), width - width / 6, height / 12);
-		console.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
+		console.setFont(pokemonFont.deriveFont(Font.ITALIC, (6 * width) / 384));
 		console.setForeground(Color.white);
 		this.add(console);
 		// Adding console 2
 		console2.setBounds((int) (width / 4.5), (int) (height - height / 5.5), width - width / 6, height / 12);
-		console2.setFont(pokemonFont.deriveFont(Font.ITALIC, 20));
+		console2.setFont(pokemonFont.deriveFont(Font.ITALIC, (6 * width) / 384));
 		console2.setForeground(Color.white);
 		console2.setAlignmentX(JFrame.CENTER_ALIGNMENT);
 		console.setAlignmentX(JFrame.CENTER_ALIGNMENT);
@@ -400,7 +400,7 @@ public class GUI extends JFrame implements ActionListener {
 		this.revalidate();
 	}
 	
-	public void printMoveToConsole(String source) {
+	public void printMoveToConsole(String source) {			
 		if (source.equals("move1")) {
 			console1print(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
 					user.getCurrent().getMove(0).isSpecial()));
@@ -415,14 +415,6 @@ public class GUI extends JFrame implements ActionListener {
 					user.getCurrent().getMove(3).isSpecial()));
 		}
 	}
-	
-//	public void doMove(int moveNumber) {
-//		
-//	}
-//	
-//	public void doSwitch(int switchNumber) {
-//		
-//	}
 
 	public void doAction(String source) {
 		Move m = AIMove();
@@ -489,9 +481,10 @@ public class GUI extends JFrame implements ActionListener {
 			if (user.getCurrent().getHp() <= 0)
 				return;
 			
+			if (movesAreDisabled()) {
+				return;
+			}
 			printMoveToConsole(source);
-			
-			
 			
 			if (ai.getCurrent().getHp() == 0) {
 				updateGuiForAiFaint();
@@ -553,6 +546,9 @@ public class GUI extends JFrame implements ActionListener {
 				return;
 			}
 			
+			if (movesAreDisabled()) {
+				return;
+			}
 			printMoveToConsole(source);
 			
 			if (ai.getCurrent().getHp() == 0) {
@@ -593,10 +589,8 @@ public class GUI extends JFrame implements ActionListener {
 			}
 		}
 		
-		for (int i = 0; i < moveButtons.length; i++) {
-			if (user.getCurrent().getHp() == 0) {
-				moveButtons[i].setEnabled(false);
-			}
+		if (user.getCurrent().getHp() == 0) {
+			toggleMoves(false);
 		}
 		
 		revalidate();
@@ -677,43 +671,70 @@ public class GUI extends JFrame implements ActionListener {
 			}
 		}
 	}
-
 	
-	public void console1print(String message) {	
-			index1 = 0;
-			console.setText("");
-			timer1 = new javax.swing.Timer(-80, new AbstractAction() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					console.setText(console.getText() + String.valueOf(message.charAt(index1)));
-					index1++;
-					if (index1 >= message.length()) {
-						timer1.stop();
-						return;
-					}
-				}
-				
-			});
-			timer1.start();
-			//timer3.start();
+	public void toggleMoves(boolean toggle) {
+		for (int i = 0; i < moveButtons.length; i++) {
+			moveButtons[i].setEnabled(toggle);
+		}
 	}
-	public void console2print(String message) {	
-		
-			index2 = 0;
-			console2.setText("");
-			timer2 = new javax.swing.Timer(-80, new AbstractAction() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-					console2.setText(console2.getText() + String.valueOf(message.charAt(index2)));
-					index2++;
-					if (index2 >= message.length()) {
-						timer2.stop();
-						return;
-					}
-				}
-			});
-			timer2.start();
+	
+	public boolean movesAreDisabled() {
+		for (JLabel move : moveButtons) {
+			if (move.isEnabled()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void console1print(String message) {
+//		toggleMoves(false);
+//		index1 = 0;
+//		console.setText("");
+//		timer1 = new javax.swing.Timer(-80, new AbstractAction() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//				console.setText(console.getText() + String.valueOf(message.charAt(index1)));
+//				index1++;
+//				
+//				// Ends the print by checking if index is over the length of the message
+//				if (index1 >= message.length()) {
+//					timer1.stop();
+//					if (user.getCurrent().getHp() != 0) {
+//						toggleMoves(true);
+//					}
+//					return;
+//				}
+//			}
+//
+//		});
+//		timer1.start();
+		console.setText(message);
+	}
+	
+	public void console2print(String message) {
+//		toggleMoves(false);
+//		index2 = 0;
+//		console2.setText("");
+//		timer2 = new javax.swing.Timer(-80, new AbstractAction() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//				console2.setText(console2.getText() + String.valueOf(message.charAt(index2)));
+//				index2++;
+//				
+//				// Ends the print by checking if index is over the length of the message
+//				if (index2 >= message.length()) {
+//					timer2.stop();
+//					if (user.getCurrent().getHp() != 0) {
+//						toggleMoves(true);
+//					}
+//					return;
+//				}
+//			}
+//		});
+//		timer2.start();
+		console2.setText(message);
 	}
 }
