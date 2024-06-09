@@ -54,7 +54,7 @@ public class GUI extends JFrame implements ActionListener {
 	protected int round = 0;
 	protected JProgressBar userHP;
 	protected JProgressBar aiHP;
-	private JButton mute;
+	private JLabel mute;
 	protected JLabel ball1 = new JLabel();
 	protected JLabel ball2 = new JLabel();
 	protected JLabel ball3 = new JLabel();
@@ -63,7 +63,7 @@ public class GUI extends JFrame implements ActionListener {
 	protected JLabel ball6 = new JLabel();
 	protected JLabel[] pokeballs = {ball1, ball2, ball3, ball4, ball5, ball6};
 	protected int ballcount = 1;
-	protected boolean isMuted;
+	protected boolean isMuted = false;
 	private Font pokemonFont;
 	private JLabel consoleBG;
 	private Move aimove;
@@ -110,12 +110,23 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public void addMuteButton() {
-		isMuted = false;
-		mute = new JButton("Mute");
+		mute = new JLabel(getScaledIcon("muteButtonSound.png", width / 24, width / 24));
 		mute.setLayout(null);
-		mute.setFont(new Font("Lucida Console", Font.PLAIN, 20));
-		mute.setBounds(width / 50, height - (height / 7), width / 16, width / 32);
-		mute.addActionListener(this);
+		mute.setBounds(width / 20, height - (height / 6), width / 24, width / 24);
+		mute.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		mute.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {}
+
+			public void mousePressed(MouseEvent e) {
+				doAction("mute");					
+			}
+
+			public void mouseExited(MouseEvent e) {}
+
+			public void mouseEntered(MouseEvent e) {}
+
+			public void mouseClicked(MouseEvent e) {}
+		});
 		add(mute);
 		this.setVisible(true);
 	}
@@ -438,11 +449,13 @@ public class GUI extends JFrame implements ActionListener {
 		aimove = AIMove();
 		if (source.equals("mute")) {
 			if (!isMuted) {
-				Game.mute(false);
+				Game.mute(true);
+				mute.setIcon(getScaledIcon("muteButtonMuted.png", width / 24, width / 24));
 				isMuted = true;
 				return;
 			} else {
-				Game.mute(true);
+				Game.mute(false);
+				mute.setIcon(getScaledIcon("muteButtonSound.png", width / 24, width / 24));
 				isMuted = false;
 				return;
 			}
@@ -530,7 +543,7 @@ public class GUI extends JFrame implements ActionListener {
 			checkDead();
 		}
 		
-		// Updates HP bars if you don't die 
+		// Updates HP bars if you don't die
 		update(userHP, user.getCurrent());
 		update(aiHP, ai.getCurrent());
 	}
