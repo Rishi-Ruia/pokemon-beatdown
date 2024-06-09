@@ -400,7 +400,7 @@ public class GUI extends JFrame implements ActionListener {
 		this.revalidate();
 	}
 	
-	public void printMoveToConsole(String source) {			
+	public void printUserMoveToConsole1(String source) {			
 		if (source.equals("move1")) {
 			console1print(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
 					user.getCurrent().getMove(0).isSpecial()));
@@ -412,6 +412,22 @@ public class GUI extends JFrame implements ActionListener {
 					user.getCurrent().getMove(2).isSpecial()));
 		} else if (source.equals("move4")) {
 			console1print(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
+					user.getCurrent().getMove(3).isSpecial()));
+		}
+	}
+	
+	public void printUserMoveToConsole2(String source) {			
+		if (source.equals("move1")) {
+			console2print(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+					user.getCurrent().getMove(0).isSpecial()));
+		} else if (source.equals("move2")) {
+			console2print(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
+					user.getCurrent().getMove(1).isSpecial()));
+		} else if (source.equals("move3")) {
+			console2print(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
+					user.getCurrent().getMove(2).isSpecial()));
+		} else if (source.equals("move4")) {
+			console2print(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
 					user.getCurrent().getMove(3).isSpecial()));
 		}
 	}
@@ -454,38 +470,19 @@ public class GUI extends JFrame implements ActionListener {
 				return;
 			}
 			
-			String AITurn = ai.AITurn(user.getCurrent(), m);
-			console2print(AITurn);
-			console2.setText(AITurn);
-			if (user.getCurrent().getHp() == 0)
-				userMon.setIcon(getCurrentSprite(true));
 			
-			refreshGUI();
-			
-			if (user.getCurrent().getHp() == 0) {
-				userMon.disable();
-				checkDead();
-			}
-			
-			if (user.lost()) {
-				this.forceSwitch();
-				console2print("You lost");
-			}
-
-			update(userHP, user.getCurrent());
-			update(aiHP, ai.getCurrent());
-			
-			refreshGUI();
+			// AI turn if it is slower, prints user loss to console 2 if true, console 1 if false
+			doSlowerAITurn(true);
 			
 		} else if (user.getCurrent().getSpeed() > ai.getCurrent().getSpeed()) {
 			if (user.getCurrent().getHp() <= 0)
 				return;
 			
-			if (movesAreDisabled()) {
-				return;
-			}
-			printMoveToConsole(source);
+			printUserMoveToConsole1(source);
 			
+			console2print("");
+			
+			// Checking if AI is dead
 			if (ai.getCurrent().getHp() == 0) {
 				updateGuiForAiFaint();
 				update(userHP, user.getCurrent());
@@ -497,23 +494,8 @@ public class GUI extends JFrame implements ActionListener {
 				return;
 			}
 			
-			String temp = ai.AITurn(user.getCurrent(), m);
-			console2print(temp);
-			if (user.getCurrent().getHp() == 0)
-				userMon.setIcon(getCurrentSprite(true));
-			refreshGUI();
-			if (user.getCurrent().getHp() == 0) {
-				userMon.disable();
-				checkDead();
-			}
-			if (user.lost()) {
-				this.forceSwitch();
-				console1print("You lost");
-			}
-
-			update(userHP, user.getCurrent());
-			update(aiHP, ai.getCurrent());
-			refreshGUI();
+			// AI turn if it is slower, prints user loss to console 1 if false, console 2 if true
+			doSlowerAITurn(false);
 		} else {
 			if (user.getCurrent().getHp() <= 0)
 				return;
@@ -526,30 +508,12 @@ public class GUI extends JFrame implements ActionListener {
 			if (ai.lost())
 				return;
 			
-			String temp = ai.AITurn(user.getCurrent(), m);
-			console2print(temp);
-			
-			if (user.getCurrent().getHp() == 0) {
-				userMon.setIcon(getCurrentSprite(true));
-				refreshGUI();
-				if (user.getCurrent().getHp() == 0) {
-					userMon.disable();
-					checkDead();
-					console2print("Your Pokemon has fainted!");
-				}
-				if (user.lost()) {
-					this.forceSwitch();
-					console2print("You lost!");
-				}
-				update(userHP, user.getCurrent());
-				update(aiHP, ai.getCurrent());
+			// AI turn if it is faster, returns true if it kills user, false otherwise
+			if (doFasterAITurn()) {
 				return;
 			}
 			
-			if (movesAreDisabled()) {
-				return;
-			}
-			printMoveToConsole(source);
+			printUserMoveToConsole2(source);
 			
 			if (ai.getCurrent().getHp() == 0) {
 				updateGuiForAiFaint();
@@ -557,20 +521,67 @@ public class GUI extends JFrame implements ActionListener {
 		}
 		
 		refreshGUI();
+		
 		if (user.getCurrent().getHp() == 0) {
 			skipturn = true;
 			userMon.disable();
 			checkDead();
 		}
 		
-		if (user.lost()) {
+		// Updates HP bars if you don't die
+		update(userHP, user.getCurrent());
+		update(aiHP, ai.getCurrent());
+	}
+	
+	public boolean doFasterAITurn() {
+		String temp = ai.AITurn(user.getCurrent(), AIMove());
+		console1print(temp);
+		
+		if (user.getCurrent().getHp() == 0) {
+			userMon.setIcon(getCurrentSprite(true));
+			refreshGUI();
+			if (user.getCurrent().getHp() == 0) {
+				userMon.disable();
+				checkDead();
+				console2print("Your Pokemon has fainted!");
+			}
+			if (user.lost()) {
+				this.forceSwitch();
+				console2print("You lost!");
+			}
+			update(userHP, user.getCurrent());
+			update(aiHP, ai.getCurrent());
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void doSlowerAITurn(boolean isOnSwitch) {
+		String AITurn = ai.AITurn(user.getCurrent(), AIMove());
+		console2print(AITurn);
+		
+		if (user.getCurrent().getHp() == 0) {
+			userMon.setIcon(getCurrentSprite(true));
+			refreshGUI();
+			userMon.disable();
+			checkDead();
+		}
+		
+		if (user.lost() && isOnSwitch) {
 			this.forceSwitch();
 			console2print("You lost!");
+		} else if (user.lost()) {
+			this.forceSwitch();
+			console1print("You lost!");
 		}
 
 		update(userHP, user.getCurrent());
 		update(aiHP, ai.getCurrent());
-	}
+		
+		refreshGUI();
+	}	
 
 	// checks if the user pokemon have fainted, if they have it prevents the user
 	// from being able to switch to them
@@ -676,15 +687,6 @@ public class GUI extends JFrame implements ActionListener {
 		for (int i = 0; i < moveButtons.length; i++) {
 			moveButtons[i].setEnabled(toggle);
 		}
-	}
-	
-	public boolean movesAreDisabled() {
-		for (JLabel move : moveButtons) {
-			if (move.isEnabled()) {
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	public void console1print(String message) {

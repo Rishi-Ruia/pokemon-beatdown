@@ -40,10 +40,6 @@ public class AI extends Game {
 		if (damage.contains("healed"))
 			return this.current.getName() + " healed!";
 		if (current.getHp() == 0) {
-			if (user.lost()) {
-				game.displayLose();
-				return "you lost!";
-			}
 			game.forceSwitch();
 		}
 		return damage;
