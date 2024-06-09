@@ -530,7 +530,7 @@ public class GUI extends JFrame implements ActionListener {
 			checkDead();
 		}
 		
-		// Updates HP bars if you don't die
+		// Updates HP bars if you don't die 
 		update(userHP, user.getCurrent());
 		update(aiHP, ai.getCurrent());
 	}
