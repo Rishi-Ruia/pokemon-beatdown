@@ -217,7 +217,7 @@ public class GUI extends JFrame implements ActionListener {
 	public void addSwitches() {
 		for (int i = 0; i < switchButtons.length; i++) {
 			switchButtons[i].setText(user.getPokemon(i).getName());
-			switchSprites[i].setIcon(getScaledIcon(getFrontSprite(i), width / 20, width / 20));
+			switchSprites[i].setIcon(getScaledIcon(getFrontSprite(i), width / 25, width / 25));
 			if (i == 0) {
 				switchButtons[i].setIcon(getScaledIcon("switchButtonSelected.png", width / 8, width / 16));
 			} else {
