@@ -3,6 +3,7 @@ import java.awt.*; // from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F
 
 import javax.imageio.ImageIO;
 import javax.swing.*; //from https://docs.oracle.com/javase%2F7%2Fdocs%2Fapi%2F%2F/javax/swing/package-summary.html
+import javax.swing.Timer;
 import javax.swing.event.*;
 
 import java.io.*; //from https://docs.oracle.com/javase/8/docs/api/java/io/package-summary.html
@@ -14,8 +15,10 @@ public class GUI extends JFrame implements ActionListener {
 	// default serial version UID
 	private static final long serialVersionUID = 1L;
 	// the buttons that are on the Jframe
-	private javax.swing.Timer timer;
-
+	private javax.swing.Timer timer1 = new Timer(2000, null);
+	private javax.swing.Timer timer2;
+	private int index1 =0;
+	private int index2 =0;
 	private JLabel move1 = new JLabel();
 	private JLabel move2 = new JLabel();
 	private JLabel move3 = new JLabel();
@@ -308,14 +311,14 @@ public class GUI extends JFrame implements ActionListener {
 
 	// makes the user unable to click a move thus forcing them to switch
 	public void forceSwitch() {
-		slowPrint("Your Pokemon has fainted!", console2);
+		console2print("Your Pokemon has fainted!");
 		for(int i =0; i < 4; i++) moveButtons[i].setEnabled(false);
 		skipturn = true;
 	}
 
 	// sets the GUI to say you have lost and prevents you from moving
 	public void displayLose() {
-		slowPrint("You have lost :(", console2);
+		console2print("You have lost :(");
 		forceSwitch();
 	}
 
@@ -324,7 +327,7 @@ public class GUI extends JFrame implements ActionListener {
 		String canSwitch = user.Switch(position);
 		if (canSwitch == null)
 			return true;
-		slowPrint(canSwitch, console);
+		console1print(canSwitch);
 		checkDead();
 		userMon.setIcon(getCurrentSprite(true));
 		switchBar(userHP, user.getCurrent());
@@ -399,27 +402,27 @@ public class GUI extends JFrame implements ActionListener {
 	
 	public void printMoveToConsole(String source) {
 		if (source.equals("move1")) {
-			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
-					user.getCurrent().getMove(0).isSpecial()), console);
+			console1print(Game.attack(user.getCurrent(), user.getCurrent().getMove(0), ai.getCurrent(),
+					user.getCurrent().getMove(0).isSpecial()));
 		} else if (source.equals("move2")) {
-			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
-					user.getCurrent().getMove(1).isSpecial()), console);
+			console1print(Game.attack(user.getCurrent(), user.getCurrent().getMove(1), ai.getCurrent(),
+					user.getCurrent().getMove(1).isSpecial()));
 		} else if (source.equals("move3")) {
-			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
-					user.getCurrent().getMove(2).isSpecial()), console);
+			console1print(Game.attack(user.getCurrent(), user.getCurrent().getMove(2), ai.getCurrent(),
+					user.getCurrent().getMove(2).isSpecial()));
 		} else if (source.equals("move4")) {
-			slowPrint(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
-					user.getCurrent().getMove(3).isSpecial()), console);
+			console1print(Game.attack(user.getCurrent(), user.getCurrent().getMove(3), ai.getCurrent(),
+					user.getCurrent().getMove(3).isSpecial()));
 		}
 	}
 	
-	public void doMove(int moveNumber) {
-		
-	}
-	
-	public void doSwitch(int switchNumber) {
-		
-	}
+//	public void doMove(int moveNumber) {
+//		
+//	}
+//	
+//	public void doSwitch(int switchNumber) {
+//		
+//	}
 
 	public void doAction(String source) {
 		Move m = AIMove();
@@ -460,7 +463,7 @@ public class GUI extends JFrame implements ActionListener {
 			}
 			
 			String AITurn = ai.AITurn(user.getCurrent(), m);
-			slowPrint(AITurn, console2);
+			console2print(AITurn);
 			console2.setText(AITurn);
 			if (user.getCurrent().getHp() == 0)
 				userMon.setIcon(getCurrentSprite(true));
@@ -474,7 +477,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			if (user.lost()) {
 				this.forceSwitch();
-				slowPrint("You lost", console2);
+				console2print("You lost");
 			}
 
 			update(userHP, user.getCurrent());
@@ -488,7 +491,7 @@ public class GUI extends JFrame implements ActionListener {
 			
 			printMoveToConsole(source);
 			
-			timer.start();
+			
 			
 			if (ai.getCurrent().getHp() == 0) {
 				updateGuiForAiFaint();
@@ -502,7 +505,7 @@ public class GUI extends JFrame implements ActionListener {
 			}
 			
 			String temp = ai.AITurn(user.getCurrent(), m);
-			slowPrint(temp, console2);
+			console2print(temp);
 			if (user.getCurrent().getHp() == 0)
 				userMon.setIcon(getCurrentSprite(true));
 			refreshGUI();
@@ -512,7 +515,7 @@ public class GUI extends JFrame implements ActionListener {
 			}
 			if (user.lost()) {
 				this.forceSwitch();
-				slowPrint("You lost", console);
+				console1print("You lost");
 			}
 
 			update(userHP, user.getCurrent());
@@ -531,7 +534,7 @@ public class GUI extends JFrame implements ActionListener {
 				return;
 			
 			String temp = ai.AITurn(user.getCurrent(), m);
-			slowPrint(temp, console2);
+			console2print(temp);
 			
 			if (user.getCurrent().getHp() == 0) {
 				userMon.setIcon(getCurrentSprite(true));
@@ -539,11 +542,11 @@ public class GUI extends JFrame implements ActionListener {
 				if (user.getCurrent().getHp() == 0) {
 					userMon.disable();
 					checkDead();
-					slowPrint("Your Pokemon has fainted!", console2);
+					console2print("Your Pokemon has fainted!");
 				}
 				if (user.lost()) {
 					this.forceSwitch();
-					slowPrint("You lost!", console2);
+					console2print("You lost!");
 				}
 				update(userHP, user.getCurrent());
 				update(aiHP, ai.getCurrent());
@@ -566,7 +569,7 @@ public class GUI extends JFrame implements ActionListener {
 		
 		if (user.lost()) {
 			this.forceSwitch();
-			slowPrint("You lost!", console2);
+			console2print("You lost!");
 		}
 
 		update(userHP, user.getCurrent());
@@ -675,31 +678,42 @@ public class GUI extends JFrame implements ActionListener {
 		}
 	}
 
-	int index = 0;
-
-	public void slowPrint(String message, JLabel texter) {
-
-		if (timer != null && timer.isRunning()) {
-			repaint();
-			
-			return;
-			
-		}
-			
-		index = 0;
-		texter.setText("");
-
-		timer = new javax.swing.Timer(30, new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				texter.setText(texter.getText() + String.valueOf(message.charAt(index)));
-				index++;
-				if (index >= message.length()) {
-					timer.stop();
+	
+	public void console1print(String message) {	
+			index1 = 0;
+			console.setText("");
+			timer1 = new javax.swing.Timer(-80, new AbstractAction() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					console.setText(console.getText() + String.valueOf(message.charAt(index1)));
+					index1++;
+					if (index1 >= message.length()) {
+						timer1.stop();
+						return;
+					}
 				}
-			}
-		});
-		timer.start();
+				
+			});
+			timer1.start();
+			//timer3.start();
+	}
+	public void console2print(String message) {	
+		
+			index2 = 0;
+			console2.setText("");
+			timer2 = new javax.swing.Timer(-80, new AbstractAction() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					console2.setText(console2.getText() + String.valueOf(message.charAt(index2)));
+					index2++;
+					if (index2 >= message.length()) {
+						timer2.stop();
+						return;
+					}
+				}
+			});
+			timer2.start();
 	}
 }
