@@ -66,7 +66,7 @@ public class GUI extends JFrame implements ActionListener {
 	protected boolean isMuted;
 	private Font pokemonFont;
 	private JLabel consoleBG;
-
+	private Move aimove;
 	// the constructor to create the initial GUI
 	public GUI(Player user, AI ai, Pokemon[] mons) throws IOException, FontFormatException {
 		this.user = user;
@@ -435,7 +435,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 
 	public void doAction(String source) {
-		Move m = AIMove();
+		aimove = AIMove();
 		if (source.equals("mute")) {
 			if (!isMuted) {
 				Game.mute(false);
@@ -536,7 +536,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public boolean doFasterAITurn() {
-		String temp = ai.AITurn(user.getCurrent(), AIMove());
+		String temp = ai.AITurn(user.getCurrent(), aimove);
 		console1print(temp);
 		
 		if (user.getCurrent().getHp() == 0) {
@@ -561,7 +561,7 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public void doSlowerAITurn(boolean isOnSwitch) {
-		String AITurn = ai.AITurn(user.getCurrent(), AIMove());
+		String AITurn = ai.AITurn(user.getCurrent(), aimove);
 		console2print(AITurn);
 		
 		if (user.getCurrent().getHp() == 0) {
