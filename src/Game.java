@@ -96,15 +96,14 @@ public class Game {
 	public static String attack(Pokemon attacker, Move attack, Pokemon attacked, boolean special) {
 		String superEffective;
 		String crit = "";
-		if(Move.effective(attack, attacked) >= 2) {
-			superEffective = " it was SUPER EFFECTIVE ";
-		}
-		else if(Move.effective(attack, attacked) <= 0.5) {
-			superEffective = " it was not very effective ";
-		}
-		else {
-			superEffective = " ";
-		}
+		if(Move.effective(attack, attacked) >= 2) superEffective = " it was SUPER EFFECTIVE ";
+		
+		else if(Move.effective(attack, attacked) <= 0.5) superEffective = " it was not very effective ";
+		
+		if(Move.effective(attack, attacked)== 0) superEffective = " it was immune ";
+		
+		else superEffective = " ";
+		
 		if (attack.getName().equals("Recover")) {
 			int heal = (int) (attacker.getMaxHp() * .5);
 			attacker.setHp(-heal);
