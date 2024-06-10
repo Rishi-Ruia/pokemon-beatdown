@@ -163,6 +163,13 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	public void addSprites() {
+		// Adding Trainer sprites
+		JLabel userImage = new JLabel(getScaledIcon("user-trainer.png", width / 4, height / 2));
+		JLabel aiImage = new JLabel(getScaledIcon("ai-trainer.png", width / 4, height / 2));
+		userImage.setBounds(width / 12, height / 6, width / 4, height / 2);
+		aiImage.setBounds((int) (width / 1.28), -height / 27, width / 4, height / 2);
+		this.add(userImage);
+		this.add(aiImage);
 		// Adding user Pokemon sprites
 		userMon = new JLabel(getCurrentSprite(true));
 		this.add(userMon);
@@ -171,13 +178,6 @@ public class GUI extends JFrame implements ActionListener {
 		aiMon = new JLabel(getCurrentSprite(false));
 		add(aiMon);
 		aiMon.setBounds((int) (width / 1.65), (int) (height / 4.5), width / 6, width / 6);
-		// Adding Trainer sprites
-		JLabel userImage = new JLabel(getScaledIcon("user-trainer.png", width / 4, height / 2));
-		JLabel aiImage = new JLabel(getScaledIcon("ai-trainer.png", width / 4, height / 2));
-		userImage.setBounds(width / 12, height / 6, width / 4, height / 2);
-		aiImage.setBounds((int) (width / 1.28), -height / 27, width / 4, height / 2);
-		this.add(userImage);
-		this.add(aiImage);
 	}
 	
 	public void addMoves() {
