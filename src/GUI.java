@@ -601,6 +601,8 @@ public class GUI extends JFrame implements ActionListener {
 	// checks if the user pokemon have fainted, if they have it prevents the user
 	// from being able to switch to them
 	public void checkDead() {
+		update(userHP, user.getCurrent());
+		update(aiHP, ai.getCurrent());
 		userName.setText(user.getCurrent().getName());
 		
 		for (int i = 0; i < moveButtons.length; i++) {
